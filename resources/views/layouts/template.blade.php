@@ -25,9 +25,11 @@
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <div class="container-fluid ">
-          <a class="navbar-brand" href="#">Menú: </a>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container-fluid ">
+        <a class="navbar-brand" href="#">Menú: </a>
+        
+        @if (Auth::check())
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -40,17 +42,58 @@
                 <h4><a class="nav-link" href="#">Control de Contactos</a></h4>
               </li>
             </ul>
-            <form class="d-flex">
+            {{-- <form class="d-flex">
               <input class="form-control me-2" type="search" placeholder="nombre y/o apellido" aria-label="Search">
               <button class="btn btn-danger" type="submit">BUSCAR</button>
-            </form>
+            </form> --}}
           </div>
+        @endif
+        
+      
+        <div class="dropdown" id="navbarSupp  ortedContent">
+          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+            Menú
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <!-- Authentication Links -->
+              @guest
+                  @if (Route::has('login'))
+                      <li>
+                          <a class="dropdown-item" href="{{ route('login') }}">{{ __('Ingresar') }}</a>
+                      </li>
+                  @endif
+
+                  @if (Route::has('register'))
+                      <li>
+                          <a class="dropdown-item" href="{{ route('register') }}">{{ __('Registrar') }}</a>
+                      </li>
+                  @endif
+              @else
+                  <li>
+                    
+                      <a class="dropdown-item" href="#" role="button">
+                          {{ Auth::user()->name }}
+                      </a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                              onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();">
+                              {{ __('Logout') }}
+                          </a>
+                          <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                              @csrf
+                          </form>
+                  </li>
+              @endguest
+          </ul>
         </div>
-      </nav>
+      </div>
+  </nav>
 
 
-
-
+  
+{{-- CENTRAL CONTENT --}}
     <div class="container container-md border border-2 rounded img-fluid body-container">
         <div class="row">
             @yield('content')

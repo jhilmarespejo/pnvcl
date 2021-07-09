@@ -12,9 +12,9 @@
             <thead>
               <tr>
                 <th rowspan="2">Grado</th>
-                <th colspan="2">Ojos</th>
                 <th colspan="2">Manos</th>
                 <th colspan="2">Pies</th>
+                <th colspan="2">Ojos</th>
               </tr>
               <tr>
                 <th>Signos</th>

@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\servicioSalud;
+// use App\Models\servicioSalud;
+// use App\Models\provincia;
+
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class ServicioSaludController extends Controller
@@ -14,7 +17,7 @@ class ServicioSaludController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -44,9 +47,28 @@ class ServicioSaludController extends Controller
      * @param  \App\Models\servicioSalud  $servicioSalud
      * @return \Illuminate\Http\Response
      */
-    public function show(servicioSalud $servicioSalud)
+    public function show(Request $request)
     {
-        //
+        if( $request->q == 'provincias' ){
+            $provincias = DB::table('provincia')->where('sedes_id',$request->sedes_id)->get();
+            return view('forms.servSalud', ['provincias' => $provincias]);
+        }
+        if( $request->q == 'municipios' ){
+            $municipios = DB::table('municipio')->where('provincia_id',$request->provincia_id)->get();
+            return view('forms.servSalud', ['municipios' => $municipios]);
+        }
+        if( $request->q == 'sevicios_salud' ){
+            $servicios_salud = DB::table('servicio_salud')->where('municipio_id',$request->municipio_id)->get();
+            return view('forms.servSalud', ['servicios_salud' => $servicios_salud]);
+        }
+        if( $request->q == 'red_salud' ){
+            $red_salud = DB::table('servicio_salud')
+                ->select('red_salud.red_salud', 'red_salud.id')
+                ->join('red_salud', 'red_salud.id', '=', 'servicio_salud.red_salud_id')
+                ->where('servicio_salud.id',$request->id)
+                ->get();
+            return view('forms.servSalud', ['red_salud' => $red_salud]);
+        }
     }
 
     /**
@@ -57,7 +79,7 @@ class ServicioSaludController extends Controller
      */
     public function edit(servicioSalud $servicioSalud)
     {
-        //
+        
     }
 
     /**

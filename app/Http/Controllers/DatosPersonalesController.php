@@ -1,9 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\datosPersonales;
-
 use Illuminate\Http\Request;
 
 class DatosPersonalesController extends Controller
@@ -36,6 +34,7 @@ class DatosPersonalesController extends Controller
      */
     public function store(Request $request)
     {
+        
     //     $request->validate([
     //         'datos_personales.nombres' => 'required|string|max:150',
     //         'datos_personales.apellidos' => 'required|string|max:150',
@@ -90,8 +89,11 @@ class DatosPersonalesController extends Controller
     // );
        
         //$datosPersonales = $request->except('_token', 'datos_clinicos', 'bacteriologia', 'control_contactos', 'recidencia_anterior');
-       // datosPersonales::insert($datosPersonales);
+       
         $datosPersonales = $request->only('datos_personales');
+        //datosPersonales::insert($datosPersonales);
+
+
         return ($request);
     }
 

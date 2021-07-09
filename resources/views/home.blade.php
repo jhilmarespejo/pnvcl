@@ -1,20 +1,30 @@
 @extends('layouts.template')
-@section('title', 'Programa Nacional de Vigilancia y Control de la Lepra')
-
+@section('title', 'Home')
 @section('content')
-<h1>Programa Nacional de Vigilancia y Control de la Lepra<h1>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{{ __('Panel') }}</div>
+                
+                <div class="card-body">
+                    
+                    @if (Auth::user())
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                            Bienvenido <strong>{{Auth::user()->name}}</strong>
+                            <br>
+                        </div>
+                    @else
+                        <div class="alert alert-danger" role="alert">
+                            Bienvenido <strong> Porfavor inicie Sesión</strong>
+                        </div>
+                    @endif
 
-    
-    
-
-<script type="text/javaScript">
-
-    $( document ).ready(function() {
-
-        
-    });
-</script>
-@endsection()
-
-
-
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
