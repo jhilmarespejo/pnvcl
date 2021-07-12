@@ -34,12 +34,12 @@
                     <td><div id="provincia_anterior0"></div></td>
                     <td><div id="municipio_anterior0"></div></td>
                     <td>
-                      <input type="text" name="recidencia_anterior[0][localidad]" id="">
+                      <input type="text" name="residencia_anterior[0][localidad]" id="">
                     </td>
                     <td>
-                        <input type="hidden" id="municipio_id0" name="recidencia_anterior[0][municipio_id]" value="">
-                        <input name="recidencia_anterior[0][tiempo]" type="number" min="0" max="100" class="col-3">
-                        <select class="col-4" name="recidencia_anterior[0][medida]" >
+                        <input type="hidden" id="municipio_id0" name="residencia_anterior[0][municipio_id]" value="">
+                        <input name="residencia_anterior[0][tiempo_res_ant_cantidad]" type="number" min="0" max="100" class="col-3">
+                        <select class="col-4" name="residencia_anterior[0][tiempo_res_ant_unidad]" >
                             <option selected disabled>Seleccione...</option>
                             <option value="Meses">Meses</option>
                             <option value="Años">Años</option>
@@ -65,12 +65,12 @@
                   <td><div id="provincia_anterior1"></div></td>
                   <td><div id="municipio_anterior1"></div></td>
                   <td>
-                    <input type="text" name="recidencia_anterior[1][localidad]" id="">
+                    <input type="text" name="residencia_anterior[1][localidad]" id="">
                   </td>
                   <td>
-                      <input type="hidden" id="municipio_id1" name="recidencia_anterior[1][municipio_id]" value="">
-                      <input name="recidencia_anterior[1][tiempo]" type="number" min="0" max="100" class="col-3">
-                      <select class="col-4" name="recidencia_anterior[1][medida]" >
+                      <input type="hidden" id="municipio_id1" name="residencia_anterior[1][municipio_id]" value="">
+                      <input name="residencia_anterior[1][tiempo_res_ant_cantidad]" type="number" min="0" max="100" class="col-3">
+                      <select class="col-4" name="residencia_anterior[1][tiempo_res_ant_unidad]" >
                           <option selected disabled>Seleccione...</option>
                           <option value="Meses">Meses</option>
                           <option value="Años">Años</option>
@@ -97,12 +97,12 @@
                   <td><div id="provincia_anterior2"></div></td>
                   <td><div id="municipio_anterior2"></div></td>
                   <td>
-                    <input type="text" name="recidencia_anterior[2][localidad]" id="">
+                    <input type="text" name="residencia_anterior[2][localidad]" id="">
                   </td>
                   <td>
-                    <input type="hidden" id="municipio_id2" name="recidencia_anterior[2][municipio_id]" value="">
-                      <input name="recidencia_anterior[2][tiempo]" type="number" min="0" max="100" class="col-3">
-                      <select class="col-4" name="recidencia_anterior[2][medida]" >
+                    <input type="hidden" id="municipio_id2" name="residencia_anterior[2][municipio_id]" value="">
+                      <input name="residencia_anterior[2][tiempo_res_ant_cantidad]" type="number" min="0" max="100" class="col-3">
+                      <select class="col-4" name="residencia_anterior[2][tiempo_res_ant_unidad]" >
                           <option selected disabled>Seleccione...</option>
                           <option value="Meses">Meses</option>
                           <option value="Años">Años</option>
@@ -112,7 +112,6 @@
                        
               </tbody>
           </table>
-        
       </div>
       <div class="modal-footer">
         {{-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"></button> --}}
@@ -150,6 +149,8 @@
                            alert("error")
                        }
                    });
-           })
+           });
+
+      
     });
   </script>

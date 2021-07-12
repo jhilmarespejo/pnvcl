@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class controlProgramaTto extends Model
 {
     use HasFactory;
+    protected $table = 'control_programa_tto';
 }

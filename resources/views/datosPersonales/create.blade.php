@@ -51,14 +51,8 @@
 <form action="{{route('paciente.store')}}" method="POST" >
     @csrf
     
-    @include('forms.datosPersonales')
+    @include('datosPersonales.datosPersonales')
 
-    <div class="container row mb-2">
-        <fieldset class="field-border row ">
-                <legend class="col field-border col ">3. Control de contactos</legend>
-                <button type="button" class="col btn btn-primary " data-bs-toggle="modal" data-bs-target="#controlContactos" data-bs-whatever="@mdo">Agregar datos de contactos</button>
-        </fieldset>
-    </div>
     {{-- 4. BEGIN DATOS CLINICOS --}}
     <div class="container row">
         <fieldset class="field-border row">
@@ -113,107 +107,104 @@
     {{--5. BACTERIOLOGIA --}}
     <div class="container row mt-3">
         <fieldset class="field-border row">
-            <legend class="field-border">5. Bacteriología</legend>
-            <div class="col">
-                <div class="col">
-                    <label class="form-label" > <br> Fecha de toma de muestra</label>
-                    <input type="date" name="bacteriologia[fecha_muestra]" value="{{old('bacteriologia.fecha_muestra')}}" id="" class="form-control" placeholder="Fecha de toma de muestra" data-bs-toggle="tooltip" data-bs-placement="top" title="Fecha de toma de muestra">
-                    @error('bacteriologia.fecha_muestra')
-                        <small class="fs-8 text-danger"> * {{$message}}</small>
-                    @enderror
+            <fieldset class="field-borde col">
+                <legend class="field-border">5. Bacteriología</legend>
+                <div class="row">
+                    <div class="col">
+                        {{-- <label class="form-label" > <br> Fecha de toma de muestra</label> --}}
+                        <input type="date" name="bacteriologia[fecha_muestra]" value="{{old('bacteriologia.fecha_muestra')}}" id="" class="form-control" placeholder="Fecha de toma de muestra" data-bs-toggle="tooltip" data-bs-placement="top" title="Fecha de toma de muestra">
+                        @error('bacteriologia.fecha_muestra')
+                            <small class="fs-8 text-danger"> * {{$message}}</small>
+                        @enderror
+                    </div>
+                    <div class="col">
+                        {{-- <label class="form-label" >Laboratorio </label> --}}
+                        <input type="text" name="bacteriologia[laboratorio]" value="{{old('bacteriologia.laboratorio')}}" id="" class="form-control" placeholder="Laboratorio" data-bs-toggle="tooltip" data-bs-placement="top" title="Laboratorio">
+                        @error('bacteriologia.laboratorio')
+                            <small class="fs-8 text-danger"> * {{$message}}</small>
+                        @enderror
+                    </div>
+
+                    <div class="col">
+                        <select class="form-select col" name="bacteriologia[linfa]" data-bs-toggle="tooltip" data-bs-placement="top" title="Linfa obtenida de" class="form-select">
+                            <option disabled {{(old('bacteriologia.linfa') == '')? 'selected':'' }}>Seleccione...</option>
+                            <option value="Lobulo de la oreja" {{(old('bacteriologia.linfa') == 'Lobulo de la oreja')? 'selected':'' }}>Lóbulo de la oreja</option>
+                            <option value="Lesion" {{(old('bacteriologia.linfa') == 'Lesion')? 'selected':'' }}>Lesión</option>
+                            <option value="Codo" {{(old('bacteriologia.linfa') == 'Meses')? 'selected':'' }}>Codo</option>
+                        </select>
+                        @error('bacteriologia.linfa')
+                            <small class="fs-8 text-danger"> * {{$message}}</small>
+                        @enderror
+                    </div>
                 </div>
-                <div class="col">
-                    <label class="form-label" >Laboratorio </label>
-                    <input type="text" name="bacteriologia[laboratorio]" value="{{old('bacteriologia.laboratorio')}}" id="" class="form-control" placeholder="Laboratorio" data-bs-toggle="tooltip" data-bs-placement="top" title="Laboratorio">
-                    @error('bacteriologia.laboratorio')
-                        <small class="fs-8 text-danger"> * {{$message}}</small>
-                    @enderror
+                <div class="row mt-4" ><label for=""><strong>Resultado laboratorial:</strong></label>
+                    <div class="col">
+                        {{-- <label class="form-label" >Fecha de resultado</label> --}}
+                        <input type="date" name="bacteriologia[fecha_resultado]" value="{{old('bacteriologia.fecha_resultado')}}" id="" class="form-control" placeholder="Fecha de resultado" data-bs-toggle="tooltip" data-bs-placement="top" title="Fecha de resultado">
+                        @error('bacteriologia.fecha_resultado')
+                            <small class="fs-8 text-danger"> * {{$message}}</small>
+                        @enderror
+                    </div>
+                    <div class="col">
+                        {{-- <label class="form-label" >Lóbulo de la oreja</label> --}}
+                        <select class="form-select" name="bacteriologia[resultado_lobulo_oreja]" data-bs-toggle="tooltip" data-bs-placement="top" title="Resultado: lóbulo de la oreja" class="form-select">
+                            <option disabled {{(old('bacteriologia.resultado_lobulo_oreja') == '')? 'selected':'' }}>Seleccione...</option>
+                            <option value="Positivo" {{(old('bacteriologia.resultado_lobulo_oreja') == 'Positivo')? 'selected':'' }}>Positivo</option>
+                            <option value="Negativo" {{(old('bacteriologia.resultado_lobulo_oreja') == 'Negativo')? 'selected':'' }}>Negativo</option>
+                        </select>
+                        @error('bacteriologia.resultado_lobulo_oreja')
+                            <small class="fs-8 text-danger"> * {{$message}}</small>
+                        @enderror
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col">
+                        {{-- <label class="form-label" >Lessión</label> --}}
+                        <select class="form-select" name="bacteriologia[resultado_lesion]" data-bs-toggle="tooltip" data-bs-placement="top" title="Resultado: Lessión" class="form-select">
+                            <option disabled {{(old('bacteriologia.resultado_lesion') == '')? 'selected':'' }}>Seleccione...</option>
+                            <option value="Positivo" {{(old('bacteriologia.resultado_lesion') == 'Positivo')? 'selected':'' }}>Positivo</option>
+                            <option value="Negativo" {{(old('bacteriologia.resultado_lesion') == 'Negativo')? 'selected':'' }}>Negativo</option>
+                        </select>
+                        @error('bacteriologia.resultado_lesion')
+                            <small class="fs-8 text-danger"> * {{$message}}</small>
+                        @enderror
+                    </div>
+                    <div class="col">
+                        {{-- <label class="form-label" >Codo</label> --}}
+                        <select class="form-select" name="bacteriologia[resultado_codo]" data-bs-toggle="tooltip" data-bs-placement="top" title="Resultado: Codo" class="form-select">
+                            <option disabled {{(old('bacteriologia.resultado_codo') == '')? 'selected':'' }}>Seleccione...</option>
+                            <option value="Positivo" {{(old('bacteriologia.resultado_codo') == 'Positivo')? 'selected':'' }}>Positivo</option>
+                            <option value="Negativo" {{(old('bacteriologia.resultado_codo') == 'Negativo')? 'selected':'' }}>Negativo</option>
+                        </select>
+                        @error('bacteriologia.resultado_codo')
+                            <small class="fs-8 text-danger"> * {{$message}}</small>
+                        @enderror
+                    </div>
                 </div>
 
+            </fieldset>
+            <fieldset class="field-borde col">
+                <legend class="field-border">6. Histopatolog&iacute;a (si corresponde o es necesario)</legend>
                 <div class="col">
-                    <label class="form-label" >Linfa obtenida de:</label>
-                </div>
-                <div class="col">
-                    <select class="form-select col" name="bacteriologia[linfa]" data-bs-toggle="tooltip" data-bs-placement="top" title="Linfa obtenida de" class="form-select">
-                        <option disabled {{(old('bacteriologia.linfa') == '')? 'selected':'' }}>Seleccione...</option>
-                        <option value="Lobulo de la oreja" {{(old('bacteriologia.linfa') == 'Lobulo de la oreja')? 'selected':'' }}>Lóbulo de la oreja</option>
-                        <option value="Lesion" {{(old('bacteriologia.linfa') == 'Lesion')? 'selected':'' }}>Lesión</option>
-                        <option value="Codo" {{(old('bacteriologia.linfa') == 'Meses')? 'selected':'' }}>Codo</option>
-                    </select>
-                    @error('bacteriologia.linfa')
+                    <textarea class="form-control" name="histopatologia[laboratorio_informe]" id="" class="form-control" placeholder="Laboratorio que realiza el informe" data-bs-toggle="tooltip" data-bs-placement="top" title="Laboratorio que realiza el informe">{{old('histopatologia.laboratorio_informe')}}</textarea>
+                    @error('histopatologia.laboratorio_informe')
                         <small class="fs-8 text-danger"> * {{$message}}</small>
                     @enderror
-                </div>
-            </div>
-            <div class="col" ><label for=""><strong>Resultado laboratorial:</strong></label>
-                <div class="col">
-                    <label class="form-label" >Fecha de resultado</label>
-                    <input type="date" name="bacteriologia[fecha_resultado]" value="{{old('bacteriologia.fecha_resultado')}}" id="" class="form-control" placeholder="Fecha de resultado" data-bs-toggle="tooltip" data-bs-placement="top" title="Fecha de resultado">
-                    @error('bacteriologia.fecha_resultado')
-                        <small class="fs-8 text-danger"> * {{$message}}</small>
-                    @enderror
-                </div>
-                <div class="col">
-                    <label class="form-label" >Lóbulo de la oreja</label>
-                    <select class="form-select" name="bacteriologia[resultado_lobulo_oreja]" data-bs-toggle="tooltip" data-bs-placement="top" title="Resultado: lóbulo de la oreja" class="form-select">
-                        <option disabled {{(old('bacteriologia.resultado_lobulo_oreja') == '')? 'selected':'' }}>Seleccione...</option>
-                        <option value="Positivo" {{(old('bacteriologia.resultado_lobulo_oreja') == 'Positivo')? 'selected':'' }}>Positivo</option>
-                        <option value="Negativo" {{(old('bacteriologia.resultado_lobulo_oreja') == 'Negativo')? 'selected':'' }}>Negativo</option>
-                    </select>
-                    @error('bacteriologia.resultado_lobulo_oreja')
-                        <small class="fs-8 text-danger"> * {{$message}}</small>
-                    @enderror
-                </div>
-                
-                <div class="col">
-                    <label class="form-label" >Lessión</label>
-                    <select class="form-select" name="bacteriologia[resultado_lesion]" data-bs-toggle="tooltip" data-bs-placement="top" title="Resultado: Lessión" class="form-select">
-                        <option disabled {{(old('bacteriologia.resultado_lesion') == '')? 'selected':'' }}>Seleccione...</option>
-                        <option value="Positivo" {{(old('bacteriologia.resultado_lesion') == 'Positivo')? 'selected':'' }}>Positivo</option>
-                        <option value="Negativo" {{(old('bacteriologia.resultado_lesion') == 'Negativo')? 'selected':'' }}>Negativo</option>
-                    </select>
-                    @error('bacteriologia.resultado_lesion')
-                        <small class="fs-8 text-danger"> * {{$message}}</small>
-                    @enderror
-                </div>
-                <div class="col">
-                    <label class="form-label" >Codo</label>
-                    <select class="form-select" name="bacteriologia[resultado_codo]" data-bs-toggle="tooltip" data-bs-placement="top" title="Resultado: Codo" class="form-select">
-                        <option disabled {{(old('bacteriologia.resultado_codo') == '')? 'selected':'' }}>Seleccione...</option>
-                        <option value="Positivo" {{(old('bacteriologia.resultado_codo') == 'Positivo')? 'selected':'' }}>Positivo</option>
-                        <option value="Negativo" {{(old('bacteriologia.resultado_codo') == 'Negativo')? 'selected':'' }}>Negativo</option>
-                    </select>
-                    @error('bacteriologia.resultado_codo')
-                        <small class="fs-8 text-danger"> * {{$message}}</small>
-                    @enderror
-                </div>
-            </div>
 
-        </fieldset>
-        <fieldset class="field-border row mt-3">
-            <legend class="field-border mb-3">6. Histopatolog&iacute;a (si corresponde o es necesario)</legend>
-            <div class="col">
-                {{-- <input type="text" name="" id="" class="form-control" placeholder="Laboratorio que realiza el informe"> --}}
-
-                <textarea class="form-control" name="histopatologia[laboratorio_informe]" id="" class="form-control" placeholder="Laboratorio que realiza el informe" data-bs-toggle="tooltip" data-bs-placement="top" title="Laboratorio que realiza el informe">{{old('histopatologia.laboratorio_informe')}}</textarea>
-                @error('histopatologia.laboratorio_informe')
-                    <small class="fs-8 text-danger"> * {{$message}}</small>
-                @enderror
-
-            </div>
-            <div class="col">
-                {{-- <input type="text" name="" id="" class="form-control" placeholder=""> --}}
-
-                <textarea class="form-control" name="histopatologia[resultado_histopatologico]" id="" class="form-control" placeholder="Resultado histopatológico" data-bs-toggle="tooltip" data-bs-placement="top" title="Resultado histopatológico">{{old('histopatologia.resultado_histopatologico')}}</textarea>
-                @error('histopatologia.resultado_histopatologico')
-                    <small class="fs-8 text-danger"> * {{$message}}</small>
-                @enderror
-            </div>
+                </div>
+                <br>
+                <div class="col">
+                    <textarea class="form-control" name="histopatologia[resultado_histopatologico]" id="" class="form-control" placeholder="Resultado histopatológico" data-bs-toggle="tooltip" data-bs-placement="top" title="Resultado histopatológico">{{old('histopatologia.resultado_histopatologico')}}</textarea>
+                    @error('histopatologia.resultado_histopatologico')
+                        <small class="fs-8 text-danger"> * {{$message}}</small>
+                    @enderror
+                </div>
+            </fieldset>
         </fieldset>
     </div>
 
     {{-- DIAGNÓSTICO CLINICO --}}
-    @include('forms.diagnosticoClinico')
+    @include('datosPersonales.diagnosticoClinico')
     {{-- REGISTRO DE DISCAPACIDADES --}}
     <div class="container row mt-2">
         <fieldset class="field-border row ">
@@ -222,7 +213,7 @@
         </fieldset>
          {{-- BEGIN modal DISCAPACIDADes form--}}
             <div class="modal fade" id="discapacidades" tabindex="-1" aria-labelledby="discapacidadLabel" aria-hidden="true">
-                @include('forms.discapacidades');
+                @include('datosPersonales.discapacidades');
             </div>
         {{-- END MODAL --}}
     </div>
@@ -230,7 +221,7 @@
     <div class="container row mt-2">
         <fieldset class="field-border row ">
             <legend class="field-border ">9. Tratamiento</legend>
-            @include('forms.tratamiento');
+            @include('datosPersonales.tratamiento');
         </fieldset>
 
     </div>
@@ -238,53 +229,59 @@
     
     {{-- BEGIN modal CONTROL DE CONTACTOS form--}}
         <div class="modal fade" id="controlContactos" tabindex="-1" aria-labelledby="controlContactosLabel" aria-hidden="true">
-            @include('forms.controlContactos');
+            @include('datosPersonales.controlContactos');
         </div>
     {{-- END MODAL --}}
 
     {{-- BEGIN modal RESIDENCIA ANTERIOR--}}
     <div class="modal fade" id="residenciaanterior" tabindex="-1" aria-labelledby="controlContactosLabel" aria-hidden="true">
-        @include('forms.residenciaAnterior');
+        @include('datosPersonales.residenciaAnterior');
     </div>
     {{-- END MODAL --}}
 
     <div class="container row mt-2">
-        <fieldset class="field-border col">
-            <legend class="field-border ">10. Identificaciín de caso</legend>
-            <div class="row">
-                <label class="col">10.1 Vigilacia activa</label>
-                <select name="identificacion_caso[activa]" class="form-select col" id="">
-                    <option value="" elected disabled >Seleccione</option>
-                    <option value="Casa por casa">Casa por casa</option>
-                    <option value="Campaña">Campaña</option>
-                </select>
-            </div>
-            <div class="row">
-                <label class="col">10.2 Vigilacia Pasiva</label>
-                <input type="hidden" name="identificacion_caso[pasiva]" value="No">
-                <input class="form-check-input" type="checkbox" name="identificacion_caso[pasiva]" value="Si">
-                <label class="form-check-label col">En servicio de salud</label>
+        <fieldset class="row field-border">
+            <fieldset class="field-border col">
+                <legend class="field-border ">10. Identificación de caso</legend>
+                <div class="row">
+                    <label class="col">10.1 Vigilacia activa</label>
+                    <select name="identificacion_caso[activa]" class="form-select col" id="" val>
+                        <option value="" disabled {{(old('identificacion_caso.activa') == '')? 'selected':'' }}>Seleccione</option>
+                        <option value="Casa por casa" {{(old('identificacion_caso.activa') == 'Casa por casa')? 'selected':'' }}>Casa por casa</option>
+                        <option value="Campaña" {{(old('identificacion_caso.activa') == 'Campaña')? 'selected':'' }}>Campaña</option>
+                    </select>
+                    @error('identificacion_caso.activa')
+                        <small class="fs-8 text-danger"> * {{$message}}</small>
+                    @enderror
+                </div>
+                <div class="row">
+                    <label class="col">10.2 Vigilacia Pasiva</label>
+                    <input type="hidden" name="identificacion_caso[pasiva]" value="No">
+                    <input class="form-check-input" type="checkbox" name="identificacion_caso[pasiva]" value="Si">
+                    <label class="form-check-label col">En servicio de salud</label>
+                </div>
+                <div class="row">
+                    <label class="col">10.3 Transferencia</label>
+                    <input type="hidden" name="identificacion_caso[transferencia]" value="No">
+                    <input class="form-check-input" type="checkbox" name="identificacion_caso[transferencia]" value="Si">
+                    <label class="form-check-label col">Referido</label>
+                </div>
+            </fieldset>
+            <fieldset class="field-border col">
+                <legend class="field-border ">11. Servicio de salud que notifica</legend>
+                <div class="row">
+                    <label class="col">Servicio de salud que notifica</label>
+                    <input type="text" name="notificacion[servicio_salud]" class="col form-control" id="servicio_salud_notifica">
+                </div>
+                <div class="row">
+                    <label class="col">Fecha de notificación</label>
+                    <input type="date" name="notificacion[fecha]" class="col form-control" value="{{old('notificacion.fecha')}}">
+                    @error('notificacion.fecha')
+                        <small class="fs-8 text-danger"> * {{$message}}</small>
+                    @enderror
+                </div>
                 
-            </div>
-            <div class="row">
-                <label class="col">10.3 Transferencia</label>
-                <input type="hidden" name="identificacion_caso[transferencia]" value="No">
-                <input class="form-check-input" type="checkbox" name="identificacion_caso[transferencia]" value="Si">
-                <label class="form-check-label col">Referido</label>
-                
-            </div>
-            
-        </fieldset>
-        <fieldset class="field-border col">
-            <legend class="field-border ">11. Servicio de salud que notifica</legend>
-            <div class="row">
-                <label class="col">Servicio de salud que notifica</label>
-                <input type="text" name="notificacion[servicio_salud]" class="col form-control" id="">
-            </div>
-            <div class="row">
-                <label class="col">Fecha de notificación</label>
-                <input type="date" name="notificacion[fecha]" class="col form-control" id="">
-            </div>
+            </fieldset>
         </fieldset>
 
     </div>

@@ -1,5 +1,7 @@
 {{-- 
-    THIS VIEW PROCESSES THE INFORMATION SHOW IN: 1. DATOS GENERALES 
+    THIS VIEW PROCESSES THE INFORMATION SHOW IN: 1. DATOS GENERALes
+    This file processes the dynamic and dependent views of the select:
+    departmento, provincias, municipios, servcio de salud y red de salud 
 --}}
 
 @isset($provincias)
@@ -100,6 +102,7 @@
                             
                             $('#redes_salud').remove();     
                             $('#datos_personales_servicio_salud_id').val(params);	
+                            $('#servicio_salud_notifica').val($("#servs_salud option:selected" ).text());
                             $(".red_salud").html(response);
                             
                         },

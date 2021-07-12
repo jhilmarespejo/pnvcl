@@ -38,3 +38,7 @@ table.discap * {
     font-size: small;
     padding: 0.5% !important;
 }
+ul.typeahead{
+font-size: 11px;
+padding: 0%;
+}

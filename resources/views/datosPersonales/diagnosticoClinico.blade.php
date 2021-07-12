@@ -4,16 +4,23 @@
         <fieldset class="field-border col">
             <legend class="fs-6">7.1. Clasificación clínica</legend>
             <div class="row">
+                <div class="row">
+                    <label for="" class="col">Fecha de diagnóstico</label>
+                    <input type="date" name="diagnostico[fecha_diagnostico]" value="{{old('diagnostico.fecha_diagnostico')}}"data-bs-toggle="tooltip" data-bs-placement="top" id="search" class="form-control col" placeholder="Fecha de diagnóstico" title="Fecha de diagnóstico">
+                        @error('diagnostico.fecha_diagnostico')
+                            <small class="fs-8 text-danger"> * {{$message}}</small>
+                        @enderror
+                </div>
                 <div class="col">
                     <strong class="">Multibacilar</strong>
                     <div class="mt-3">
-                        <input type="hidden" name="diagnostico[multibacilar_lepromatosa]" value="No">
+                        <input type="hidden" name="diagnostico[multibacilar_lepromatosa]" value="">
                         <input class="form-check-input" type="checkbox" name="diagnostico[multibacilar_lepromatosa]" value="Si">
                         <label class="form-check-label" for="lepromatosa">Lepra lepromatosa</label>
                         
                         <br>
                         
-                        <input type="hidden" name="diagnostico[multibacilar_dimofa]" value="No">
+                        <input type="hidden" name="diagnostico[multibacilar_dimofa]" value="">
                         <input class="form-check-input" type="checkbox" name="diagnostico[multibacilar_dimofa]" value="Si">
                         <label class="form-check-label" for="dimofa">Lepra dimofa</label>
                     </div>
@@ -21,13 +28,13 @@
                 <div class="col">
                     <strong class="">Paucibacilar</strong>
                     <div class="mt-3">
-                        <input type="hidden" name="diagnostico[paucibacilar_tuberculoide]" value="No">
+                        <input type="hidden" name="diagnostico[paucibacilar_tuberculoide]" value="">
                         <input class="form-check-input" type="checkbox" name="diagnostico[paucibacilar_tuberculoide]" value="Si">
                         <label class="form-check-label" for="lepromatosa">Lepra lepromatosa</label>
                         
                         <br>
                         
-                        <input type="hidden" name="diagnostico[paucibacilar_indeterminada]" value="No">
+                        <input type="hidden" name="diagnostico[paucibacilar_indeterminada]" value="">
                         <input class="form-check-input" type="checkbox" name="diagnostico[paucibacilar_indeterminada]" value="Si">
                         <label class="form-check-label" for="dimofa">Lepra dimofa</label>
                     </div>

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DatosPersonalesController;
 use App\Http\Controllers\ServicioSaludController;
 use App\Http\Controllers\ResidenciaAnteriorController;
+use App\Http\Controllers\TypeaheadController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -30,9 +31,12 @@ Route::get('paciente', [DatosPersonalesController::class, 'index'])->name('pacie
 
     Route::post('servicio/show', [ServicioSaludController::class, 'show'])->name('servicio.show');
     Route::post('residencia/show', [ResidenciaAnteriorController::class, 'show'])->name('residencia.show');
+
+    // Route::get('/home', [TypeaheadController::class, 'index']);
+    Route::get('/autocomplete-search', [TypeaheadController::class, 'autocompleteSearch']);
 //Route::resource('paciente', [DatosPersonalesController::class]);
 
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

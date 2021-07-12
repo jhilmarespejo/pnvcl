@@ -41,16 +41,16 @@
             @enderror
         </div>
         <div class="col-2">
-            <input type="text" name="datos_personales[fecha_nacimiento]" value="{{old('datos_personales.fecha_nacimiento')}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Fecha de nacimiento" id="" class="form-control" placeholder="Fecha de nacimiento" onfocus="(this.type='date')" onblur="(this.type='text')" >
+            <input type="text" name="datos_personales[fecha_nacimiento]" value="{{old('datos_personales.fecha_nacimiento')}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Fecha de nacimiento" id="fecha_nacimiento" class="form-control" placeholder="Fecha de nacimiento" onfocus="(this.type='date')" onblur="(this.type='text')" >
             @error('datos_personales.fecha_nacimiento')
             <small class="fs-8 text-danger"> * {{$message}}</small>
                 @enderror
         </div>
         <div class="col-2">
-            <input type="number" max="150" min="0" name="datos_personales[edad]" value="{{old('datos_personales.edad')}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Edad" id="" class="form-control" class="form-control" placeholder="Edad">
-            @error('datos_personales.edad')
+            <input type="number" max="150" min="0" name="datos_personales[edad]" value="{{old('datos_personales.edad')}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Edad" id="edad" class="form-control" class="form-control" placeholder="Edad" disabled>
+            {{-- @error('datos_personales.edad')
                 <small class="fs-8 text-danger"> * {{$message}}</small>
-            @enderror
+            @enderror --}}
         </div>
 
         <div class="mb-3"></div>
@@ -67,19 +67,25 @@
         </div>
 
         <div class="col-2">
-            <input type="number" name="datos_personales[telefono]" value="{{old('datos_personales.telefono')}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Teléfono" id="" class="form-control" placeholder="Teléfono">
+            <input type="number" min="0" name="datos_personales[telefono]" value="{{old('datos_personales.telefono')}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Teléfono" id="" class="form-control" placeholder="Teléfono">
             @error('datos_personales.telefono')
                 <small class="fs-8 text-danger"> * {{$message}}</small>
             @enderror
         </div>
         <div class="col-2">
-            <input type="number" name="datos_personales[celular]" value="{{old('datos_personales.celular')}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Celular" id="" class="form-control" placeholder="Celular">
+            <input type="number" min="0" name="datos_personales[celular]" value="{{old('datos_personales.celular')}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Celular" id="" class="form-control" placeholder="Celular">
             @error('datos_personales.celular')
                 <small class="fs-8 text-danger"> * {{$message}}</small>
             @enderror
         </div>
         <div class="col-2">
-            <label class="form-label"><strong>Domicilio actual</strong> </label>
+            <label class="form-label"><strong>Domicilio actual: </strong> </label>
+        </div>
+        <div class="col-2">
+            <input type="text" name="datos_personales[localidad]" value="{{old('datos_personales.localidad')}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Localidad" id="" class="form-control" placeholder="Localidad">
+            @error('datos_personales.localidad')
+                <small class="fs-8 text-danger"> * {{$message}}</small>
+            @enderror
         </div>
         <div class="col-2">
             <input type="text" name="datos_personales[zona]" value="{{old('datos_personales.zona')}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Zona" id="" class="form-control" placeholder="Zona">
@@ -87,13 +93,14 @@
                 <small class="fs-8 text-danger"> * {{$message}}</small>
             @enderror
         </div>
+        <div class="mb-3"></div>
         <div class="col-2">
             <input type="text" name="datos_personales[calle]" value="{{old('datos_personales.calle')}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Calle" id="" class="form-control" placeholder="Calle">
             @error('datos_personales.calle')
                 <small class="fs-8 text-danger"> * {{$message}}</small>
             @enderror
         </div>
-        <div class="mb-3"></div>
+       
         <div class="col-2">
             <input type="text" min="0" name="datos_personales[numero]" value="{{old('datos_personales.numero')}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Número de la vivienda" id="" class="form-control" placeholder="Número">
             @error('datos_personales.numero')
@@ -154,29 +161,30 @@
 
         <div class="col">
             <fieldset class="row mt-3 field-border">
-                <div class="row mt-3">
+                <div class="row mt-1">
                     <div class="col">
-                        <input type="number" name="datos_personales[celular_referencia]" value="{{old('datos_personales.celular_referencia')}}"data-bs-toggle="tooltip" data-bs-placement="top" id="" class="form-control col" title="Celular de referencia" placeholder="Celular de referencia">
+                        <input type="number"  min="0" name="datos_personales[celular_referencia]" value="{{old('datos_personales.celular_referencia')}}"data-bs-toggle="tooltip" data-bs-placement="top" id="" class="form-control col" title="Celular de referencia" placeholder="Celular de referencia">
                         @error('datos_personales.celular_referencia')
                             <small class="fs-8 text-danger"> * {{$message}}</small>
                         @enderror
                     </div>
-                    <div class="col">
-                        <input type="text" name="datos_personales[serv_salud_cercano]" value="{{old('datos_personales.serv_salud_cercano')}}"data-bs-toggle="tooltip" data-bs-placement="top" id="" class="form-control col" placeholder="Servicio de salud más cercano" title="Servicio de salud más cercano">
+                    <div class="row"></div>
+                    <div class="col mt-1">
+                        <input type="text" name="datos_personales[serv_salud_cercano]" value="{{old('datos_personales.serv_salud_cercano')}}"data-bs-toggle="tooltip" data-bs-placement="top" id="search" class="form-control col" placeholder="Servicio de salud más cercano" title="Servicio de salud más cercano">
                         @error('datos_personales.serv_salud_cercano')
                             <small class="fs-8 text-danger"> * {{$message}}</small>
                         @enderror
                     </div>
                     
                 </div>
-                <div class="row mt-3">
-                    <div class="row mt-3">
+                <div class="col mt-2">
+                    <div class="row mt-2">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#residenciaanterior" data-bs-whatever="@mdo">Residencia Anterior</button>
                     </div>
                 </div>
                 
                
-                <div class="row mt-4">
+                <div class="row mt-2">
                     <div class=" mb-1">
                         <label class="">Lugar de contagio</label>
                         <input type="text" name="datos_personales[lugar_contagio]" value="{{old('datos_personales.lugar_contagio')}}" data-bs-toggle="tooltip" data-bs-placement="top" id="" class="form-control col" placeholder="Lugar de contagio" title="Lugar de contagio" class="form-control " 
@@ -185,7 +193,7 @@
                             <small class="fs-8 text-danger"> * {{$message}}</small>
                         @enderror
                     </div>
-                    <div class="mb-1">
+                    <div class=" mb-1">
                         <label class="">A sido contacto de un caso de lepra</label>
                         <select class="form-select" name="datos_personales[contacto_lepra]"  data-bs-toggle="tooltip" data-bs-placement="top" title="Ha sido contacto de un caso de lepra">
                             <option disabled {{ (old('datos_personales.contacto_lepra') == '')? 'selected':'' }}>Seleccione...</option>
@@ -197,7 +205,7 @@
                         @enderror
 
                     </div>
-                    <div class="">
+                    <div class="mb-1">
                         <label class=""> Parentesco</label>
                         <select class="form-select col" name="datos_personales[parentesco]" data-bs-toggle="tooltip" data-bs-placement="top" title="Parentesco">
                             <option disabled {{ (old('datos_personales.parentesco') == '')? 'selected':'' }}>Seleccione...</option>
@@ -210,11 +218,40 @@
                         @enderror
                     </div>
                 </div>
-                
+                <fieldset class="row mt-4" >
+                    <legend class="field-border">3. Control de contactos</legend>
+                    <br>
+                    <button type="button" class=" btn btn-primary " data-bs-toggle="modal" data-bs-target="#controlContactos" data-bs-whatever="@mdo">Agregar datos de contactos</button>
+                </fieldset>
             </fieldset>
-            
         </div>
-        
     </fieldset>
-    
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js">
+</script>
+<script type="text/javascript">
+    var route = "{{ url('autocomplete-search') }}";
+    $('#search').typeahead({
+        source: function (query, process) {
+            return $.get(route, {
+                query: query
+            }, function (data) {
+                return process(data);
+            });
+        }
+    });
+
+    $('#fecha_nacimiento').focusout(function() {
+        var hoy = new Date();
+        var cumpleanos = new Date($(this).val());
+        var edad = hoy.getFullYear() - cumpleanos.getFullYear();
+        var m = hoy.getMonth() - cumpleanos.getMonth();
+
+        if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
+            edad--;
+        }
+        $('#edad').val(edad);
+    })
+    
+</script>

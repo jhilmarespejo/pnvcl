@@ -1,3 +1,8 @@
+{{-- 
+    This file processes the dynamic and dependent views of the select:
+    departmento, provincias, municipios.
+    FOR RESIDENCIA ANTERIOR FORM DINAMIC DATA   --}}
+
 
 @isset($provincias)
     
@@ -67,10 +72,8 @@
             if(actual_control == 'municipios2'){
                 targer_control = "#municipio_id2";
             }
-            $(targer_control).val( params );
-            console.log(params);
-            console.log(targer_control);
             
+            $(targer_control).val( params );
 
         })
     });
