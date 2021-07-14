@@ -5,6 +5,8 @@ use App\Http\Controllers\DatosPersonalesController;
 use App\Http\Controllers\ServicioSaludController;
 use App\Http\Controllers\ResidenciaAnteriorController;
 use App\Http\Controllers\TypeaheadController;
+use App\Http\Controllers\ControlContactosController;
+use App\Http\Controllers\ControlProgramaTtoController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -29,14 +31,16 @@ Route::get('paciente', [DatosPersonalesController::class, 'index'])->name('pacie
     Route::get('paciente/create', [DatosPersonalesController::class, 'create'])->name('paciente.create')->middleware('auth');
     Route::post('paciente/store', [DatosPersonalesController::class, 'store'])->name('paciente.store')->middleware('auth');
 
+    Route::get('paciente/index', [DatosPersonalesController::class, 'index'])->name('paciente.index')->middleware('auth');
+
     Route::post('servicio/show', [ServicioSaludController::class, 'show'])->name('servicio.show');
     Route::post('residencia/show', [ResidenciaAnteriorController::class, 'show'])->name('residencia.show');
 
-    // Route::get('/home', [TypeaheadController::class, 'index']);
     Route::get('/autocomplete-search', [TypeaheadController::class, 'autocompleteSearch']);
-//Route::resource('paciente', [DatosPersonalesController::class]);
 
+    Route::get('contactos/create', [ControlContactosController::class, 'create'])->name('contactos.create')->middleware('auth');
 
-Auth::routes();
+    Route::get('seguimiento/create', [ControlProgramaTtoController::class, 'create'])->name('contactos.create')->middleware('auth');
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Auth::routes();
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

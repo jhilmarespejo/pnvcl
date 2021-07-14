@@ -47,10 +47,10 @@
                 @enderror
         </div>
         <div class="col-2">
-            <input type="number" max="150" min="0" name="datos_personales[edad]" value="{{old('datos_personales.edad')}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Edad" id="edad" class="form-control" class="form-control" placeholder="Edad" disabled>
-            {{-- @error('datos_personales.edad')
+            <input type="number" max="150" min="0" name="datos_personales[edad]" value="{{old('datos_personales.edad')}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Edad" id="edad" class="form-control" class="form-control" placeholder="Edad" >
+            @error('datos_personales.edad')
                 <small class="fs-8 text-danger"> * {{$message}}</small>
-            @enderror --}}
+            @enderror
         </div>
 
         <div class="mb-3"></div>
@@ -149,11 +149,13 @@
                 <div class="col">
                     <div class="row mb-3">
                         <label for="" class="form-label"><strong>Opcion 1:</strong> Con Google Maps</label>
-                        <div {{--id="map"--}} style="border:1px; width:600px; height:300px;" ></div>
+                        <div id="map" style="border:1px; width:600px; height:300px;" >
+                            <input type="hidden" name="datos_personales[latlng]" id="latlng" value="">
+                        </div>
                     </div>
                     <div class="row ">
                         <label class="form-label"><strong>Opcion 2:</strong> Subir una foto del croquis hecho a mano</label>
-                        <input type="file" name="datos_personales[url_croquis]" id="" class="form-control" placeholder="Subir una foto del croquis">
+                        <input type="file" name="datos_personales[url_croquis]" id="" class="form-control" placeholder="Subir una foto del croquis" accept="image/*">
                     </div>
                 </div>
             </fieldset>

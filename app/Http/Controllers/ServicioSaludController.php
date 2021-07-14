@@ -17,7 +17,7 @@ class ServicioSaludController extends Controller
      */
     public function index()
     {
-        
+
     }
 
     /**
@@ -51,15 +51,15 @@ class ServicioSaludController extends Controller
     {
         if( $request->q == 'provincias' ){
             $provincias = DB::table('provincia')->where('sedes_id',$request->sedes_id)->get();
-            return view('forms.servSalud', ['provincias' => $provincias]);
+            return view('datosPersonales.servSalud', ['provincias' => $provincias]);
         }
         if( $request->q == 'municipios' ){
             $municipios = DB::table('municipio')->where('provincia_id',$request->provincia_id)->get();
-            return view('forms.servSalud', ['municipios' => $municipios]);
+            return view('datosPersonales.servSalud', ['municipios' => $municipios]);
         }
         if( $request->q == 'sevicios_salud' ){
             $servicios_salud = DB::table('servicio_salud')->where('municipio_id',$request->municipio_id)->get();
-            return view('forms.servSalud', ['servicios_salud' => $servicios_salud]);
+            return view('datosPersonales.servSalud', ['servicios_salud' => $servicios_salud]);
         }
         if( $request->q == 'red_salud' ){
             $red_salud = DB::table('servicio_salud')
@@ -67,7 +67,7 @@ class ServicioSaludController extends Controller
                 ->join('red_salud', 'red_salud.id', '=', 'servicio_salud.red_salud_id')
                 ->where('servicio_salud.id',$request->id)
                 ->get();
-            return view('forms.servSalud', ['red_salud' => $red_salud]);
+            return view('datosPersonales.servSalud', ['red_salud' => $red_salud]);
         }
     }
 

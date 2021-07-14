@@ -48,9 +48,10 @@
         
         </div>
     </div>
-<form action="{{route('paciente.store')}}" method="POST" >
+
+    {{-- {{ $errors  }} --}}
+<form action="{{route('paciente.store')}}" method="POST" enctype="multipart/form-data">
     @csrf
-    
     @include('datosPersonales.datosPersonales')
 
     {{-- 4. BEGIN DATOS CLINICOS --}}

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\controlProgramaTto;
+use App\Models\ControlProgramaTto;
 use Illuminate\Http\Request;
 
 class ControlProgramaTtoController extends Controller
@@ -24,7 +24,7 @@ class ControlProgramaTtoController extends Controller
      */
     public function create()
     {
-        //
+        return view('seguimiento.create');
     }
 
     /**

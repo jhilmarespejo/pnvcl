@@ -39,9 +39,7 @@
 
 
 
-    <form class="row g-3 needs-validation" novalidate>
-        
-        
+    {{-- <form class="row g-3 needs-validation" novalidate>
         <div class="col-md-3">
           <label for="validationCustom05" class="form-label">Zip</label>
           <input type="text" class="form-control" id="validationCustom05" required>
@@ -63,7 +61,7 @@
         <div class="col-12">
           <button class="btn btn-primary" type="submit">Submit form</button>
         </div>
-      </form>
+      </form> --}}
 </div>
 @endsection
 

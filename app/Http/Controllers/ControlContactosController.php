@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\controlContactos;
+use App\Models\ControlContactos;
 use Illuminate\Http\Request;
 
 class ControlContactosController extends Controller
@@ -24,7 +24,7 @@ class ControlContactosController extends Controller
      */
     public function create()
     {
-        //
+        return view('contactos.create');
     }
 
     /**
