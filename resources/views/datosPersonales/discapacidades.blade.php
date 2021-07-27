@@ -8,7 +8,7 @@
       <div class="container row mt-3">
         <fieldset class="field-border row">
          
-          <table class="discap table table-responsive table-bordered">
+          <table class=" table table-responsive table-bordered">
             <thead>
               <tr>
                 <th rowspan="2">Grado</th>

@@ -50,7 +50,7 @@
     </div>
 
     {{-- {{ $errors  }} --}}
-<form {{-- autocomplete="off" --}} action="{{route('paciente.store')}}" method="POST" enctype="multipart/form-data">
+<form action="{{route('paciente.store')}}" method="POST" enctype="multipart/form-data">
     @csrf
     @include('datosPersonales.datosPersonales')
 
@@ -289,12 +289,6 @@
 
     <button type="submit" class="btn btn-success btn-lg"  >Enviar</button>
 </form>
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-   crossorigin="">
-</script>
-<script src="/maps/index.js"></script>
-
 
 <script type="text/javaScript">
     $( document ).ready(function() {

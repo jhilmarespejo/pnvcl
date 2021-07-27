@@ -15,28 +15,28 @@
                     <strong class="">Multibacilar</strong>
                     <div class="mt-3">
                         <input type="hidden" name="diagnostico[multibacilar_lepromatosa]" value="">
-                        <input class="form-check-input" type="checkbox" name="diagnostico[multibacilar_lepromatosa]" value="Si">
-                        <label class="form-check-label" for="lepromatosa">Lepra lepromatosa</label>
+                        <input class="form-check-input" type="checkbox" name="diagnostico[multibacilar_lepromatosa]" value="LL">
+                        <label class="form-check-label">Lepra Lepromatosa</label>
                         
                         <br>
                         
                         <input type="hidden" name="diagnostico[multibacilar_dimofa]" value="">
-                        <input class="form-check-input" type="checkbox" name="diagnostico[multibacilar_dimofa]" value="Si">
-                        <label class="form-check-label" for="dimofa">Lepra dimofa</label>
+                        <input class="form-check-input" type="checkbox" name="diagnostico[multibacilar_dimofa]" value="LD">
+                        <label class="form-check-label" >Lepra Dimofa</label>
                     </div>
                 </div>
                 <div class="col">
                     <strong class="">Paucibacilar</strong>
                     <div class="mt-3">
                         <input type="hidden" name="diagnostico[paucibacilar_tuberculoide]" value="">
-                        <input class="form-check-input" type="checkbox" name="diagnostico[paucibacilar_tuberculoide]" value="Si">
-                        <label class="form-check-label" for="lepromatosa">Lepra lepromatosa</label>
+                        <input class="form-check-input" type="checkbox" name="diagnostico[paucibacilar_tuberculoide]" value="LT">
+                        <label class="form-check-label" >Lepra Tuberculoide</label>
                         
                         <br>
                         
                         <input type="hidden" name="diagnostico[paucibacilar_indeterminada]" value="">
-                        <input class="form-check-input" type="checkbox" name="diagnostico[paucibacilar_indeterminada]" value="Si">
-                        <label class="form-check-label" for="dimofa">Lepra dimofa</label>
+                        <input class="form-check-input" type="checkbox" name="diagnostico[paucibacilar_indeterminada]" value="LI">
+                        <label class="form-check-label" >Lepra Indeterminada</label>
                     </div>
                 </div>
             </div>

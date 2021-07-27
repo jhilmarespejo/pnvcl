@@ -34,14 +34,17 @@ class DatosPersonalesController extends Controller
         //diagnostico.datos_personales_id = tratamiento.datos_personales_id AND 
         //tratamiento.datos_personales_id = control_contactos.datos_personales_id group by datos_personales.id');
 
-        $records = DB::table('datos_personales')
-        ->select('datos_personales.id', 'datos_personales.nombres', 'datos_personales.apellidos', 'datos_personales.edad', 'datos_personales.sexo', 'diagnostico.fecha_diagnostico', 'datos_personales.localidad', 'datos_personales.servicio_salud_id', 'control_contactos.laboratorio_baar', 'diagnostico.multibacilar_lepromatosa', 'diagnostico.multibacilar_dimofa', 'diagnostico.paucibacilar_tuberculoide','diagnostico.paucibacilar_indeterminada', 'tratamiento.actual_fecha_inicio', 'tratamiento.actual_multibacilar', 'tratamiento.actual_paucibacilar')
-
-        ->join('diagnostico', 'diagnostico.datos_personales_id', '=', 'datos_personales.id')
-        ->join('tratamiento', 'tratamiento.datos_personales_id', '=', 'datos_personales.id')
-        ->join('control_contactos', 'control_contactos.datos_personales_id', '=', 'datos_personales.id')
+        $records = DB::table('municipio')
+        ->select('datos_personales.id', 'datos_personales.nombres', 'datos_personales.apellidos', 'datos_personales.edad', 'datos_personales.sexo', 'diagnostico.fecha_diagnostico', 'datos_personales.localidad', 'municipio.municipio', 'control_contactos.laboratorio_baar', 'diagnostico.multibacilar_lepromatosa', 'diagnostico.multibacilar_dimofa', 'diagnostico.paucibacilar_tuberculoide','diagnostico.paucibacilar_indeterminada', 'tratamiento.actual_fecha_inicio', 'tratamiento.actual_multibacilar', 'tratamiento.actual_paucibacilar')
+        
+        ->join('servicio_salud', 'servicio_salud.municipio_id', '=', 'municipio.id')
+        ->join('datos_personales', 'datos_personales.servicio_salud_id', '=', 'servicio_salud.id')
+        ->leftjoin('diagnostico', 'diagnostico.datos_personales_id', '=', 'datos_personales.id')
+        ->leftjoin('tratamiento', 'tratamiento.datos_personales_id', '=', 'datos_personales.id')
+        ->leftjoin('control_contactos', 'control_contactos.datos_personales_id', '=', 'datos_personales.id')
         ->groupBy('datos_personales.id')
         ->get();
+
 
         return view('datosPersonales.index', ['records' => $records]);
     }
@@ -211,9 +214,22 @@ class DatosPersonalesController extends Controller
      * @param  \App\Models\DatosPersonales  $datosPersonales
      * @return \Illuminate\Http\Response
      */
-    public function show(DatosPersonales $datosPersonales)
+    public function show($id)
     {
-        //
+        //return view('datosPersonalesEdit.create');
+        //return $id;
+        
+        $records = DB::table('datos_personales')
+        ->select('*')
+        // ->join('diagnostico', 'diagnostico.datos_personales_id', '=', 'datos_personales.id')
+        // ->join('tratamiento', 'tratamiento.datos_personales_id', '=', 'datos_personales.id')
+        // ->join('control_contactos', 'control_contactos.datos_personales_id', '=', 'datos_personales.id')
+        ->where('datos_personales.id', '=', $id)
+        ->groupBy('datos_personales.id')
+        ->get();
+
+        return $records;
+        //return view('datosPersonalesEdit.edit', ['records' => $records]);
     }
 
     /**

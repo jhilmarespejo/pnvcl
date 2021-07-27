@@ -58,8 +58,8 @@
         <div class="col-2">
             <select class="form-select" name="datos_personales[sexo]" data-bs-toggle="tooltip" data-bs-placement="top" title="Sexo">
                 <option disabled value="" {{ (old('datos_personales.sexo') == '')? 'selected':'' }}>Sexo</option>
-                <option value="Femenino" {{ (old('datos_personales.sexo') == 'Femenino')? 'selected':'' }}>Femenino</option>
-                <option value="Masculino" {{ (old('datos_personales.sexo') == 'Masculino')? 'selected':'' }}>Masculino</option>
+                <option value="F" {{ (old('datos_personales.sexo') == 'F')? 'selected':'' }}>F</option>
+                <option value="M" {{ (old('datos_personales.sexo') == 'M')? 'selected':'' }}>M</option>
             </select>
             @error('datos_personales.sexo')
                 <small class="fs-8 text-danger"> * {{$message}}</small>
@@ -172,7 +172,7 @@
                     </div>
                     <div class="row"></div>
                     <div class="col mt-1">
-                        <input type="text" name="datos_personales[serv_salud_cercano]" value="{{old('datos_personales.serv_salud_cercano')}}"data-bs-toggle="tooltip" data-bs-placement="top" id="search" class="form-control col" placeholder="Servicio de salud más cercano" title="Servicio de salud más cercano">
+                        <input autocomplete="off" type="text" name="datos_personales[serv_salud_cercano]" value="{{old('datos_personales.serv_salud_cercano')}}" data-bs-toggle="tooltip" data-bs-placement="top" id="search" class="form-control col" placeholder="Servicio de salud más cercano" title="Servicio de salud más cercano">
                         @error('datos_personales.serv_salud_cercano')
                             <small class="fs-8 text-danger"> * {{$message}}</small>
                         @enderror

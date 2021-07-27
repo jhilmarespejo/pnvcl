@@ -21,9 +21,9 @@
 
                 @php for ($i=0; $i <= 2; $i++): @endphp
                   <tr>
-                      <td><input name="control_contactos[{{$i}}][nombres]" type="text"></td>
-                      <td><input name="control_contactos[{{$i}}][apellidos]" type="text"></td>
-                      <td><input name="control_contactos[{{$i}}][edad]" type="number" min="0" ></td>
+                      <td><input name="control_contactos[{{$i}}][contacto_nombres]" type="text"></td>
+                      <td><input name="control_contactos[{{$i}}][contacto_apellidos]" type="text"></td>
+                      <td><input name="control_contactos[{{$i}}][contacto_edad]" type="number" min="0" ></td>
                       <td>
                           <select class="form-select" name="control_contactos[{{$i}}][parentesco]">
                           <option selected disabled>Seleccione...</option>

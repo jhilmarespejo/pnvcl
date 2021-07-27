@@ -8,8 +8,8 @@
 
 @section('content')
 <h3 class="text-center">REGISTRO MENSUAL DE CASOS DE LEPRA</h3>
-
-    <table class="table table-sm ">
+<div class="table-responsive">
+    <table class="table table-sm table-bordered table-responsive">
         <thead style="font-size: 13px">
             <tr>
                 <th rowspan="3">Apellidos y nombres</th>
@@ -20,7 +20,7 @@
                 <th colspan="2">Laboratorio <br>(BAAR)</th>
                 <th colspan="4">Diagnóstico</th>
                 <th colspan="2" colspan="2">Esq. de Trat.</th>
-                {{-- <th rowspan="3">Aciones</th> --}}
+                <th rowspan="3">Aciones</th>
             </tr>
             <tr>
                 
@@ -45,12 +45,12 @@
         <tbody style="font-size: 13px">
             @foreach ($records as $record)
             <tr>
-                <td><a href="#" class="link-secondary">{{$record->nombres}} {{$record->apellidos}}</a></td>
+                <td><a href="/paciente/show/{{$record->id}}" class="link-secondary">{{$record->nombres}} {{$record->apellidos}}</a></td>
                 <td>{{$record->edad}}</td>
                 <td>{{$record->sexo}}</td>
                 <td>{{$record->fecha_diagnostico}}</td>
                 <td>{{$record->localidad}}</td>
-                <td>{{$record->servicio_salud_id}}</td>
+                <td>{{$record->municipio}}</td>
                 <td>{{$record->laboratorio_baar}}</td>
                 <td>{{$record->laboratorio_baar}}</td>
                 <td>{{$record->multibacilar_lepromatosa}}</td>
@@ -64,8 +64,8 @@
                       Opciones
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                      <li><a class="dropdown-item" href="/contactos/create">Control de contactos</a></li>
-                      <li><a class="dropdown-item" href="/seguimiento/create">Seguimiento al tratamiento</a></li>
+                      <li><a class="dropdown-item" href="/contactos/edit/{{$record->id}}">Control de contactos</a></li>
+                      <li><a class="dropdown-item" href="/seguimiento/create/{{$record->id}}">Seguimiento al tratamiento</a></li>
                       <li><a class="dropdown-item" href="#">Otra opciones</a></li>
                     </ul>
                   </div>
@@ -75,5 +75,6 @@
             
         </tbody>
     </table>
+</div>
 
 @endsection

@@ -5,6 +5,6 @@
 
 @section('content')
 
-<h3 class="text-center">FORMULARIO DE CONTROL DE CONTACTOS</h3>
+
 
 @endsection

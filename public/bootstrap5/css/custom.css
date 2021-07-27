@@ -41,3 +41,39 @@ ul.typeahead{
 font-size: 11px;
 padding: 0%;
 }
+
+table.contacts input{
+    font-size: 12px;
+    padding-left: unset;
+    padding-right: unset;
+}
+table.contacts select{
+    font-size: 12px;
+    padding-left: unset;
+    padding-right: unset;
+    appearance:none;
+    cursor: pointer;
+    background-image: unset;
+}
+
+table.contacts small{
+    font-size: 10px;
+}
+
+.notification{
+    top: -30 !important;
+    left: 95% !important;
+    transform: translate(-50%, -50%) !important;
+    position: absolute !important;
+}
+
+.notification:after{
+    content:"";
+    position:absolute;
+    height:0;
+    width:0;
+    left:100%;
+    top:0;
+    border:28px solid transparent;
+    border-left: 10px solid #cde6da;
+}
