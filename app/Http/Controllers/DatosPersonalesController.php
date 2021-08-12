@@ -67,8 +67,10 @@ class DatosPersonalesController extends Controller
      */
     public function store(Request $request)
     {
-        
+        //return $request;
+
          $request->validate([
+            'datos_personales.tipo_caso' => 'required',
             'datos_personales.nombres' => 'required|string|max:150',
             'datos_personales.apellidos' => 'required|string|max:150',
             'datos_personales.ci' => 'required|string|max:10',
@@ -101,7 +103,7 @@ class DatosPersonalesController extends Controller
 
             'bacteriologia.fecha_muestra' => 'required|date',
             'bacteriologia.laboratorio' => 'required|string|max:200',
-            'bacteriologia.linfa' => 'required|string|max:40',
+            //'bacteriologia.linfa' => 'required|string|max:40',
             'bacteriologia.fecha_resultado' => 'required|date',
             'bacteriologia.resultado_lobulo_oreja' => 'required|string|max:10',
             'bacteriologia.resultado_lesion' => 'required|string|max:10',
@@ -204,7 +206,7 @@ class DatosPersonalesController extends Controller
         $notificacion = array_merge(['identificacion_caso_id'=>$identificacionId], $request['notificacion']);
         Db::table('notificacion')->insert($notificacion);
 
-        return redirect('/')->with('success', '!Datos guardados con éxito¡');
+        return redirect('/paciente/index')->with('success', '!Datos guardados con éxito¡');
         
     }
 
@@ -266,5 +268,4 @@ class DatosPersonalesController extends Controller
         return('DESTROY');
     }
 }
-
 

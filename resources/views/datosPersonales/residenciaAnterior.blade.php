@@ -4,8 +4,8 @@
         <h5 class="modal-title text-center" id="controlContactosLabel">3. Residencia Anterior</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-          <table class="table table-responsive table-bordered text-center">
+      <div class="modal-body table-responsive">
+          <table class="table table-sm table-bordered text-center">
               <thead>
                   <tr>
                       <th>Departamento</th>
@@ -24,11 +24,11 @@
                           <option value="2">Beni</option>
                           <option value="3">Santa Cruz</option>
                           <option value="4">Cochabamba</option>
-                          <option value="5">Tarija</option>
-                          <option value="6">Chuquisaca</option>
-                          <option value="7">La Paz</option>
+                          <option value="6">Tarija</option>
+                          <option value="5">Chuquisaca</option>
+                          <option value="9">La Paz</option>
                           <option value="8">Oruro</option>
-                          <option value="9">Potosi</option>
+                          <option value="7">Potosi</option>
                       </select>
                     </td>
                     <td><div id="provincia_anterior0"></div></td>
@@ -49,17 +49,17 @@
 
                 <tr>
                   <td>
-                      <select class="form-select" id="dpto1" name="">
+                      <select class="form-select " id="dpto1" name="">
                         <option selected disabled>Seleccione...</option>
                         <option value="1">Pando</option>
                         <option value="2">Beni</option>
                         <option value="3">Santa Cruz</option>
                         <option value="4">Cochabamba</option>
-                        <option value="5">Tarija</option>
-                        <option value="6">Chuquisaca</option>
-                        <option value="7">La Paz</option>
+                        <option value="6">Tarija</option>
+                        <option value="5">Chuquisaca</option>
+                        <option value="9">La Paz</option>
                         <option value="8">Oruro</option>
-                        <option value="9">Potosi</option>
+                        <option value="7">Potosi</option>
                     </select>
                   </td>
                   <td><div id="provincia_anterior1"></div></td>
@@ -87,11 +87,11 @@
                         <option value="2">Beni</option>
                         <option value="3">Santa Cruz</option>
                         <option value="4">Cochabamba</option>
-                        <option value="5">Tarija</option>
-                        <option value="6">Chuquisaca</option>
-                        <option value="7">La Paz</option>
+                        <option value="6">Tarija</option>
+                        <option value="5">Chuquisaca</option>
+                        <option value="9">La Paz</option>
                         <option value="8">Oruro</option>
-                        <option value="9">Potosi</option>
+                        <option value="7">Potosi</option>
                     </select>
                   </td>
                   <td><div id="provincia_anterior2"></div></td>

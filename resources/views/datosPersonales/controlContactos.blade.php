@@ -4,8 +4,8 @@
         <h5 class="modal-title text-center" id="controlContactosLabel">3. Control de contactos</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-          <table class="table table-responsive table-bordered ">
+      <div class="modal-body table-responsive">
+          <table class="table table-sm table-bordered table-responsive">
               <thead>
                   <tr>
                       

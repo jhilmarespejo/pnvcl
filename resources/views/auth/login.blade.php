@@ -2,9 +2,16 @@
 @section('title', 'Inicio de sesión')
 
 @section('content')
+<style type="text/css">
+div#body_container > div {
+    padding: 2%;
+    background-color: transparent !important;
+    box-shadow: none !important
+}
+</style>
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-8" style="margin-top:8rem; opacity: 0.88;">
             <div class="card">
                 <div class="card-header">{{ __('Iniciar Sesión') }}</div>
 

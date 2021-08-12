@@ -51,15 +51,15 @@ class ServicioSaludController extends Controller
     {
         if( $request->q == 'provincias' ){
             $provincias = DB::table('provincia')->where('sedes_id',$request->sedes_id)->get();
-            return view('datosPersonales.servSalud', ['provincias' => $provincias]);
+            return view('datosPersonales.servSalud', ['provincias' => $provincias, 'new_tag' => $request->new_tag]);
         }
         if( $request->q == 'municipios' ){
             $municipios = DB::table('municipio')->where('provincia_id',$request->provincia_id)->get();
-            return view('datosPersonales.servSalud', ['municipios' => $municipios]);
+            return view('datosPersonales.servSalud', ['municipios' => $municipios, 'new_tag' => $request->new_tag]);
         }
         if( $request->q == 'sevicios_salud' ){
             $servicios_salud = DB::table('servicio_salud')->where('municipio_id',$request->municipio_id)->get();
-            return view('datosPersonales.servSalud', ['servicios_salud' => $servicios_salud]);
+            return view('datosPersonales.servSalud', ['servicios_salud' => $servicios_salud, 'new_tag' => $request->new_tag]);
         }
         if( $request->q == 'red_salud' ){
             $red_salud = DB::table('servicio_salud')

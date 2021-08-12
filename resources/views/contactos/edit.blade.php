@@ -74,6 +74,10 @@
                 <label class="form-label-sm">Tratamiento</label>
                 <input readonly type="text" class="form-control form-control-sm" value="{{ $patientRecord->actual_multibacilar.' '.$patientRecord->actual_paucibacilar }}">
             </div>
+            <div class="col-sm">
+                <a class="btn btn-primary mt-3 " href="/seguimiento/edit/{{$patientRecord->id}}">Seguimiento</a>
+            </div>
+            
         </div>
     </fieldset>
     
@@ -174,7 +178,7 @@
                 </td>
 
             </tr>
-        </form>
+           </form>
         <form action="{{ route('contactos.destroy') }}" method="post" id="destroy-{{ $contact->id }}"
         onsubmit="return confirm('¿Está seguro de eliminar éste registro?')">
             @csrf
@@ -284,7 +288,7 @@
                     @enderror
                 </td>
                 <td>
-                   <button class="btn btn-sm btn-primary" type="submit">Guardar</button>
+                   <button class="btn btn-sm btn-success" type="submit">Guardar</button>
                 </td>
             </tr>
         </form>
@@ -295,7 +299,7 @@
 
 
 <script type="text/javascript">
- $(".alert").fadeOut(5500 );
+ $(".alert").fadeOut(9500 );
 
  
  $("span#destroy").on('click', function () {

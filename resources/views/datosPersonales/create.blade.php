@@ -18,8 +18,11 @@
                     <option value="2">Beni</option>
                     <option value="3">Santa Cruz</option>
                     <option value="4">Cochabamba</option>
-                    <option value="5">Tarija</option>
-                    <option value="6">Chuquisaca</option>
+                    <option value="6">Tarija</option>
+                    <option value="5">Chuquisaca</option>
+                    <option value="9">La Paz</option>
+                    <option value="8">Oruro</option>
+                    <option value="7">Potosí</option>
                 </select>
             </div>
             
@@ -31,7 +34,6 @@
             <div class="col xs sm md">
                 <label class="form-label">Municipio</label>
                 <div class="municipios"></div>
-
             </div>
             
             <div class="col xs sm md">
@@ -126,8 +128,8 @@
                         @enderror
                     </div>
 
-                    <div class="col">
-                        <select class="form-select col" name="bacteriologia[linfa]" data-bs-toggle="tooltip" data-bs-placement="top" title="Linfa obtenida de" class="form-select">
+                    <div class="mt-3 row">
+                        {{-- <select class="form-select col" name="bacteriologia[linfa]" data-bs-toggle="tooltip" data-bs-placement="top" title="Linfa obtenida de" class="form-select">
                             <option disabled {{(old('bacteriologia.linfa') == '')? 'selected':'' }}>Seleccione...</option>
                             <option value="Lobulo de la oreja" {{(old('bacteriologia.linfa') == 'Lobulo de la oreja')? 'selected':'' }}>Lóbulo de la oreja</option>
                             <option value="Lesion" {{(old('bacteriologia.linfa') == 'Lesion')? 'selected':'' }}>Lesión</option>
@@ -135,7 +137,29 @@
                         </select>
                         @error('bacteriologia.linfa')
                             <small class="fs-8 text-danger"> * {{$message}}</small>
-                        @enderror
+                        @enderror --}}
+
+                        <label class="form-label" ><strong>Linfa obtenida de:</strong></label>
+
+                        <div class="col">
+                            <input type="hidden" name="bacteriologia[linfa_lobulo_oreja]" value="">
+                            <input class="form-check-input" type="checkbox" name="bacteriologia[linfa_lobulo_oreja]" value="1">
+                            <label class="form-check-label">Lóbulo oreja</label>
+                        </div>
+                        <div class="col">
+                            <input type="hidden" name="bacteriologia[linfa_lesion]" value="">
+                            <input class="form-check-input" type="checkbox" name="bacteriologia[linfa_lesion]" value="1">
+                            <label class="form-check-label" >Lesión</label>
+                        </div>
+                        <div class="col">
+                            <input type="hidden" name="bacteriologia[linfa_codo]" value="">
+                            <input class="form-check-input" type="checkbox" name="bacteriologia[linfa_codo]" value="1">
+                            <label class="form-check-label" >Codo</label>
+                        </div>
+
+                        
+                        
+                        
                     </div>
                 </div>
                 <div class="row mt-4" ><label for=""><strong>Resultado laboratorial:</strong></label>
@@ -297,29 +321,19 @@
 
 
 <script type="text/javaScript">
-    $( document ).ready(function() {
-       $('#sedes').change(function (params) {
-        var params= $('#sedes').val();
-                $.ajax({
-                    data:  {'sedes_id':params, 'q':'provincias'},
-                    url:   '/servicio/show',
-                    headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}'},
-                    type:  'post',
-                    beforeSend: function () { },
-                    success:  function (response) {                	
-                        $("#provincias").remove();
-                        $('#municipios').remove();
-                        $('#servs_salud').remove();
-                        $('#redes_salud').remove();
-                        $('#datos_personales_servicio_salud_id').val('');
-                        $(".provincias").html(response);
-                    },
-                    error:function(){
-                        alert("error")
-                    }
-                });
-        })
+$( document ).ready(function() {
+    $('#sedes').change(function (params) {
+        doAjax(
+          {'sedes_id':$(this).val(), 'q':'provincias', 'new_tag':'provincias'},
+          function() { },
+          function (response) { 
+            $("#provincias, #municipios, #servs_salud, #redes_salud").remove(); 
+            $('#datos_personales_servicio_salud_id').val('');
+            $('.provincias').html(response);}, 
+          function(){alert("error")}
+        );
     });
+});
 </script>
 
 @endsection

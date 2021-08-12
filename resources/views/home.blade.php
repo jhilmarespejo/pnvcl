@@ -1,9 +1,58 @@
 @extends('layouts.template')
 @section('title', 'Home')
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+
+<style type="text/css">
+div#body_container > div {
+     padding: 2%;
+    background-color: transparent !important;
+    box-shadow: none !important
+}
+a.col{
+    height: 7rem;
+    /* background-color: red; */
+}
+</style>
+
+<div class="container text-center" style="margin-top: 23%;">
+
+    <div class="container c1" style="">
+        <div class="row">
+            <a class="col" href="/paciente/create"></a>
+            <div class="col">                
+            </div>
+            <div class="col">
+            </div>
+            <div class="col">
+            </div>
+            <a class="col" href="/reportes/index"></a>
+            
+        </div>
+    </div>
+    <div class="container c2" style="margin-top: 5%;">
+        <div class="row">
+            <a href="/paciente/index" class="text-decoration-none col"></a>
+            <div class="col"></div>
+            <a href="/paciente/index" class="text-decoration-none col"></a>
+            
+        </div>
+    </div>
+    <div class="container c3" style="margin-top: -1%;">
+        <div class="row">
+            <div class="col">
+            </div>
+            <div class="col">
+            </div>
+            <a href="/paciente/index" class="text-decoration-none col"></a>
+            <div class="col">
+            </div>
+            <div class="col">
+            </div>
+        </div>
+    </div>
+
+   {{--  <div class="row justify-content-center">
+        <div class="col-md-8" style="margin-top:5rem; opacity: 0.88;">
             <div class="card">
                 <div class="card-header">{{ __('Panel') }}</div>
                 
@@ -23,10 +72,8 @@
                             </div>  
                         @endif
 
-
-                        
                     @else
-                        <div class="alert alert-danger" role="alert">
+                        <div class="alert alert-danger" role="alert" >
                             Bienvenido <strong> Porfavor inicie Sesión</strong>
                         </div>
                     @endif
@@ -35,34 +82,7 @@
                 </div>
             </div>
         </div>
-    </div>
-
-
-
-    {{-- <form class="row g-3 needs-validation" novalidate>
-        <div class="col-md-3">
-          <label for="validationCustom05" class="form-label">Zip</label>
-          <input type="text" class="form-control" id="validationCustom05" required>
-          <div class="invalid-feedback">
-            Please provide a valid zip.
-          </div>
-        </div>
-        <div class="col-12">
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
-            <label class="form-check-label" for="invalidCheck">
-              Agree to terms and conditions
-            </label>
-            <div class="invalid-feedback">
-              You must agree before submitting.
-            </div>
-          </div>
-        </div>
-        <div class="col-12">
-          <button class="btn btn-primary" type="submit">Submit form</button>
-        </div>
-      </form> --}}
+    </div> --}}
 </div>
 @endsection
-
 

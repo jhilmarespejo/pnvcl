@@ -2,7 +2,20 @@
     <fieldset class="row mb-2 field-border">
         {{-- {{$errors}} --}}
         <legend class="field-border">2. Datos personales y epidemiológicos</legend>
-        <div class="col-2">
+
+        <div class="col">
+            <select class="form-select" name="datos_personales[tipo_caso]" data-bs-toggle="tooltip" data-bs-placement="top" title="Tipo de caso">
+                <option disabled value="" {{ (old('datos_personales.tipo_caso') == '')? 'selected':'' }}>Tipo de caso</option>
+                <option value="Nuevo" {{ (old('datos_personales.tipo_caso') == 'Nuevo')? 'selected':'' }}>Nuevo</option>
+                <option value="Crónico" {{ (old('datos_personales.tipo_caso') == 'Crónico')? 'selected':'' }}>Crónico</option>
+                <option value="Recaida" {{ (old('datos_personales.tipo_caso') == 'Recaida')? 'selected':'' }}>Recaida</option>
+            </select>
+            @error('datos_personales.tipo_caso')
+                <small class="fs-8 text-danger"> * {{$message}}</small>
+            @enderror
+        </div>
+
+        <div class="col">
             <input type="hidden" id="datos_personales_servicio_salud_id" name="datos_personales[servicio_salud_id]" value="">
             <input type="text" name="datos_personales[nombres]" value="{{old('datos_personales.nombres')}}" id="" class="form-control" placeholder="Nombres" data-bs-toggle="tooltip" data-bs-placement="top" title="Nombres">
             @error('datos_personales.nombres')
@@ -10,19 +23,19 @@
             @enderror
             
         </div>
-        <div class="col-2">
+        <div class="col">
             <input type="text" name="datos_personales[apellidos]" value="{{old('datos_personales.apellidos')}}" id="" class="form-control" placeholder="Apellidos" data-bs-toggle="tooltip" data-bs-placement="top" title="Apelidos">
             @error('datos_personales.apellidos')
                 <small class="fs-8 text-danger"> * {{$message}}</small>
             @enderror
         </div>
-        <div class="col-2">
+        <div class="col">
             <input type="text" name="datos_personales[ci]" value="{{old('datos_personales.ci')}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Carnet de Identidad" id="" class="form-control" placeholder="Carnet de Identidad" >
             @error('datos_personales.ci')
                 <small class="fs-8 text-danger"> * {{$message}}</small>
             @enderror
         </div>
-        <div class="col-2" >
+        <div class="col" >
             {{-- {{old('datos_personales.ci_exp')}} --}}
             <select class="form-select" name="datos_personales[ci_exp]" data-bs-toggle="tooltip" data-bs-placement="top" title="CI Expedición">
                 <option disabled value="" {{ (old('datos_personales.ci_exp') == '')? 'selected':'' }}>CI Exp.</option>
@@ -40,22 +53,20 @@
                 <small class="fs-8 text-danger"> * {{$message}}</small>
             @enderror
         </div>
-        <div class="col-2">
+         <div class="row mt-3"></div>
+        <div class="col">
             <input type="text" name="datos_personales[fecha_nacimiento]" value="{{old('datos_personales.fecha_nacimiento')}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Fecha de nacimiento" id="fecha_nacimiento" class="form-control" placeholder="Fecha de nacimiento" onfocus="(this.type='date')" onblur="(this.type='text')" >
             @error('datos_personales.fecha_nacimiento')
             <small class="fs-8 text-danger"> * {{$message}}</small>
                 @enderror
         </div>
-        <div class="col-2">
+        <div class="col">
             <input type="number" max="150" min="0" name="datos_personales[edad]" value="{{old('datos_personales.edad')}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Edad" id="edad" class="form-control" class="form-control" placeholder="Edad" >
             @error('datos_personales.edad')
                 <small class="fs-8 text-danger"> * {{$message}}</small>
             @enderror
         </div>
-
-        <div class="mb-3"></div>
-
-        <div class="col-2">
+        <div class="col">
             <select class="form-select" name="datos_personales[sexo]" data-bs-toggle="tooltip" data-bs-placement="top" title="Sexo">
                 <option disabled value="" {{ (old('datos_personales.sexo') == '')? 'selected':'' }}>Sexo</option>
                 <option value="F" {{ (old('datos_personales.sexo') == 'F')? 'selected':'' }}>F</option>
@@ -65,22 +76,42 @@
                 <small class="fs-8 text-danger"> * {{$message}}</small>
             @enderror
         </div>
-
-        <div class="col-2">
+      
+        <div class="col">
             <input type="number" min="0" name="datos_personales[telefono]" value="{{old('datos_personales.telefono')}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Teléfono" id="" class="form-control" placeholder="Teléfono">
             @error('datos_personales.telefono')
                 <small class="fs-8 text-danger"> * {{$message}}</small>
             @enderror
         </div>
-        <div class="col-2">
+        <div class="col">
             <input type="number" min="0" name="datos_personales[celular]" value="{{old('datos_personales.celular')}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Celular" id="" class="form-control" placeholder="Celular">
             @error('datos_personales.celular')
                 <small class="fs-8 text-danger"> * {{$message}}</small>
             @enderror
         </div>
+        <div class="row mt-3"></div>
         <div class="col-2">
             <label class="form-label"><strong>Domicilio actual: </strong> </label>
         </div>
+        <div class="col xs sm md">
+           {{--  <input type="text" id="" name="" data-bs-toggle="tooltip" data-bs-placement="top" title="Departamento" class="form-control" placeholder="Departamento"> --}}
+
+            <select class="form-select" id="dp_departamentos" name="dp_departamentos" data-bs-toggle="tooltip" data-bs-placement="top" title="Departamento" placeholder="Departamento">
+                    <option selected disabled>Seleccione...</option>
+                    <option value="1">Pando</option>
+                    <option value="2">Beni</option>
+                    <option value="3">Santa Cruz</option>
+                    <option value="4">Cochabamba</option>
+                    <option value="6">Tarija</option>
+                    <option value="5">Chuquisaca</option>
+                    <option value="9">La Paz</option>
+                    <option value="8">Oruro</option>
+                    <option value="7">Potosí</option>
+            </select>
+        </div>
+        <div class="col dp-provincias"></div>
+        <div class="col dp-municipios"></div>
+
         <div class="col-2">
             <input type="text" name="datos_personales[localidad]" value="{{old('datos_personales.localidad')}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Localidad" id="" class="form-control" placeholder="Localidad">
             @error('datos_personales.localidad')
@@ -114,7 +145,7 @@
             @enderror
         </div>
         <div class="col-2">
-            {{old('datos_personales.tiempo_res_actual_unidad')}}
+            {{-- {{old('datos_personales.tiempo_res_actual_unidad')}} --}}
             <select name="datos_personales[tiempo_res_actual_unidad]" value="{{old('datos_personales.tiempo_res_actual_unidad')}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Años/Meses" id="" class="form-select col-2" title="Selecciones años o meses">
                 <option value="" disabled {{ (old('datos_personales.tiempo_res_actual_unidad') == '')? 'selected':'' }}>Seleccione</option>
                 <option value="Años" {{ (old('datos_personales.tiempo_res_actual_unidad') == 'Años')? 'selected':'' }}>Años</option>
@@ -142,13 +173,13 @@
             @enderror
         </div>
 
-
+        <div class=" mt-3"></div>
         <div class="col">
             <fieldset class="row mt-3 field-border">
                 <label><strong>Croquis de la vivienda:</strong></label>
                 <div class="col">
                     <div class="row mb-3">
-                        <label for="" class="form-label"><strong>Opcion 1:</strong> Con Google Maps</label>
+                        <label for="" class="form-label"><strong>Opcion 1:</strong> Con Maps</label>
                         <div id="map" style="border:1px; width:600px; height:300px;" >
                             <input type="hidden" name="datos_personales[latlng]" id="latlng" value="">
                         </div>
@@ -244,6 +275,19 @@
         }
     });
 
+ 
+    $('#dp_departamentos').change(function (params) {
+        doAjax(
+          {'sedes_id':$(this).val(), 'q':'provincias', 'new_tag':'dp_provincias'},
+          function() { },
+          function (response) { 
+            $("#do_provincias, #dp_municipios").remove(); 
+            $('.dp-provincias').html(response);}, 
+          function(){alert("error")}
+        );
+    });
+
+    
     $('#fecha_nacimiento').focusout(function() {
         var hoy = new Date();
         var cumpleanos = new Date($(this).val());

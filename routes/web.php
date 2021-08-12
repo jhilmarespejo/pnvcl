@@ -7,6 +7,8 @@ use App\Http\Controllers\ResidenciaAnteriorController;
 use App\Http\Controllers\TypeaheadController;
 use App\Http\Controllers\ControlContactosController;
 use App\Http\Controllers\ControlProgramaTtoController;
+use App\Http\Controllers\MunicipiosController;
+use App\Http\Controllers\ReportesController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -22,7 +24,7 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () { 
     return view('home');
-});
+})->name('home');
 
 Route::get('paciente', [DatosPersonalesController::class, 'index'])->name('paciente.index');
 
@@ -45,9 +47,19 @@ Route::get('paciente', [DatosPersonalesController::class, 'index'])->name('pacie
 
     Route::put('contactos/update', [ControlContactosController::class, 'update'])->name('contactos.update');
 
-    Route::get('seguimiento/create/{id}', [ControlProgramaTtoController::class, 'create'])->name('contactos.create')->middleware('auth');
+    Route::get('seguimiento/edit/{id}', [ControlProgramaTtoController::class, 'edit'])->name('seguimiento.edit')->middleware('auth');
 
     Route::post('contactos/store', [ControlContactosController::class, 'store'])->name('contactos.store')->middleware('auth');
     Route::delete('contactos/destroy', [ControlContactosController::class, 'destroy'])->name('contactos.destroy')->middleware('auth');
     Auth::routes();
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+    //Route::resource('municipios', MunicipiosController::class)->middleware('auth');
+    Route::post('municipios/show', [MunicipiosController::class, 'show'])->name('municipios.show')->middleware('auth');
+
+    Route::get('reportes/index', [ReportesController::class, 'index'])->name('reportes.index')->middleware('auth')->middleware('auth');
+
+    Route::post('reportes/show', [ReportesController::class, 'show'])->name('reportes.show')->middleware('auth')->middleware('auth');
+
+    Route::post('seguimiento/store', [ControlProgramaTtoController::class, 'store'])->name('seguimiento.store')->middleware('auth');

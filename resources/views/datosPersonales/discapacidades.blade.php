@@ -5,10 +5,10 @@
       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
     <div class="modal-body">
-      <div class="container row mt-3">
+      <div class="container row mt-3 table-responsive">
         <fieldset class="field-border row">
          
-          <table class=" table table-responsive table-bordered">
+          <table class="table table-sm table-bordered">
             <thead>
               <tr>
                 <th rowspan="2">Grado</th>

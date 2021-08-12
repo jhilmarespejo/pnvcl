@@ -59,7 +59,7 @@ class ControlContactosController extends Controller
      );
        
         DB::table('control_contactos')->insert( request()->except(['_token']) );
-        return redirect("contactos/edit/".$request->datos_personales_id)->with('success', '!Dato guardado con éxito¡');;
+        return redirect("contactos/edit/".$request->datos_personales_id)->with('success', '!Dato guardado con éxito¡');
         //return $request;
     }
 
@@ -83,7 +83,7 @@ class ControlContactosController extends Controller
     public function edit($id)
     {
         $patientRecords = DB::table('sedes')
-        ->select('datos_personales.nombres','datos_personales.apellidos','datos_personales.historia_clinica','datos_personales.num_ficha','diagnostico.multibacilar_lepromatosa','diagnostico.multibacilar_dimofa','diagnostico.paucibacilar_tuberculoide','diagnostico.paucibacilar_indeterminada','tratamiento.actual_multibacilar','tratamiento.actual_paucibacilar','sedes.sedes','provincia.provincia','municipio.municipio','red_salud.red_salud','servicio_salud.serv_salud')
+        ->select('datos_personales.id','datos_personales.nombres','datos_personales.apellidos','datos_personales.historia_clinica','datos_personales.num_ficha','diagnostico.multibacilar_lepromatosa','diagnostico.multibacilar_dimofa','diagnostico.paucibacilar_tuberculoide','diagnostico.paucibacilar_indeterminada','tratamiento.actual_multibacilar','tratamiento.actual_paucibacilar','sedes.sedes','provincia.provincia','municipio.municipio','red_salud.red_salud','servicio_salud.serv_salud')
 
         ->leftjoin ('provincia', 'sedes.id', '=', 'provincia.sedes_id') 
         ->leftjoin ('municipio', 'provincia.id', '=', 'municipio.provincia_id')
@@ -114,9 +114,6 @@ class ControlContactosController extends Controller
         //$contact = request()->except(['_token','_method']);
         ControlContactos::where('id', '=', $request->id)->update(request()->except(['_token','_method', 'datos_personales_id']));
         return redirect("contactos/edit/".$request->datos_personales_id)->with('success', '!Dato guardado con éxito¡');
-        
-        return $request;
-
     }
 
     /**
