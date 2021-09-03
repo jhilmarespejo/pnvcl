@@ -220,7 +220,7 @@ class ReportesController extends Controller
             /*returns the number of cases, rate with the population of the country and the corresponding metric*/
             return view('Reportes.responses', ['proportion' => (($records->get()->count()/$this->totalCases($request))*100), 'edad' => $request->edad_m_4,'metric' => 'm_4', 'case' => $request->caso_m_4]);
         }
-    /*** PROCESS FOR METRIC 5  ***/
+    /*** PROCESS FOR METRIC 5 REVISAR  ***/
         if($request->metric == 'm_5'){
             $startDate = $request->gestion_m_5.'-01-01';
             $endDate = $request->gestion_m_5.'-12-31';
@@ -232,8 +232,7 @@ class ReportesController extends Controller
             ->join('datos_personales', 'datos_personales.servicio_salud_id', '=', 'servicio_salud.id')
             ->join('diagnostico', 'diagnostico.datos_personales_id', '=', 'datos_personales.id')
             ->orWhere(function($query) {
-                $query->orWhereNotNull('diagnostico.multibacilar_lepromatosa')
-                      ->orWhereNotNull('diagnostico.multibacilar_dimofa');
+                $query->orWhereNotNull('diagnostico.diagnostico');
             })
             ->whereBetween('diagnostico.fecha_diagnostico', [$startDate, $endDate])
             ->where('datos_personales.tipo_caso', '=', $request->caso_m_5);

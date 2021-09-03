@@ -58,7 +58,7 @@ class ServicioSaludController extends Controller
             return view('datosPersonales.servSalud', ['municipios' => $municipios, 'new_tag' => $request->new_tag]);
         }
         if( $request->q == 'sevicios_salud' ){
-            $servicios_salud = DB::table('servicio_salud')->where('municipio_id',$request->municipio_id)->get();
+            $servicios_salud = DB::table('servicio_salud')->where('municipio_id',$request->municipio_id)->orderby('serv_salud', 'Asc')->get();
             return view('datosPersonales.servSalud', ['servicios_salud' => $servicios_salud, 'new_tag' => $request->new_tag]);
         }
         if( $request->q == 'red_salud' ){

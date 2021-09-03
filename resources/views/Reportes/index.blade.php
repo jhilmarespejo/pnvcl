@@ -207,7 +207,7 @@
 
 <div class="container row mt-5">
 	{{-- METRIC 5 --}}
-	<div class="card border-info col" >
+	<div class="card border-info col animate fadeInUp" >
 	  <div class="card-header">PROPORCIÓN DE CASOS MB ENTRE LOS CASOS NUEVOS DETECTADOS</div>
 	  <div class="card-body">
 	    <form method="post" id="form_m_5" action="{{route('reportes.show')}}">
@@ -248,12 +248,33 @@
 	    <span id="btn_m_5" class="btn btn-primary  mt-3">Consultar</span>
 	  </div>
 	</div>
+	{{-- METRIC 6 --}}
 	<div class="col-1"></div>
 	<div class="card border-info col" >
 	</div>
 
 
 </div>
+
+
+
+
+    <div class=" animate fadeInUp">
+    Going up 
+    </div>
+
+    <div class=" animate fadeInDown ">
+    Going down
+    </div>
+
+    <div class=" animate fadeInLeft ">
+    Coming from left
+    </div>
+  
+    <div class=" animate fadeInRight ">
+    Coming from right
+    </div>
+
 
 <script type="text/javascript">
 	$( document ).ready(function() {

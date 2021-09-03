@@ -10,12 +10,16 @@
     <script src="/bootstrap5/js/bootstrap.bundle.min.js"></script>
     {{-- <script src="/bootstrap5/js/custom.js"></script> --}}
   
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-    crossorigin=""/>
+    
     <link rel="stylesheet" type="text/css" href="/bootstrap5/DataTables/datatables.min.css"/>
- 
     <script type="text/javascript" src="/bootstrap5/DataTables/datatables.min.js"></script>
+
+
+    <script type="text/javascript" src="/bootstrap5/DataTables/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="/bootstrap5/DataTables/jszip.min.js"></script>
+    <script type="text/javascript" src="/bootstrap5/DataTables/buttons.html5.min.js"></script>
+
+
 
    {{--  <link
   href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.3.0/mdb.min.css"
@@ -30,49 +34,10 @@
 
 </head>
 <body>
-
-{{-- @if (Auth::user())
-  <style type="text/css">
-      div#body_container{
-          background: url('/images/home.jpg')  #e8e8e8 no-repeat center top !important;
-          background-size: 100%;
-          height: 55rem;
-      }
-  </style>
-  @else
-    <style type="text/css">
-      div#body_container{
-          background: url('/images/logout.jpg')  #e8e8e8 no-repeat center top !important;
-          background-size: 100%;
-      }
-    </style>
-@endif  --}}
-
-  <nav class="navbar navbar-expand-lg navbar-light fixed-top xbg-info nav-custom-1">
-      <div class="container-fluid flex-row-reverse " style="margin-right: 4%;">
-        {{-- <a class="navbar-brand" href="#">Menú: </a> --}}
-        
-        {{-- @if (Auth::check())
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <h4><a class="nav-link" aria-current="page" href="/paciente/create">Nuevo Paciente</a><h3>
-              </li>
-              <li class="nav-item">
-                <h4><a class="nav-link" href="/paciente/index">Registro de casos</a></h4>
-              </li>
-              <li class="nav-item">
-                <h4><a class="nav-link" href="/reportes/index">Reportes</a></h4>
-              </li>
-            </ul>
-          </div>
-        @endif --}}
-        
-      
-        <div class="dropdown" id="navbarSupp  ortedContent">
+  <nav class="navbar fixed-top nav-custom-1">
+    <img class="img-fluid" src="/images/navbar1.png" alt="...">
+      <div class="container-fluid flex-row-reverse fixed-top" style="margin: 2% 0% 0% -4%;">
+        <div class="dropdown">
           <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
             @if ( Auth::check() )
               {{ Auth::user()->name }}
@@ -85,6 +50,7 @@
               @if (Route::has('login'))
                   <li>
                       <a class="dropdown-item" href="{{ route('login') }}">{{ __('Ingresar') }}</a>
+                      <a class="dropdown-item" href="/reportes/index">Reportes</a>
                   </li>
               @endif
               @else
@@ -114,7 +80,7 @@
  
 {{-- GENERAL CONTENT --}}
 
-  <div id="body_container" class="container-fluid ">
+  <div id="body_container" class="container-fluid container-xxl ">
     {{-- {{ Route::currentRouteName() }} --}}
     
     @if(Route::currentRouteName() == 'login')
@@ -144,16 +110,15 @@
     @else
       <style type="text/css">
           div#body_container{
-          background: url('/images/content.jpg')  #e8e8e8 no-repeat center top fixed !important;
+          background: url('/images/bg4.jpg')  #e8e8e8 no-repeat center top fixed !important;
           height: auto;
         }
       </style> 
     @endif
-    <div class="container container-md border border-2 rounded img-fluid">
-        <div class="row">
+    <div class="container-xxl border border-2 rounded img-fluid">
+        {{-- <div class=""> --}}
             @yield('content')
-
-        </div>
+        {{-- </div> --}}
     </div>
   </div>
 </body>

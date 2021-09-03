@@ -1,7 +1,7 @@
 {{-- 
     THIS VIEW PROCESSES THE INFORMATION SHOW IN: 1. DATOS GENERALes
     This file processes the dynamic and dependent views of the select:
-    departmento, provincias, municipios, servcio de salud y red de salud 
+    departmento, provincias, municipios, servcio de salud y redd de salud 
 --}}
 
 @isset($provincias)
@@ -29,10 +29,10 @@ $( document ).ready(function() {
 
     $('#dp_provincias').change(function (params) {
         doAjax(
-          {'provincia_id':$(this).val(), 'q':'municipios', 'new_tag':'datos_peersonales[municipio_id]'},
+          {'provincia_id':$(this).val(), 'q':'municipios', 'new_tag': 'datos_personales[municipio_id]'},
           function() { },
           function (response) { 
-            $("#dp_municipio").remove(); 
+            $("#ssc *").remove(); 
             $('.dp-municipios').html(response);}, 
           function(){alert("error")}
         );
@@ -120,6 +120,17 @@ $( document ).ready(function() {
                   function(){alert("error")}
                 );municipios
             });
+
+        /*TO PROCESS THE FORM for SERVICIO DE SALUD CERCANO*/
+            $(".dp-municipios>select").change(function(params){
+                doAjax(
+                  {'municipio_id':$(this).val(), 'q':'sevicios_salud', 'new_tag':'datos_personales[serv_salud_id_cercano]'},
+                  function() { },
+                  function (response) { 
+                    $('#ssc').html(response);}, 
+                  function(){alert("error")}
+                );
+            });
         /*TO PROCESS THE FORM OF METRIC 1*/
             $('#municipio_m_1').change(function (params) {
                 doAjax(
@@ -164,14 +175,17 @@ $( document ).ready(function() {
 
 
 @isset($servicios_salud)
+
+
     <select class="form-select" id="{{ $new_tag }}" name="{{ $new_tag }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Servicios de salud" >
         <option selected value="">...</option>
         @foreach ($servicios_salud as $servicio_salud)
             <option value="{{$servicio_salud->id}}" >{{$servicio_salud->serv_salud}}
             </option>
         @endforeach
-
     </select>
+
+
 
     <script type="text/javaScript">
         $( document ).ready(function() {

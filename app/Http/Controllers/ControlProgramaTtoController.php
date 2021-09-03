@@ -26,7 +26,7 @@ class ControlProgramaTtoController extends Controller
     public function edit($id)
     {
         $patientRecords = DB::table('municipio')
-        ->select('datos_personales.id', 'datos_personales.nombres', 'datos_personales.apellidos', 'datos_personales.edad', 'datos_personales.sexo', 'datos_personales.localidad', 'datos_personales.zona', 'datos_personales.calle', 'datos_personales.numero', 'datos_personales.historia_clinica', 'datos_personales.num_ficha', 'servicio_salud.serv_salud',  'diagnostico.fecha_diagnostico', 'diagnostico.multibacilar_lepromatosa', 'diagnostico.multibacilar_dimofa', 'diagnostico.paucibacilar_tuberculoide', 'diagnostico.paucibacilar_indeterminada',  'tratamiento.actual_fecha_inicio')
+        ->select('datos_personales.id', 'datos_personales.nombres', 'datos_personales.apellidos', 'datos_personales.edad', 'datos_personales.sexo', 'datos_personales.localidad', 'datos_personales.zona', 'datos_personales.calle', 'datos_personales.numero', 'datos_personales.historia_clinica', 'datos_personales.num_ficha', 'servicio_salud.serv_salud',  'diagnostico.fecha_diagnostico', 'diagnostico.diagnostico',  'tratamiento.actual_fecha_inicio', 'tratamiento.esquema_actual')
         
         ->join('servicio_salud', 'servicio_salud.municipio_id', '=', 'municipio.id')
         ->join('datos_personales', 'datos_personales.servicio_salud_id', '=', 'servicio_salud.id')

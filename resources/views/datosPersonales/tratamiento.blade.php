@@ -1,9 +1,9 @@
 <fieldset class="field-border col">
    <div class="col">
         
-        <label class="form-label" ><strong>9.1 Traramiento anterior por:</strong></label>
+        <label class="form-label" ><strong>9.1 Tratamiento anterior por:</strong></label>
         <br>
-        <select name="tratamiento[tto_anterior]" id="" class="form-select">
+        <select name="tratamiento[tto_anterior]" id="tto_anterior" class="form-select">
             <option value="" disabled {{(old('tratamiento.tto_anterior') == '')? 'selected':'' }} >Seleccione</option>
             <option value="Abandono" {{(old('tratamiento.tto_anterior') == 'Abandono')? 'selected':'' }}>Abandono</option>
             <option value="Fracaso terapéutico" {{(old('tratamiento.tto_anterior') == 'Fracaso terapéutico')? 'selected':'' }}>Fracaso terapéutico</option>
@@ -14,24 +14,18 @@
             <small class="fs-8 text-danger"> * {{$message}}</small>
         @enderror
    </div>
-   <div class="col ">
-        <label class="form-label" >Esquema:</label>
+   <div class="col mt-1">
+        <label class="form-label" >Esquema anterior: </label>
 
-        <input type="hidden" name="tratamiento[anterior_multibacilar]" value="">
-        <input class="form-check-input" type="checkbox" name="tratamiento[anterior_multibacilar]" value="Si">
-        <label class="form-check-label" for="lepromatosa">Multibacilar</label>
+        <input class="esquema-anterior" {{ (old('tratamiento.esquema_anterior') == 'Multibacilar')? 'checked' : '' }}  type="radio" name="tratamiento[esquema_anterior]" value="Multibacilar">
+        <label class="form-check-label me-5" for="lepromatosa">Multibacilar </label>
 
-
-        <input type="hidden" name="tratamiento[anterior_paucibacilar]" value="">
-        <input class="form-check-input" type="checkbox" name="tratamiento[anterior_paucibacilar]" value="Si">
+        <input class="esquema-anterior" {{ (old('tratamiento.esquema_anterior') == 'Paucibacilar')? 'checked' : '' }}  type="radio" name="tratamiento[esquema_anterior]" value="Paucibacilar">
         <label class="form-check-label" for="dimofa">Paucibacilar</label>
+        @error('tratamiento.esquema_anterior')
+            <small class="fs-8 text-danger row ms-1"> * {{$message}}</small>
+        @enderror
 </fieldset>
-    
-    {{-- <input type="date" name="bacteriologia[fecha_muestra]" value="{{old('bacteriologia.fecha_muestra')}}" id="" class="form-control" placeholder="Fecha de toma de muestra" data-bs-toggle="tooltip" data-bs-placement="top" title="Fecha de toma de muestra">
-    @error('bacteriologia.fecha_muestra')
-        <small class="fs-8 text-danger"> * {{$message}}</small>
-    @enderror --}}
-
 
 <fieldset class="field-border col">
     <div class="row">
@@ -46,15 +40,35 @@
         </div>
 
         <div class="col">
-            <label class=" " >Esquema:</label>
+            <label class=" " >Esquema actual:</label>
            
-                <input type="hidden" name="tratamiento[actual_multibacilar]" value="">
-                <input class="form-check-input" type="checkbox" name="tratamiento[actual_multibacilar]" value="Si">
-                <label class="form-check-label" for="lepromatosa">Multibacilar</label>
+                <input id="mb" type="radio" name="tratamiento[esquema_actual]" value="Multibacilar" {{ (old('tratamiento.esquema_actual') == 'Multibacilar')? 'checked' : ''}}>
+                <label class="me-5">Multibacilar</label>
 
-                <input type="hidden" name="tratamiento[actual_paucibacilar]" value="">
-                <input class="form-check-input" type="checkbox" name="tratamiento[actual_paucibacilar]" value="Si">
-                <label class="form-check-label" for="dimofa">Paucibacilar</label>
+                <input id="pb" type="radio" name="tratamiento[esquema_actual]" value="Paucibacilar" {{ (old('tratamiento.esquema_actual') == 'Paucibacilar')? 'checked' : ''}}>
+                <label>Paucibacilar</label>
+                @error('tratamiento.esquema_actual')
+                    <small class="fs-8 text-danger row ms-1"> * {{$message}}</small>
+                @enderror
         </div>
+
    </div>
 </fieldset>
+
+<script type="text/javaScript">
+    $( document ).ready(function() {
+
+        $('#tto_anterior').change(function (e) {
+            validate_tto_anterior($('#tto_anterior'));
+        });
+        document.getElementById("tto_anterior").onload = validate_tto_anterior($('#tto_anterior'));
+        function validate_tto_anterior(tag){
+            if( tag.val() == 'Ninguno'){
+                $('.esquema-anterior').prop("disabled", true);
+                $('.esquema-anterior').prop('checked',false);
+            } else{
+                $('.esquema-anterior').removeAttr('disabled');
+            }
+        }
+    });
+</script>

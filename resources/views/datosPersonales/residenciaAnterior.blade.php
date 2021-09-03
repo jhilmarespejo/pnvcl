@@ -12,7 +12,7 @@
                       <th>Provincia</th>
                       <th>Municipio</th>
                       <th>Localidad</th>
-                      <th>Tiempo de residencia</th>
+                      <th>¿Hace cuanto tiempo vivía?</th>
                   </tr>
               </thead>
               <tbody>

@@ -45,16 +45,20 @@
 			<label class="form-label-sm">Nº Hist. Clínica</label>
 			<input readonly type="text" class="form-control form-control-sm" value="{{$patientRecord->historia_clinica}}">
 		</div>
-		<div class="row">
-			<div class="col-sm">
-				<label class="form-label-sm">Serv. de Salud</label>
-				<input readonly type="text" class="form-control form-control-sm" value="{{$patientRecord->serv_salud}}">
-			</div>
+	{{-- 	<div class="row"> --}}
+		<div class="col-sm">
+			<label class="form-label-sm">Serv. de Salud</label>
+			<input readonly type="text" class="form-control form-control-sm" value="{{$patientRecord->serv_salud}}">
 		</div>
-		<div class="row">
+		{{-- </div> --}}
+		<div class="row mt-3">
 			<div class="col-sm">
 				<label class="form-label-sm">Dianóstico</label>
-				<input readonly type="text" class="form-control form-control-sm" value="{{ $patientRecord->multibacilar_lepromatosa.', '.$patientRecord->multibacilar_dimofa.', '.$patientRecord->paucibacilar_tuberculoide.', '.$patientRecord->paucibacilar_indeterminada }}">
+				<input readonly type="text" class="form-control form-control-sm" value="{{ $patientRecord->diagnostico }}">
+			</div>
+			<div class="col-sm">
+				<label class="form-label-sm">Tratamiento actual</label>
+				<input readonly type="text" class="form-control form-control-sm" value="{{ $patientRecord->esquema_actual }}">
 			</div>
 			<div class="col-sm">
 				<label class="form-label-sm">Fecha dianóstico</label>
@@ -70,7 +74,7 @@
 			</div>
 			<div class="col-sm">
 				
-				<a class="btn btn-primary mt-3 " href="/contactos/edit/{{$patientRecord->id}}">Control de contactos</a>
+				<a class="btn btn-success mt-3 " href="/contactos/edit/{{$patientRecord->id}}">Control de contactos</a>
 {{-- <a class="dropdown-item" href="/seguimiento/edit/{{$patientRecord->id}}">Seguimiento al tratamiento</a> --}}
 			</div>
 			
@@ -85,7 +89,7 @@
 			<tr>
 				<th class="align-middle text-center">1. Control</th>
 				<th class="align-middle text-center">2. Fecha</th>
-				<th class="align-middle text-center">3. Poliquimioterapia</th>
+				<th class="align-middle text-center">3. Tratamiento multimedicamentoso<br>(Poliquimioterapia)</th>
 				<th class="align-middle text-center">4. <br>Estados reaccionales</th>
 				<th class="align-middle text-center">5. Principales hallazgos clínicos</th>
 				<th class="align-middle text-center">6. <br>Tratamiento de estados reaccionales</th>
@@ -174,11 +178,11 @@
 					<input class="form-control form-control-sm" type="text" name="er_otros" class="form-control form-control-sm" placeholder="Otros" data-bs-toggle="tooltip" data-bs-placement="top" title="Otros">
 				</td>
 				<td>
-					<textarea rows=1 class="form-control form-control-sm mb-3" type="text" name="hc_inicio" placeholder="Al inicio del tratamiento" data-bs-toggle="tooltip" data-bs-placement="top" title="Hallazgos clínicos al inicio del tratamiento"></textarea>
+					{{-- <textarea rows=1 class="form-control form-control-sm mb-3" type="text" name="hc_inicio" placeholder="Al inicio del tratamiento" data-bs-toggle="tooltip" data-bs-placement="top" title="Hallazgos clínicos al inicio del tratamiento"></textarea>
+ --}}
+					<textarea rows="2" class="form-control form-control-sm mb-3" type="text" name="hc_durante" placeholder="Durante el tratamiento" data-bs-toggle="tooltip" data-bs-placement="top" title="Hallazgos clínicos durante el tratamiento"></textarea>
 
-					<textarea rows="1" class="form-control form-control-sm mb-3" type="text" name="hc_durante" placeholder="Durante el tratamiento" data-bs-toggle="tooltip" data-bs-placement="top" title="Hallazgos clínicos durante el tratamiento"></textarea>
-
-					<textarea rows="1"  class="form-control form-control-sm mb-3" type="text" name="hc_final" placeholder="Al final del tratamiento" data-bs-toggle="tooltip" data-bs-placement="top" title="Hallazgos clínicos al final del tratamiento"></textarea>
+					{{-- <textarea rows="1"  class="form-control form-control-sm mb-3" type="text" name="hc_final" placeholder="Al final del tratamiento" data-bs-toggle="tooltip" data-bs-placement="top" title="Hallazgos clínicos al final del tratamiento"></textarea> --}}
 				</td>
 				<td>
 					<div class="row">

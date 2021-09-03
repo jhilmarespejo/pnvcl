@@ -1,6 +1,6 @@
-{{-- SHOW FORM TO CREATE A NEW PATIENT --}}
+{{-- SHOW  TABLE ON ALL RECORS OF PATIENTS --}}
 @extends('layouts.template')
-@section('title', 'Registro mensual')
+@section('title', 'Registro de Casos')
 
 {{-- @php
     print_r($records);
@@ -23,59 +23,40 @@
 </div>
 <h3 class="text-center">REGISTRO MENSUAL DE CASOS DE LEPRA</h3>
 <div class="table-responsive">
-    <table class="table table-sm table-bordered table-responsive" id="patients">
+    <table class="table table-sm table-bordered table-responsive " id="patients">
         <thead style="font-size: 13px">
             <tr class="text-center">
-                <th rowspan="3" class="invisiblex"></th>
-                <th class="text-center" rowspan="3">Apellidos y nombres</th>
-                <th class="text-center" rowspan="3" >Edad</th>
-                <th class="text-center" rowspan="3" >Sexo</th>
-                <th class="text-center" rowspan="3" >Fecha diag.</th>
-                <th colspan="2">Procedencia</th>
-                <th colspan="2">Laboratorio <br>(BAAR)</th>
-                <th colspan="4">Diagnóstico</th>
-                <th colspan="2" colspan="2">Esq. de Trat.</th>
-                <th class="text-center" rowspan="3">Aciones</th>
+                <th><span style="font-size:10px">COD</span></th>
+                <th class="text-center">Apellidos y nombres</th>
+                <th class="text-center">Edad</th>
+                <th class="text-center">Sexo</th>
+                <th class="text-center">Fecha diag.</th>
+                <th class="text-center">Localidad</th>
+                <th class="text-center">Municipio</th>
+                <th>(BAAR)</th>
+                <th class="text-center">Diagnóstico</th>
+                <th class="text-center">Esquema de Tratamiento</th>
+                <th class="text-center">Aciones</th>
             </tr>
-            <tr>
-                
-                
-                <th class="text-center" rowspan="2">Localidad</th>
-                <th class="text-center" rowspan="2">Municipio</th>
-                <th class="text-center" rowspan="2">+</th>
-                <th class="text-center" rowspan="2">-</th>
-                <th colspan="2">MB</th>
-                <th colspan="2">PB</th>
-                <th class="text-center" rowspan="2">MB</th>
-                <th class="text-center" rowspan="2">PB</th>
-            </tr>
-            <tr>
-                <th>+</th>
-                <th>-</th>
-                <th>+</th>
-                <th>-</th>
-                
-            </tr>
+            
         </thead>
         <tbody style="font-size: 13px">
             @foreach ($records as $record)
             <tr>
-                {{-- <td><a href="/paciente/show/{{$record->id}}" class="link-secondary" style="text-transform:uppercase;">{{$record->nombres}} {{$record->apellidos}}</a></td> --}}
-                <td ><span style="font-size:0px">{{$record->id}}</span>
-                <td><span style="text-transform:uppercase;">{{$record->nombres}} {{$record->apellidos}}</span></td>
+                <td ><span style="font-size:10px">{{$record->id}}</span>
+                <td>
+                    <a href="/paciente/edit/{{$record->id}}" class="link-secondary" style="text-transform:uppercase;">{{$record->nombres}} {{$record->apellidos}}</a>
+                    {{-- <a href="#" class="link-secondary" style="text-transform:uppercase;">{{$record->nombres}} {{$record->apellidos}}</a --}}>
+                </td>
                 <td>{{$record->edad}}</td>
                 <td>{{$record->sexo}}</td>
                 <td>{{$record->fecha_diagnostico}}</td>
                 <td>{{$record->localidad}}</td>
                 <td>{{$record->municipio}}</td>
-                <td>{{-- {{$record->laboratorio_baar}} --}}</td>
-                <td>{{-- {{$record->laboratorio_baar}} --}}</td>
-                <td>{{$record->multibacilar_lepromatosa}}</td>
-                <td>{{$record->multibacilar_dimofa}}</td>
-                <td>{{$record->paucibacilar_tuberculoide}}</td>
-                <td>{{$record->paucibacilar_indeterminada}}</td>
-                <td>{{$record->actual_multibacilar}}</td>
-                <td>{{$record->actual_paucibacilar}}</td>
+                <td>{{$record->baar}}</td>
+                <td>{{$record->diagnostico}}</td>
+                
+                <td>{{$record->esquema_actual}}</td>
                 <td><div class="dropdown">
                     <button class="btn btn-success btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                       Opciones
@@ -97,8 +78,23 @@
     $(".alert").fadeOut(9500 );
     
 $(document).ready( function () {
-    
+
+
     $('#patients').DataTable({
+         "dom": '<"row sticky-top mt-4" <"col" B><"col" l><"col" f>>rt<"row" <"col" i><"col" p>>',
+        buttons: [
+            {
+                extend: 'excel',
+                text: 'Exportar a Excel',
+                exportOptions: {
+                    columns: [1,2,3,4,5,6,7,8,9],
+                    modifier: {
+                    page: 'all'
+                    }
+                }
+
+            }
+        ],
         language: {
             "decimal": "",
             "emptyTable": "No hay información",
@@ -119,7 +115,15 @@ $(document).ready( function () {
                 "previous": "Anterior"
             }
         },
-        "order": [[ 0, 'desc' ]]
+        "columnDefs": [
+            {
+                "targets": [0],
+                "visible": false,
+                "searchable": false,
+                'visible': false
+            }],
+        "order": [[ 0, 'desc' ]],
+
     });
 
 } );

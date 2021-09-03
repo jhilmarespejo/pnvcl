@@ -1,4 +1,14 @@
-<div class="container row">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+   crossorigin="">
+</script>
+<script src="/maps/index.js"></script>
+
+
+<div class="container-xxl">
     <fieldset class="row mb-2 field-border">
         {{-- {{$errors}} --}}
         <legend class="field-border">2. Datos personales y epidemiológicos</legend>
@@ -14,7 +24,22 @@
                 <small class="fs-8 text-danger"> * {{$message}}</small>
             @enderror
         </div>
-
+        <div class="col">
+            <select class="form-select" name="datos_personales[caso]" data-bs-toggle="tooltip" data-bs-placement="top" title="Caso importado/autóctono">
+                <option disabled value="" {{ (old('datos_personales.caso') == '')? 'selected':'' }}>Caso</option>
+                <option value="Autoctono" {{ (old('datos_personales.caso') == 'Autoctono')? 'selected':'' }}>Autóctono</option>
+                <option value="Importado" {{ (old('datos_personales.caso') == 'Importado')? 'selected':'' }}>Importado</option>
+            </select>
+            @error('datos_personales.caso')
+                <small class="fs-8 text-danger"> * {{$message}}</small>
+            @enderror
+        </div>
+        <div class="col">
+            <input type="text" name="datos_personales[historia_clinica]" value="{{old('datos_personales.historia_clinica')}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Número de historia clínica" id="" class="form-control" placeholder="Número de historia clínica" >
+            @error('datos_personales.historia_clinica')
+                <small class="fs-8 text-danger"> * {{$message}}</small>
+            @enderror
+        </div>
         <div class="col">
             <input type="hidden" id="datos_personales_servicio_salud_id" name="datos_personales[servicio_salud_id]" value="">
             <input type="text" name="datos_personales[nombres]" value="{{old('datos_personales.nombres')}}" id="" class="form-control" placeholder="Nombres" data-bs-toggle="tooltip" data-bs-placement="top" title="Nombres">
@@ -29,15 +54,16 @@
                 <small class="fs-8 text-danger"> * {{$message}}</small>
             @enderror
         </div>
+        
         <div class="col">
-            <input type="text" name="datos_personales[ci]" value="{{old('datos_personales.ci')}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Carnet de Identidad" id="" class="form-control" placeholder="Carnet de Identidad" >
+            <input id="ci" type="text" name="datos_personales[ci]" value="{{old('datos_personales.ci')}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Carnet de Identidad" class="form-control" placeholder="Carnet de Identidad" >
+            
             @error('datos_personales.ci')
                 <small class="fs-8 text-danger"> * {{$message}}</small>
             @enderror
         </div>
         <div class="col" >
-            {{-- {{old('datos_personales.ci_exp')}} --}}
-            <select class="form-select" name="datos_personales[ci_exp]" data-bs-toggle="tooltip" data-bs-placement="top" title="CI Expedición">
+            <select id="ci_exp" class="form-select" name="datos_personales[ci_exp]" data-bs-toggle="tooltip" data-bs-placement="top" title="CI Expedición">
                 <option disabled value="" {{ (old('datos_personales.ci_exp') == '')? 'selected':'' }}>CI Exp.</option>
                 <option value="BN" {{ (old('datos_personales.ci_exp') == 'BN')? 'selected':'' }} >Beni</option>
                 <option value="PN" {{ (old('datos_personales.ci_exp') == 'PN')? 'selected':'' }} >Pando</option>
@@ -48,12 +74,27 @@
                 <option value="LP" {{ (old('datos_personales.ci_exp') == 'LP')? 'selected':'' }} >La Paz</option>
                 <option value="OR" {{ (old('datos_personales.ci_exp') == 'OR')? 'selected':'' }} >Oruro</option>
                 <option value="PT" {{ (old('datos_personales.ci_exp') == 'PT')? 'selected':'' }} >Potosí</option>
+                <option value="Sin CI" {{ (old('datos_personales.ci_exp') == 'Sin CI')? 'selected':'' }} >No presenta CI</option>
             </select>
             @error('datos_personales.ci_exp')
                 <small class="fs-8 text-danger"> * {{$message}}</small>
             @enderror
         </div>
-         <div class="row mt-3"></div>
+        
+        <div class="row mt-3 text-end"></div>
+         <div class="col">
+            <input disabled type="text" name="datos_personales[otro_documento]" value="{{old('datos_personales.otro_documento')}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Otro domento de indentificación" id="otro_documento" class="form-control" placeholder="Otro domento de indentificación" >
+            @error('datos_personales.otro_documento')
+                <small class="fs-8 text-danger"> * {{$message}}</small>
+            @enderror
+        </div>
+         <div class="col">
+            <input disabled type="text" name="datos_personales[otro_documento_numero]" value="{{old('datos_personales.otro_documento_numero')}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Número del documento" id="otro_documento_numero" class="form-control" placeholder="Número del documento" >
+            @error('datos_personales.otro_documento_numero')
+                <small class="fs-8 text-danger"> * {{$message}}</small>
+            @enderror
+        </div>
+
         <div class="col">
             <input type="text" name="datos_personales[fecha_nacimiento]" value="{{old('datos_personales.fecha_nacimiento')}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Fecha de nacimiento" id="fecha_nacimiento" class="form-control" placeholder="Fecha de nacimiento" onfocus="(this.type='date')" onblur="(this.type='text')" >
             @error('datos_personales.fecha_nacimiento')
@@ -69,8 +110,8 @@
         <div class="col">
             <select class="form-select" name="datos_personales[sexo]" data-bs-toggle="tooltip" data-bs-placement="top" title="Sexo">
                 <option disabled value="" {{ (old('datos_personales.sexo') == '')? 'selected':'' }}>Sexo</option>
-                <option value="F" {{ (old('datos_personales.sexo') == 'F')? 'selected':'' }}>F</option>
-                <option value="M" {{ (old('datos_personales.sexo') == 'M')? 'selected':'' }}>M</option>
+                <option value="Fem" {{ (old('datos_personales.sexo') == 'Fem')? 'selected':'' }}>Fem</option>
+                <option value="Masc" {{ (old('datos_personales.sexo') == 'Masc')? 'selected':'' }}>Masc</option>
             </select>
             @error('datos_personales.sexo')
                 <small class="fs-8 text-danger"> * {{$message}}</small>
@@ -78,24 +119,22 @@
         </div>
       
         <div class="col">
-            <input type="number" min="0" name="datos_personales[telefono]" value="{{old('datos_personales.telefono')}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Teléfono" id="" class="form-control" placeholder="Teléfono">
+            <input type="number" min="20000000" name="datos_personales[telefono]" value="{{old('datos_personales.telefono')}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Teléfono" id="" class="form-control" placeholder="Teléfono">
             @error('datos_personales.telefono')
                 <small class="fs-8 text-danger"> * {{$message}}</small>
             @enderror
         </div>
         <div class="col">
-            <input type="number" min="0" name="datos_personales[celular]" value="{{old('datos_personales.celular')}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Celular" id="" class="form-control" placeholder="Celular">
+            <input type="number" min="60000000" name="datos_personales[celular]" value="{{old('datos_personales.celular')}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Celular" id="" class="form-control" placeholder="Celular">
             @error('datos_personales.celular')
                 <small class="fs-8 text-danger"> * {{$message}}</small>
             @enderror
         </div>
         <div class="row mt-3"></div>
-        <div class="col-2">
+        <div class="col">
             <label class="form-label"><strong>Domicilio actual: </strong> </label>
         </div>
-        <div class="col xs sm md">
-           {{--  <input type="text" id="" name="" data-bs-toggle="tooltip" data-bs-placement="top" title="Departamento" class="form-control" placeholder="Departamento"> --}}
-
+        <div class="col">
             <select class="form-select" id="dp_departamentos" name="dp_departamentos" data-bs-toggle="tooltip" data-bs-placement="top" title="Departamento" placeholder="Departamento">
                     <option selected disabled>Seleccione...</option>
                     <option value="1">Pando</option>
@@ -110,59 +149,49 @@
             </select>
         </div>
         <div class="col dp-provincias"></div>
-        <div class="col dp-municipios"></div>
+        <div class="col dp-municipios" id=""></div>
 
-        <div class="col-2">
+        <div class="col">
             <input type="text" name="datos_personales[localidad]" value="{{old('datos_personales.localidad')}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Localidad" id="" class="form-control" placeholder="Localidad">
             @error('datos_personales.localidad')
                 <small class="fs-8 text-danger"> * {{$message}}</small>
             @enderror
         </div>
-        <div class="col-2">
+        <div class="col">
             <input type="text" name="datos_personales[zona]" value="{{old('datos_personales.zona')}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Zona" id="" class="form-control" placeholder="Zona">
             @error('datos_personales.zona')
                 <small class="fs-8 text-danger"> * {{$message}}</small>
             @enderror
         </div>
-        <div class="mb-3"></div>
-        <div class="col-2">
+        
+        <div class="col">
             <input type="text" name="datos_personales[calle]" value="{{old('datos_personales.calle')}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Calle" id="" class="form-control" placeholder="Calle">
             @error('datos_personales.calle')
                 <small class="fs-8 text-danger"> * {{$message}}</small>
             @enderror
         </div>
-       
-        <div class="col-2">
-            <input type="text" min="0" name="datos_personales[numero]" value="{{old('datos_personales.numero')}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Número de la vivienda" id="" class="form-control" placeholder="Número">
+       <div class="mb-3"></div>
+        <div class="col">
+            <input type="text" name="datos_personales[numero]" value="{{old('datos_personales.numero')}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Número de la vivienda" id="" class="form-control" placeholder="Número">
             @error('datos_personales.numero')
                 <small class="fs-8 text-danger"> * {{$message}}</small>
             @enderror
         </div>
-        <div class="col-2">
-            <input type="number" min="0" max="100" name="datos_personales[tiempo_res_actual_cantidad]" value="{{old('datos_personales.tiempo_res_actual_cantidad')}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Tiempo de residencia" id="" class="form-control col-2" placeholder="Tiempo de residencia">
-            @error('datos_personales.tiempo_res_actual_cantidad')
+        <div class="col">
+            <input type="text" min="0" max="100" name="datos_personales[tiempo_res_actual]" value="{{old('datos_personales.tiempo_res_actual')}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Tiempo de residencia" id="" class="form-control col" placeholder="Tiempo de residencia">
+            @error('datos_personales.tiempo_res_actual')
                 <small class="fs-8 text-danger"> * {{$message}}</small>
             @enderror
         </div>
-        <div class="col-2">
-            {{-- {{old('datos_personales.tiempo_res_actual_unidad')}} --}}
-            <select name="datos_personales[tiempo_res_actual_unidad]" value="{{old('datos_personales.tiempo_res_actual_unidad')}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Años/Meses" id="" class="form-select col-2" title="Selecciones años o meses">
-                <option value="" disabled {{ (old('datos_personales.tiempo_res_actual_unidad') == '')? 'selected':'' }}>Seleccione</option>
-                <option value="Años" {{ (old('datos_personales.tiempo_res_actual_unidad') == 'Años')? 'selected':'' }}>Años</option>
-                <option value="Meses" {{ (old('datos_personales.tiempo_res_actual_unidad') == 'Meses')? 'selected':'' }}>Meses</option>
-            </select>
-            @error('datos_personales.tiempo_res_actual_unidad')
-                <small class="fs-8 text-danger"> * {{$message}}</small>
-            @enderror
-        </div>    
+          
         
-        <div class="col-2">
+        <div class="col">
             <input type="text" name="datos_personales[ocupacion_paciente]" value="{{old('datos_personales.ocupacion_paciente')}}" data-bs-toggle="tooltip" data-bs-placement="top" title="Ocupación del paciente" id="" class="form-control" placeholder="Ocupación del paciente">
             @error('datos_personales.ocupacion_paciente')
                 <small class="fs-8 text-danger"> * {{$message}}</small>
             @enderror
         </div>
-        <div class="col-2">
+        <div class="col">
             <select class="form-select" name="datos_personales[vive_solo]" data-bs-toggle="tooltip" data-bs-placement="top" title="Vive solo">
                 <option value="" {{ (old('datos_personales.vive_solo') == '')? 'selected':'' }}>¿Paciente vive solo?</option>
                 <option value="Si" {{ (old('datos_personales.vive_solo') == 'Si')? 'selected':'' }}>Si</option>
@@ -172,6 +201,9 @@
                 <small class="fs-8 text-danger"> * {{$message}}</small>
             @enderror
         </div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
 
         <div class=" mt-3"></div>
         <div class="col">
@@ -196,18 +228,13 @@
             <fieldset class="row mt-3 field-border">
                 <div class="row mt-1">
                     <div class="col">
-                        <input type="number"  min="0" name="datos_personales[celular_referencia]" value="{{old('datos_personales.celular_referencia')}}"data-bs-toggle="tooltip" data-bs-placement="top" id="" class="form-control col" title="Celular de referencia" placeholder="Celular de referencia">
+                        <input type="number"  min="60000000" name="datos_personales[celular_referencia]" value="{{old('datos_personales.celular_referencia')}}"data-bs-toggle="tooltip" data-bs-placement="top" id="" class="form-control col" title="Celular de referencia" placeholder="Celular de referencia">
                         @error('datos_personales.celular_referencia')
                             <small class="fs-8 text-danger"> * {{$message}}</small>
                         @enderror
                     </div>
                     <div class="row"></div>
-                    <div class="col mt-1">
-                        <input autocomplete="off" type="text" name="datos_personales[serv_salud_cercano]" value="{{old('datos_personales.serv_salud_cercano')}}" data-bs-toggle="tooltip" data-bs-placement="top" id="search" class="form-control col" placeholder="Servicio de salud más cercano" title="Servicio de salud más cercano">
-                        @error('datos_personales.serv_salud_cercano')
-                            <small class="fs-8 text-danger"> * {{$message}}</small>
-                        @enderror
-                    </div>
+                    <div class="col mt-1" id="ssc"> </div>
                     
                 </div>
                 <div class="col mt-2">
@@ -219,7 +246,7 @@
                
                 <div class="row mt-2">
                     <div class=" mb-1">
-                        <label class="">Lugar de contagio</label>
+                        <label class="">Lugar probable de contagio</label>
                         <input type="text" name="datos_personales[lugar_contagio]" value="{{old('datos_personales.lugar_contagio')}}" data-bs-toggle="tooltip" data-bs-placement="top" id="" class="form-control col" placeholder="Lugar de contagio" title="Lugar de contagio" class="form-control " 
                         placeholder="">
                         @error('datos_personales.lugar_contagio')
@@ -241,10 +268,17 @@
                     <div class="mb-1">
                         <label class=""> Parentesco</label>
                         <select class="form-select col" name="datos_personales[parentesco]" data-bs-toggle="tooltip" data-bs-placement="top" title="Parentesco">
-                            <option disabled {{ (old('datos_personales.parentesco') == '')? 'selected':'' }}>Seleccione...</option>
-                            <option value="Pariente" {{ (old('datos_personales.parentesco') == 'Pariente')? 'selected':'' }}>Pariente</option>
-                            <option value="Vecino" {{ (old('datos_personales.parentesco') == 'Vecino')? 'selected':'' }}>Vecino</option>
-                            <option value="Otro" {{ (old('datos_personales.parentesco') == 'Otro')? 'selected':'' }}>Otro</option>
+                             <option selected disabled>Seleccione...</option>
+                            <option value="Esposa(o)" {{ (old('datos_personales.parentesco') == 'Esposa(o)')? 'selected':'' }} >Esposa(o)</option>
+                            <option value="Hija(o)" {{ (old('datos_personales.parentesco') == 'Hija(o)')? 'selected':'' }} >Hija(o)</option>
+                            <option value="Madre" {{ (old('datos_personales.parentesco') == 'Madre')?  'selected':'' }} >Madre</option>
+                            <option value="Padre" {{ (old('datos_personales.parentesco') == 'Padre')?  'selected':'' }} >Padre</option>
+                            <option value="Hermana(o)" {{ (old('datos_personales.parentesco') == 'Hermana(o)')? 'selected':'' }} >Hermana(o)</option>
+                            <option value="Tia(o)" {{ (old('datos_personales.parentesco') == 'Tia(o)')? 'selected':'' }} >Tia(o)</option>
+                            <option value="Sobrina(o)" {{ (old('datos_personales.parentesco') == 'Sobrina(o)')? 'selected':'' }} >Sobrina(o)</option>
+                            <option value="Abuela(o)" {{ (old('datos_personales.parentesco') == 'Abuela(o)')? 'selected':'' }} >Abuela(o)</option>
+                            <option value="Vecino" {{ (old('datos_personales.parentesco') == 'Vecino')?  'selected':'' }} >Vecino</option>
+                            <option value="Otro" {{ (old('datos_personales.parentesco') == 'Otro')?  'selected':'' }} >Otro</option>
                         </select>
                         @error('datos_personales.parentesco')
                             <small class="fs-8 text-danger"> * {{$message}}</small>
@@ -252,28 +286,65 @@
                     </div>
                 </div>
                 <fieldset class="row mt-4" >
-                    <legend class="field-border">3. Control de contactos</legend>
+                    <legend class="field-border">3. Control de contactos
+                        @error('control_contactos.0.contacto_nombres')
+                            <small class="fs-8 text-danger"> * {{$message}}</small>
+                        @enderror
+                    </legend>
                     <br>
                     <button type="button" class=" btn btn-primary " data-bs-toggle="modal" data-bs-target="#controlContactos" data-bs-whatever="@mdo">Agregar datos de contactos</button>
+                    <small id="msg_contactos" class="fs-8 text-danger invisible"> * Datos de contactos incompletos</small>
+
+
                 </fieldset>
             </fieldset>
         </div>
     </fieldset>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js">
-</script>
 <script type="text/javascript">
-    var route = "{{ url('autocomplete-search') }}";
-    $('#search').typeahead({
-        source: function (query, process) {
-            return $.get(route, {
-                query: query
-            }, function (data) {
-                return process(data);
-            });
-        }
+ 
+$(document).ready( function () {
+    // $('#ci').on('focusout, change', function(){
+    //     //var params= $(this).val();
+    //     if( $(this).val() != '' ){
+    //         console.log($(this).val())
+    //         $.ajax({
+    //             data:  {'ci':$(this).val()},
+    //             url:   '/paciente/findci',
+    //             headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}'},
+    //             type:  'post',
+    //             beforeSend: function () { },
+    //             success:  function (response) {      
+    //                 $("#findci").html(response);
+                    
+    //             },
+    //             error:function(){
+    //                 alert("error")
+    //             }
+    //         });
+    //     } 
+    // });
+    $('#ci_exp').bind('change', function () {
+        ciexp($('#ci_exp'));
     });
+    document.getElementById("ci_exp").onload = ciexp($('#ci_exp'));
+
+    function ciexp(ci_exp){
+        if ( ci_exp.val() == 'Sin CI' ){
+            $('#ci').val("");
+            $('#ci').prop('readonly', true);
+            $('#otro_documento').prop('disabled', false);            
+            $('#otro_documento_numero').prop('disabled', false);
+            ci_exp.css('box-shadow', '0px 0px 5px green')
+        } else {
+            if($('#ci').val() == ''){$('#ci').val("");}
+            $('#ci').prop('readonly', false);
+            $('#otro_documento').prop('disabled', true);            
+            $('#otro_documento_numero').prop('disabled', true);
+            ci_exp.css('box-shadow', 'none')
+        }
+    }
 
  
     $('#dp_departamentos').change(function (params) {
@@ -281,7 +352,7 @@
           {'sedes_id':$(this).val(), 'q':'provincias', 'new_tag':'dp_provincias'},
           function() { },
           function (response) { 
-            $("#do_provincias, #dp_municipios").remove(); 
+            //$(".dp-municipios").remove(); 
             $('.dp-provincias').html(response);}, 
           function(){alert("error")}
         );
@@ -298,6 +369,7 @@
             edad--;
         }
         $('#edad').val(edad);
-    })
+    });
     
+});
 </script>

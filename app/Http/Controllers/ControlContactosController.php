@@ -45,11 +45,11 @@ class ControlContactosController extends Controller
             'contacto_edad' => 'required|string|max:2',
             'contacto_sexo' => 'required|string',
             'contacto_parentesco' => 'required|string',
-            'fecha_control' => 'required|date',
-            'sintomatico_piel' => 'required|string',
-            'laboratorio_baar' => 'required|string',
-            'contacto_diagnostico' => 'required|string',
-            'observaciones' => 'required|string',
+            // 'fecha_control' => 'required|date',
+            // 'sintomatico_piel' => 'required|string',
+            // 'laboratorio_baar' => 'required|string',
+            // 'contacto_diagnostico' => 'required|string',
+            // 'observaciones' => 'required|string',
 
          ],[
             'required' => 'Dato incompleto',
@@ -83,7 +83,7 @@ class ControlContactosController extends Controller
     public function edit($id)
     {
         $patientRecords = DB::table('sedes')
-        ->select('datos_personales.id','datos_personales.nombres','datos_personales.apellidos','datos_personales.historia_clinica','datos_personales.num_ficha','diagnostico.multibacilar_lepromatosa','diagnostico.multibacilar_dimofa','diagnostico.paucibacilar_tuberculoide','diagnostico.paucibacilar_indeterminada','tratamiento.actual_multibacilar','tratamiento.actual_paucibacilar','sedes.sedes','provincia.provincia','municipio.municipio','red_salud.red_salud','servicio_salud.serv_salud')
+        ->select('datos_personales.id','datos_personales.nombres','datos_personales.apellidos','datos_personales.historia_clinica','datos_personales.num_ficha','diagnostico.diagnostico','tratamiento.esquema_actual','sedes.sedes','provincia.provincia','municipio.municipio','red_salud.red_salud','servicio_salud.serv_salud')
 
         ->leftjoin ('provincia', 'sedes.id', '=', 'provincia.sedes_id') 
         ->leftjoin ('municipio', 'provincia.id', '=', 'municipio.provincia_id')

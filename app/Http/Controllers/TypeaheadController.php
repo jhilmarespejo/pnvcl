@@ -20,12 +20,12 @@ class TypeaheadController extends Controller
           //$filterResult = User::where('name', 'LIKE', '%'. $query. '%')->get();
           //$filterResult = ServicioSalud::where('serv_salud', 'LIKE', '%'. $query. '%')->get();
 
-// $filterResult = DB::select("select serv_salud from servicio_salud where serv_salud LIKE '%$query%'");
-// $filterResult=json_encode($filterResult);
-//           return $filterResult;
+            // $filterResult = DB::select("select serv_salud from servicio_salud where serv_salud LIKE '%$query%'");
+            // $filterResult=json_encode($filterResult);
+            //           return $filterResult;
 
-return ServicioSalud::select('serv_salud')
-        ->where('serv_salud', 'LIKE', '%'. $query. '%')
-        ->pluck('serv_salud');
-    } 
+            return ServicioSalud::select('serv_salud')
+                    ->where('serv_salud', 'LIKE', '%'. $query. '%')
+                    ->pluck('serv_salud');
+                } 
 }

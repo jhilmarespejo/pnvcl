@@ -68,14 +68,14 @@
             </div>
             <div class="col">    
                 <label class="form-label-sm">Diagnóstico</label>
-                <input readonly type="text" class="form-control form-control-sm" value="{{ $patientRecord->multibacilar_lepromatosa.' '.$patientRecord->multibacilar_dimofa.' '.$patientRecord->paucibacilar_tuberculoide.' '.$patientRecord->paucibacilar_indeterminada }}">
+                <input readonly type="text" class="form-control form-control-sm" value="{{ $patientRecord->diagnostico}}">
             </div>
             <div class="col">    
                 <label class="form-label-sm">Tratamiento</label>
-                <input readonly type="text" class="form-control form-control-sm" value="{{ $patientRecord->actual_multibacilar.' '.$patientRecord->actual_paucibacilar }}">
+                <input readonly type="text" class="form-control form-control-sm" value="{{ $patientRecord->esquema_actual}}">
             </div>
             <div class="col-sm">
-                <a class="btn btn-primary mt-3 " href="/seguimiento/edit/{{$patientRecord->id}}">Seguimiento</a>
+                <a class="btn btn-success mt-3 " href="/seguimiento/edit/{{$patientRecord->id}}">Seguimiento</a>
             </div>
             
         </div>
@@ -89,20 +89,22 @@
     <table class="table table-responsive-xl table-hover contacts" >
         {{-- <caption>table title and/or explanatory text</caption> --}}
         <thead style="font-size:13px">
-            <tr>
-                <th>#</th>
-                <th>Nombres</th>
-                <th>Apellidos</th>
-                <th>Edad</th>
-                <th>Sexo</th>
-                <th>Parentesco</th>
-                <th>Conviviente <br> desde que año</th>
-                <th>Fecha de control</th>
-                <th>Sintomático de piel</th>
-                <th>Laboratorio BAAR</th>
-                <th>Diagnóstico</th>
-                <th>Observaciones</th>
-                <th>Acciones</th>
+            <tr > 
+                {{-- <th>#</th> --}}
+                <th class="align-middle" >&nbsp;&nbsp;Nombres&nbsp;&nbsp;</th>
+                <th class="align-middle" >&nbsp;Apellidos&nbsp;</th>
+                <th class="align-middle" >Edad</th>
+                <th class="align-middle" >Sexo</th>
+                <th class="align-middle" >Parentesco</th>
+                <th class="align-middle" >Conviviente <br> desde que año</th>
+                <th class="align-middle " >Fecha de <br>control</th>
+                <th class="align-middle" >Sintomático de piel</th>
+                <th class="align-middle" >Laboratorio BAAR</th>
+                <th class="align-middle" >Antecedente de lepra</th>
+                <th class="align-middle" >Fecha de diagnóstico</th>
+                <th class="align-middle" >Diagnóstico</th>
+                <th class="align-middle" >Observaciones</th>
+                <th class="align-middle" >Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -111,18 +113,20 @@
             @csrf
             @method('put')
             <tr>
-                <td></td>
+                {{-- <td></td> --}}
                 <td>
                     <input type="hidden" name="id" value="{{ $contact->id }}">
                     <input type="hidden" name="datos_personales_id" value="{{ $contact->datos_personales_id }}">
-                    <input type="text" name="contacto_nombres" class="form-control" value="{{ $contact->contacto_nombres }}"></td>
+                    <input type="text" name="contacto_nombres" class="form-control" value="{{ $contact->contacto_nombres }}">
+
+                </td>
                 <td><input type="text" name="contacto_apellidos" class="form-control" value="{{ $contact->contacto_apellidos }}"></td>
                 <td><input type="number" min="0" max="150" name="contacto_edad" class="form-control" value="{{ $contact->contacto_edad }}"></td>
                 <td>
                     <select  class="form-select" name="contacto_sexo" >
                         <option disabled value="" {{ ($contact->contacto_sexo == '')? 'selected' : '' }}>Seleccione...</option>
-                        <option value="F" {{ ($contact->contacto_sexo == 'F')? 'selected' : '' }}>F</option>
-                        <option value="M" {{ ($contact->contacto_sexo == 'M')? 'selected' : '' }}>M</option>
+                        <option value="Fem" {{ ($contact->contacto_sexo == 'Fem')? 'selected' : '' }}>Fem</option>
+                        <option value="Masc" {{ ($contact->contacto_sexo == 'Masc')? 'selected' : '' }}>Masc</option>
                     </select>
                 </td>
                 <td>  
@@ -145,15 +149,27 @@
                         <option value="Si" {{ ($contact->sintomatico_piel == 'Si')? 'selected' : '' }}>Si</option>
                         <option value="No" {{ ($contact->sintomatico_piel == 'No')? 'selected' : '' }}>No</option>
                     </select>
-
                 </td>
 
                 <td>
                     <select  class="form-select"  name="laboratorio_baar" >
                         <option disabled value="" {{ ($contact->laboratorio_baar == '')? 'selected' : '' }}>Seleccione...</option>
-                        <option style="font-size: 18px" value="+" {{ ($contact->laboratorio_baar == '+')? 'selected' : '' }}>+</option>
-                        <option style="font-size: 18px" value="-" {{ ($contact->laboratorio_baar == '-')? 'selected' : '' }}>-</option>
+                        <option style="" value="-" {{ ($contact->laboratorio_baar == '-')? 'selected' : '' }}>-</option>
+                        <option style="" value="+" {{ ($contact->laboratorio_baar == '+')? 'selected' : '' }}>+</option>
+                        <option style="" value="+" {{ ($contact->laboratorio_baar == '++')? 'selected' : '' }}>++</option>
+                        <option style="" value="+" {{ ($contact->laboratorio_baar == '+++')? 'selected' : '' }}>+++</option>
                     </select>
+                </td>
+                <td>
+                    <select  class="form-select"  name="antecedente_lepra" >
+                        <option disabled value="" {{ ($contact->antecedente_lepra == '')? 'selected' : '' }}>Seleccione...</option>
+                        <option value="Si" {{ ($contact->antecedente_lepra == 'Si')? 'selected' : '' }}>Si</option>
+                        <option value="No" {{ ($contact->antecedente_lepra == 'No')? 'selected' : '' }}>No</option>
+                        
+                    </select>
+                </td>
+                <td>
+                    <input type="date" name="contacto_fecha_diagnostico" class="form-control" value="{{ $contact->contacto_fecha_diagnostico }}"></td>
                 </td>
                 <td><input type="text" name="contacto_diagnostico" class="form-control" value="{{ $contact->contacto_diagnostico }}"></td>
                 <td><input type="text" name="observaciones" class="form-control" value="{{ $contact->observaciones }}"></td>
@@ -191,11 +207,11 @@
         </form>
 
         @endforeach
-         <form method="post" action="{{ route('contactos.store') }}" >
+        <form method="post" action="{{ route('contactos.store') }}" >
             @csrf
             {{-- {{ $errors }} --}}
             <tr>
-                <td></td>
+                {{-- <td></td> --}}
                 <td>
                     
                     @isset ($contact->datos_personales_id)
@@ -205,87 +221,106 @@
                         <input type="hidden" name="datos_personales_id" value="{{$datos_personales_id}}">
                     @endisset
 
-                    <input type="text" name="contacto_nombres" class="form-control" value="">
+                    <input type="text" name="contacto_nombres" class="form-control form-control-sm" value="">
                     @error('contacto_nombres')
                        <small class="text-danger"> * {{$message}}</small>
                     @enderror
 
                 </td>
                 <td>
-                    <input type="text" name="contacto_apellidos" class="form-control" value="">
+                    <input type="text" name="contacto_apellidos" class="form-control form-control-sm" value="">
                     @error('contacto_apellidos')
                     <small class="text-danger"> * {{$message}}</small>
                     @enderror
                 </td>
                 <td>
-                    <input type="number" min="0" max="150"  name="contacto_edad" class="form-control" value="">
+                    <input type="number" min="0" max="150"  name="contacto_edad" class="form-control form-control-sm" value="">
                     @error('contacto_edad')
                     <small class="text-danger"> * {{$message}}</small>
                     @enderror
                 </td>
                 <td>
-                    <select  class="form-select" name="contacto_sexo" >
+                    <select  class="form-select form-select-sm" name="contacto_sexo" >
                         <option disabled selected="">Seleccione...</option>
-                        <option value="F">F</option>
-                        <option value="M">M</option>
+                        <option value="Fem">Fem</option>
+                        <option value="Masc">Masc</option>
                     </select>
                     @error('contacto_sexo')
                     <small class="text-danger"> * {{$message}}</small>
                     @enderror
                 </td>
                 <td>  
-                    <select class="form-select" name="contacto_parentesco">
-                      <option disabled selected> Seleccione...</option>
-                      <option value="Pariente" >Pariente</option>
-                      <option value="Vecino" >Vecino</option>
-                      <option value="Otro" >Otro</option>
+                    <select class="form-select form-select-sm" name="contacto_parentesco">
+                       <option selected disabled>Seleccione...</option>
+                          <option value="Esposa(o)">Esposa(o)</option>
+                          <option value="Hija(o)">Hija(o)</option>
+                          <option value="Madre">Madre</option>
+                          <option value="Padre">Padre</option>
+                          <option value="Hermana(o)">Hermana(o)</option>
+                          <option value="Tia(o)">Tia(o)</option>
+                          <option value="Sobrina(o)">Sobrina(o)</option>
+                          <option value="Abuela(o)">Abuela(o)</option>
+                          <option value="Pariente">Pariente</option>
+                          <option value="Otro">Otro</option>
                     </select>
                     @error('contacto_parentesco')
-                    <small class="text-danger"> * {{$message}}</small>
+                      <small class="text-danger"> * {{$message}}</small>
                     @enderror
                 </td>
                 <td>
-                    <input type="number" min='1950' max="2030" class="form-control" name="conviviente" value="">
+                    <input type="number" min='1950' max="2030" class="form-control form-control-sm" name="conviviente" value="">
                 </td>
                 <td>
-                    <input type="date" min="2010" max="2030" class="form-control" name="fecha_control" value="">
-                    @error('fecha_control')
+                    <input type="date" min="2010" max="2030" class="form-control form-control-sm" name="fecha_control" value="">
+                    {{-- @error('fecha_control')
                     <small class="text-danger"> * {{$message}}</small>
-                    @enderror
+                    @enderror --}}
                 </td>
                 <td>
-                     <select  class="form-select" name="sintomatico_piel" >
+                     <select  class="form-select form-select-sm" name="sintomatico_piel" >
                         <option disabled selected>Seleccione...</option>
                         <option value="Si">Si</option>
                         <option value="No">No</option>
                     </select>
-                    @error('sintomatico_piel')
+                    {{-- @error('sintomatico_piel')
                     <small class="text-danger"> * {{$message}}</small>
-                    @enderror
+                    @enderror --}}
                 </td>
 
                 <td>
-                    <select  class="form-select"  name="laboratorio_baar" >
+                    <select  class="form-select form-select-sm"  name="laboratorio_baar" >
                         <option disabled selected="">Seleccione...</option>
-                        <option style="font-size: 18px" value="+">+</option>
-                        <option style="font-size: 18px" value="-">-</option>
+                        <option value="-">-</option>
+                        <option value="+">+</option>
+                        <option value="++">++</option>
+                        <option value="+++">+++</option>
                     </select>
-                    @error('laboratorio_baar')
+                    {{-- @error('laboratorio_baar')
                     <small class="text-danger"> * {{$message}}</small>
-                    @enderror
+                    @enderror --}}
                 </td>
                 <td>
-                    <input type="text" name="contacto_diagnostico" class="form-control" value="">
-                    @error('contacto_diagnostico')
+                    <select  class="form-select form-select-sm"  name="antecedente_lepra" >
+                        <option disabled selected="">Seleccione...</option>
+                        <option value="Si">Si</option>
+                        <option value="No">No</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="date" name="contacto_fecha_diagnostico" class="form-control form-control-sm" value="">
+                </td>
+                <td>
+                    <input type="text" name="contacto_diagnostico" class="form-control form-control-sm" value="">
+                    {{-- @error('contacto_diagnostico')
                     <small class="text-danger"> * {{$message}}</small>
-                    @enderror
+                    @enderror --}}
 
                 </td>
                 <td>
-                    <input type="text" name="observaciones" class="form-control" value="">
-                    @error('observaciones')
+                    <input type="text" name="observaciones" class="form-control form-control-sm" value="">
+                    {{-- @error('observaciones')
                     <small class="text-danger"> * {{$message}}</small>
-                    @enderror
+                    @enderror --}}
                 </td>
                 <td>
                    <button class="btn btn-sm btn-success" type="submit">Guardar</button>
@@ -307,9 +342,14 @@
     $('#'+actual_form).submit();
     //console.log('#'+actual_form);
  })
-
-
- 
 </script>
+<style type="text/css">
+    table input[type="number"]{
+         -webkit-appearance: none;
+          margin: 0;
+          -moz-appearance: textfield;
+
+    }
+</style>
 
 @endsection();
