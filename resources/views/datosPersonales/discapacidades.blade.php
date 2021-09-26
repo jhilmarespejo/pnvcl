@@ -460,33 +460,26 @@
     return key;
   }
 
-  $('.modal-dialog').mousemove(function(e){
-      
-
-        // if( !$('select.lat').val() ){
-        //   console.log('vacio');
-        // }else{
-        //   console.log('ok');
-        //   $('#btn_save_discap').removeClass("disabled");
-        //   // $('#msg_contactos').removeClass("invisible");
-        // }
-
-
-        $('select.lat').each(function(){
-          if( !$(this).val() ){
-              //$('#btn_save_discap').addClass("disabled");
-              //console.log('vacio');
-              // $(this).addClass('fs-4');
-            }else{
-              // $(this).removeClass('fs-4');
-              //console.log('ok');
-              //$('#btn_save_discap').removeClass("disabled");
-          }
-        }); 
-
-        
-
-    });
+  // $('.modal-dialog').mousemove(function(e){
+  //       // if( !$('select.lat').val() ){
+  //       //   console.log('vacio');
+  //       // }else{
+  //       //   console.log('ok');
+  //       //   $('#btn_save_discap').removeClass("disabled");
+  //       //   // $('#msg_contactos').removeClass("invisible");
+  //       // }
+  //       $('select.lat').each(function(){
+  //         if( !$(this).val() ){
+  //             //$('#btn_save_discap').addClass("disabled");
+  //             //console.log('vacio');
+  //             // $(this).addClass('fs-4');
+  //           }else{
+  //             // $(this).removeClass('fs-4');
+  //             //console.log('ok');
+  //             //$('#btn_save_discap').removeClass("disabled");
+  //         }
+  //       }); 
+  //   });
 
 
         // $('select.lat').each(function(){

@@ -213,12 +213,19 @@
                     <div class="row mb-3">
                         <label for="" class="form-label"><strong>Opcion 1:</strong> Con Maps</label>
                         <div id="map" style="border:1px; width:600px; height:300px;" >
-                            <input type="hidden" name="datos_personales[latlng]" id="latlng" value="">
+                            <input type="hidden" name="datos_personales[latlng]" id="latlng" value="{{old('datos_personales.latlng')}}">
                         </div>
+                        @error('datos_personales.latlng')
+                            <small class="fs-8 text-danger"> * {{$message}}</small>
+                        @enderror
                     </div>
                     <div class="row ">
                         <label class="form-label"><strong>Opcion 2:</strong> Subir una foto del croquis hecho a mano</label>
-                        <input type="file" name="datos_personales[url_croquis]" id="" class="form-control" placeholder="Subir una foto del croquis" accept="image/*">
+                        <input type="file" name="datos_personales[url_croquis]" id="" class="form-control" placeholder="Subir una foto del croquis" accept="image/*" value="{{old('datos_personales.url_croquis')}}">
+
+                        @error('datos_personales.url_croquis')
+                            <small class="fs-8 text-danger"> * {{$message}}</small>
+                        @enderror
                     </div>
                 </div>
             </fieldset>

@@ -109,111 +109,108 @@
         </thead>
         <tbody>
           @foreach ($contacts as $contact)
-          <form method="post" action="{{ route('contactos.update') }}" >
-            @csrf
-            @method('put')
-            <tr>
-                {{-- <td></td> --}}
-                <td>
-                    <input type="hidden" name="id" value="{{ $contact->id }}">
-                    <input type="hidden" name="datos_personales_id" value="{{ $contact->datos_personales_id }}">
-                    <input type="text" name="contacto_nombres" class="form-control" value="{{ $contact->contacto_nombres }}">
+            
+            <form method="post" action="{{ route('contactos.update') }}" >
+                @csrf
+                @method('put')
+                <tr>
+                    <td>
+                        <input type="hidden" name="id" value="{{ $contact->id }}">
+                        <input type="hidden" name="datos_personales_id" value="{{ $contact->datos_personales_id }}">
+                        <input type="text" name="contacto_nombres" class="form-control" value="{{ $contact->contacto_nombres }}">
+                    </td>
+                    <td><input type="text" name="contacto_apellidos" class="form-control" value="{{ $contact->contacto_apellidos }}"></td>
+                    <td><input type="number" min="0" max="150" name="contacto_edad" class="form-control" value="{{ $contact->contacto_edad }}"></td>
+                    <td>
+                        <select  class="form-select" name="contacto_sexo" >
+                            <option disabled value="" {{ ($contact->contacto_sexo == '')? 'selected' : '' }}>Seleccione...</option>
+                            <option value="Fem" {{ ($contact->contacto_sexo == 'Fem')? 'selected' : '' }}>Fem</option>
+                            <option value="Masc" {{ ($contact->contacto_sexo == 'Masc')? 'selected' : '' }}>Masc</option>
+                        </select>
+                    </td>
+                    <td>  
+                        <select class="form-select" name="contacto_parentesco">
+                          <option disabled {{ ($contact->contacto_parentesco == '')? 'selected':'' }}>Seleccione...</option>
+                          <option value="Pariente" {{ ($contact->contacto_parentesco == 'Pariente')? 'selected':'' }}>Pariente</option>
+                          <option value="Vecino" {{ ($contact->contacto_parentesco == 'Vecino')? 'selected':'' }}>Vecino</option>
+                          <option value="Otro" {{ ($contact->contacto_parentesco == 'Otro')? 'selected':'' }}>Otro</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="number" min='1950' max="2030" class="form-control" name="conviviente" value="{{ $contact->conviviente }}">
+                    </td>
+                    <td>
+                        <input type="date" min="2010" max="2030" class="form-control" name="fecha_control" value="{{ $contact->fecha_control }}">
+                    </td>
+                    <td>
+                         <select  class="form-select" name="sintomatico_piel" >
+                            <option disabled value="" {{ ($contact->sintomatico_piel == '')? 'selected' : '' }}>Seleccione...</option>
+                            <option value="Si" {{ ($contact->sintomatico_piel == 'Si')? 'selected' : '' }}>Si</option>
+                            <option value="No" {{ ($contact->sintomatico_piel == 'No')? 'selected' : '' }}>No</option>
+                        </select>
+                    </td>
 
-                </td>
-                <td><input type="text" name="contacto_apellidos" class="form-control" value="{{ $contact->contacto_apellidos }}"></td>
-                <td><input type="number" min="0" max="150" name="contacto_edad" class="form-control" value="{{ $contact->contacto_edad }}"></td>
-                <td>
-                    <select  class="form-select" name="contacto_sexo" >
-                        <option disabled value="" {{ ($contact->contacto_sexo == '')? 'selected' : '' }}>Seleccione...</option>
-                        <option value="Fem" {{ ($contact->contacto_sexo == 'Fem')? 'selected' : '' }}>Fem</option>
-                        <option value="Masc" {{ ($contact->contacto_sexo == 'Masc')? 'selected' : '' }}>Masc</option>
-                    </select>
-                </td>
-                <td>  
-                    <select class="form-select" name="contacto_parentesco">
-                      <option disabled {{ ($contact->contacto_parentesco == '')? 'selected':'' }}>Seleccione...</option>
-                      <option value="Pariente" {{ ($contact->contacto_parentesco == 'Pariente')? 'selected':'' }}>Pariente</option>
-                      <option value="Vecino" {{ ($contact->contacto_parentesco == 'Vecino')? 'selected':'' }}>Vecino</option>
-                      <option value="Otro" {{ ($contact->contacto_parentesco == 'Otro')? 'selected':'' }}>Otro</option>
-                    </select>
-                </td>
-                <td>
-                    <input type="number" min='1950' max="2030" class="form-control" name="conviviente" value="{{ $contact->conviviente }}">
-                </td>
-                <td>
-                    <input type="date" min="2010" max="2030" class="form-control" name="fecha_control" value="{{ $contact->fecha_control }}">
-                </td>
-                <td>
-                     <select  class="form-select" name="sintomatico_piel" >
-                        <option disabled value="" {{ ($contact->sintomatico_piel == '')? 'selected' : '' }}>Seleccione...</option>
-                        <option value="Si" {{ ($contact->sintomatico_piel == 'Si')? 'selected' : '' }}>Si</option>
-                        <option value="No" {{ ($contact->sintomatico_piel == 'No')? 'selected' : '' }}>No</option>
-                    </select>
-                </td>
+                    <td>
+                        <select  class="form-select"  name="laboratorio_baar" >
+                            <option disabled value="" {{ ($contact->laboratorio_baar == '')? 'selected' : '' }}>Seleccione...</option>
+                            <option style="" value="-" {{ ($contact->laboratorio_baar == '-')? 'selected' : '' }}>-</option>
+                            <option style="" value="+" {{ ($contact->laboratorio_baar == '+')? 'selected' : '' }}>+</option>
+                            <option style="" value="+" {{ ($contact->laboratorio_baar == '++')? 'selected' : '' }}>++</option>
+                            <option style="" value="+" {{ ($contact->laboratorio_baar == '+++')? 'selected' : '' }}>+++</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select  class="form-select"  name="antecedente_lepra" >
+                            <option disabled value="" {{ ($contact->antecedente_lepra == '')? 'selected' : '' }}>Seleccione...</option>
+                            <option value="Si" {{ ($contact->antecedente_lepra == 'Si')? 'selected' : '' }}>Si</option>
+                            <option value="No" {{ ($contact->antecedente_lepra == 'No')? 'selected' : '' }}>No</option>
+                            
+                        </select>
+                    </td>
+                    <td>
+                        <input type="date" name="contacto_fecha_diagnostico" class="form-control" value="{{ $contact->contacto_fecha_diagnostico }}"></td>
+                    </td>
+                    <td><input type="text" name="contacto_diagnostico" class="form-control" value="{{ $contact->contacto_diagnostico }}"></td>
+                    <td><input type="text" name="observaciones" class="form-control" value="{{ $contact->observaciones }}"></td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-success btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                              Opciones
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                              {{-- <li><a class="dropdown-item" href="">Guardar dato</a> --}}
+                                <li >
+                                    <button class="dropdown-item"  type="submit">Guardar dato</button>
+                                </li>
+                                <li>
+                                    <span class="dropdown-item"> 
+                                        <span class="destroy-{{ $contact->id }}" id="destroy" >Eliminar</span>
+                                    </span>
+                                </li>
+                              {{--  --}}
+                            </ul>
+                          </div>
+                    </td>
 
-                <td>
-                    <select  class="form-select"  name="laboratorio_baar" >
-                        <option disabled value="" {{ ($contact->laboratorio_baar == '')? 'selected' : '' }}>Seleccione...</option>
-                        <option style="" value="-" {{ ($contact->laboratorio_baar == '-')? 'selected' : '' }}>-</option>
-                        <option style="" value="+" {{ ($contact->laboratorio_baar == '+')? 'selected' : '' }}>+</option>
-                        <option style="" value="+" {{ ($contact->laboratorio_baar == '++')? 'selected' : '' }}>++</option>
-                        <option style="" value="+" {{ ($contact->laboratorio_baar == '+++')? 'selected' : '' }}>+++</option>
-                    </select>
-                </td>
-                <td>
-                    <select  class="form-select"  name="antecedente_lepra" >
-                        <option disabled value="" {{ ($contact->antecedente_lepra == '')? 'selected' : '' }}>Seleccione...</option>
-                        <option value="Si" {{ ($contact->antecedente_lepra == 'Si')? 'selected' : '' }}>Si</option>
-                        <option value="No" {{ ($contact->antecedente_lepra == 'No')? 'selected' : '' }}>No</option>
-                        
-                    </select>
-                </td>
-                <td>
-                    <input type="date" name="contacto_fecha_diagnostico" class="form-control" value="{{ $contact->contacto_fecha_diagnostico }}"></td>
-                </td>
-                <td><input type="text" name="contacto_diagnostico" class="form-control" value="{{ $contact->contacto_diagnostico }}"></td>
-                <td><input type="text" name="observaciones" class="form-control" value="{{ $contact->observaciones }}"></td>
-                <td>
-                    <div class="dropdown">
-                        <button class="btn btn-success btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                          Opciones
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                          {{-- <li><a class="dropdown-item" href="">Guardar dato</a> --}}
-                            <li >
-                                <button class="dropdown-item"  type="submit">Guardar dato</button>
-                            </li>
-                            <li>
-                                <span class="dropdown-item"> 
-                                <span class="destroy-{{ $contact->id }}" id="destroy" >Eliminar</span>
-                                </span>
-                            </li>
-                          {{--  --}}
-                        </ul>
-                      </div>
-                </td>
-
-            </tr>
-           </form>
-        <form action="{{ route('contactos.destroy') }}" method="post" id="destroy-{{ $contact->id }}"
-        onsubmit="return confirm('¿Está seguro de eliminar éste registro?')">
-            @csrf
-            {{-- {{ method_field('delete') }} --}}
-            @method('delete')
-            <input type="hidden" name="id" value="{{ $contact->id }}">
-            <input type="hidden" name="datos_personales_id" value="{{ $contact->datos_personales_id }}">
-            {{-- <a class="dropdown-item" href="">Eliminar</a> --}}
-            {{-- <button class="dropdown-item" type="submit">Eliminar</button> --}}
-        </form>
+                </tr>
+            </form>
+            <form action="{{ route('contactos.destroy') }}" method="post" id="destroy-{{ $contact->id }}"
+            onsubmit="return confirm('¿Está seguro de eliminar éste registro?')">
+                @csrf
+                {{-- {{ method_field('delete') }} --}}
+                @method('delete')
+                <input type="hidden" name="id" value="{{ $contact->id }}">
+                <input type="hidden" name="datos_personales_id" value="{{ $contact->datos_personales_id }}">
+                {{-- <a class="dropdown-item" href="">Eliminar</a> --}}
+                {{-- <button class="dropdown-item" type="submit">Eliminar</button> --}}
+            </form>
 
         @endforeach
         <form method="post" action="{{ route('contactos.store') }}" >
             @csrf
             {{-- {{ $errors }} --}}
             <tr>
-                {{-- <td></td> --}}
                 <td>
-                    
                     @isset ($contact->datos_personales_id)
                         <input type="hidden" name="datos_personales_id" value="{{$contact->datos_personales_id}}">
                     @endisset

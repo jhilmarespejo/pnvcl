@@ -38,6 +38,10 @@
             </div>
         </div>
 </fieldset>
+                @isset ($active_tab)
+                    {{ $active_tab }}                 
+                @endisset
+            
 
     <div class="d-flex align-items-start mt-3">
         <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -65,23 +69,24 @@
         </div>
         <div class="tab-content" id="v-pills-tabContent">
             <div class="container-sm tab-pane fade show active" id="v-pills-datos-personales" role="tabpanel" aria-labelledby="vtab_2">
-                @include('dpEdit.datosPersonales', ['dp_records' => $dp_records, 'dp_addresses' => $dp_addresses, 'healt_services' => $healt_services, 'previous_residences' => $previous_residences])
+                @include('dpEdit.datosPersonales', compact(['dp_records', 'dp_addresses', 'healt_services', 'previous_residences']))
             </div>
 
             <div class="container-sm tab-pane fade" id="v-pills-control-contactos" role="tabpanel" aria-labelledby="vtab_3">
-                 @include('dpEdit.controlContactos')
+                 {{-- @include('dpEdit.controlContactos', ['id' => $id]) --}}
+                 <a class="btn btn-primary btn-lg" href="/contactos/edit/{{$id}}">Control de contactos</a>
             </div>
 
             <div class="container-sm tab-pane fade" id="v-pills-datos-clinicos" role="tabpanel" aria-labelledby="vtab_4">
-                @include('dpEdit.datosClinicos')
+                @include('dpEdit.datosClinicos', compact('clinical_records'))
             </div>
 
             <div class="container-sm tab-pane fade" id="v-pills-bacteriologia" role="tabpanel" aria-labelledby="vtab_5">
-                @include('dpEdit.bacteriologia')
+                @include('dpEdit.bacteriologia', compact('bacteriology_records'))
             </div>
 
             <div class="container-sm tab-pane fade" id="v-pills-histopatologia" role="tabpanel" aria-labelledby="vtab_6">
-                @include('dpEdit.histopatologia')
+                @include('dpEdit.histopatologia', compact('histopatology_records'))
             </div>
 
             <div class="container-sm tab-pane fade" id="v-pills-diagnostico" role="tabpanel" aria-labelledby="vtab_7">
@@ -89,19 +94,19 @@
             </div>
 
             <div class="container-sm tab-pane fade" id="v-pills-discapacidades" role="tabpanel" aria-labelledby="vtab_8">
-                @include('dpEdit.discapacidades')
+                @include('dpEdit.discapacidades', compact('disability_records'))
             </div>
 
             <div class="container-sm tab-pane fade" id="v-pills-tratamiento" role="tabpanel" aria-labelledby="vtab_9">
-                @include('dpEdit.tratamiento')
+                @include('dpEdit.tratamiento', compact('treatment_records'))
             </div>
 
             <div class="container-sm tab-pane fade" id="v-pills-identificacion" role="tabpanel" aria-labelledby="vtab_10">
-                IDENTIFICACION DE CASO
+                @include('dpEdit.identificacion', compact('identification_records'))
             </div>
 
             <div class="container-sm tab-pane fade" id="v-pills-notificacion" role="tabpanel" aria-labelledby="vtab_11">
-                SERVICIO DE SALUD QUE NOTIFICA
+                @include('dpEdit.notificacion', compact('notification_records'))
             </div>
         </div>
     </div>

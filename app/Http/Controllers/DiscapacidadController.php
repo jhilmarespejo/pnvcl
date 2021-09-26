@@ -69,7 +69,9 @@ class DiscapacidadController extends Controller
      */
     public function update(Request $request, discapacidad $discapacidad)
     {
-        //
+        return $request;
+        DatosPersonales::where('id', '=', $datosPersonales['id'])->update($datosPersonales);
+        return redirect("paciente/edit/".$datosPersonales['id'])->with('success', '!Dato actualizado con éxito¡');
     }
 
     /**

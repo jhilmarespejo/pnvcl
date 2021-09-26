@@ -33,7 +33,7 @@
 
 
 </head>
-<body>
+<body style="background-color: #e8e8e8;">
   <nav class="navbar fixed-top nav-custom-1">
     <img class="img-fluid" src="/images/navbar1.png" alt="...">
       <div class="container-fluid flex-row-reverse fixed-top" style="margin: 2% 0% 0% -4%;">
@@ -115,7 +115,7 @@
         }
       </style> 
     @endif
-    <div class="container-xxl border border-2 rounded img-fluid">
+    <div class="container-xxl rounded img-fluid" >
         {{-- <div class=""> --}}
             @yield('content')
         {{-- </div> --}}

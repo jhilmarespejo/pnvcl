@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\datosClinicos;
+use App\Models\DatosClinicos;
 use Illuminate\Http\Request;
 
 class DatosClinicosController extends Controller
@@ -69,7 +69,11 @@ class DatosClinicosController extends Controller
      */
     public function update(Request $request, datosClinicos $datosClinicos)
     {
-        //
+        DatosClinicos::where('datos_personales_id', '=', $request['datos_clinicos']['datos_personales_id'])->update($request['datos_clinicos']);
+
+       // return \Redirect::route('regions', ['id'=>$id,'OTHER_PARAM'=>'XXX',...])->with('message', 'State saved correctly!!!');
+
+        return redirect("paciente/edit/".$request['datos_clinicos']['datos_personales_id'])->with(['success' => '!Dato actualizado con éxito¡']);
     }
 
     /**

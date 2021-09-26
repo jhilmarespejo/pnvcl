@@ -46,7 +46,7 @@
                 <td ><span style="font-size:10px">{{$record->id}}</span>
                 <td>
                     <a href="/paciente/edit/{{$record->id}}" class="link-secondary" style="text-transform:uppercase;">{{$record->nombres}} {{$record->apellidos}}</a>
-                    {{-- <a href="#" class="link-secondary" style="text-transform:uppercase;">{{$record->nombres}} {{$record->apellidos}}</a --}}>
+                    {{-- <a href="#" class="link-secondary" style="text-transform:uppercase;">{{$record->nombres}} {{$record->apellidos}}</a>--}}
                 </td>
                 <td>{{$record->edad}}</td>
                 <td>{{$record->sexo}}</td>
@@ -75,7 +75,7 @@
 </div>
 
 <script type="text/javascript">
-    $(".alert").fadeOut(9500 );
+    $(".alert").fadeOut(9500);
     
 $(document).ready( function () {
 

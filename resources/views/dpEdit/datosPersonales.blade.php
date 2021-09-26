@@ -12,6 +12,7 @@
   console.log(user);
   });
 </script> --}}
+
 <div class="position-relative">
     @if(Session::has('success'))
         <div class="col-4 alert alert-success alert-dismissible notification" role="alert">
@@ -29,7 +30,9 @@
 
 
 <div class="container-xxl">
-    <form method="post" action="{{ route('paciente.update') }}" >
+    <form method="POST" action="{{ route('paciente.update') }}" enctype="multipart/form-data" >
+        @csrf
+        @method('put')
         <fieldset class="row mb-2 field-border">
             {{-- {{$errors}} --}}
             {{-- {{ $dp_records }} --}}
@@ -43,8 +46,6 @@
             @endforeach
 
         <legend class="field-border">2. Datos personales y epidemiológicos</legend>
-            @csrf
-            @method('put')
 
             <input type="hidden" id="" name="datos_personales[id]" value="{{$dp_record->id}}">
             <input type="hidden" id="datos_personales_servicio_salud_id" name="datos_personales[servicio_salud_id]" value="{{$dp_record->servicio_salud_id}}">
@@ -262,8 +263,7 @@
                             </div>
                         </div>
                         <div class="row text-center">
-                            {{-- <label class="form-label"><strong>Opcion 2:</strong> Subir una foto del croquis hecho a mano</label>
-                            <input type="file" name="datos_personales[url_croquis]" id="" class="form-control" placeholder="Subir una foto del croquis" accept="image/*"> --}}
+                           
 
                             <button type="button" class="btn btn-sm btn-primary mt-2 col-6" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 Croquis del domicilio
@@ -272,9 +272,14 @@
                               <div class="modal-dialog modal-xl">
                                 <div class="modal-content">
                                   <div class="modal-body">
-                                    <img src="{{ $dp_record->url_croquis }}" class="img-fluid rounded mx-auto d-block">
+                                    <input type="hidden" name="old_croquis" value="{{ $dp_record->url_croquis }}">
+                                    <img src="{{ asset('storage').'/'.$dp_record->url_croquis }}" class="img-fluid rounded mx-auto d-block">
+                                    <hr>
+                                    <label class="form-label"><strong>Cambiar imagen del croquis</strong> </label>
+                                    <input type="file" name="datos_personales[url_croquis]" id="" class="form-control" placeholder="Subir una foto del croquis" accept="image/*">
                                   </div>
                                   <div class="modal-footer">
+
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                                     
                                   </div>
@@ -433,7 +438,7 @@ $(document).ready( function () {
             $('#otro_documento_numero').prop('disabled', false);
             $(this).css('box-shadow', '0px 0px 5px red')
     } else {
-        $('#ci').val("");
+        //$('#ci').val("");
         $('#ci').prop('disabled', false);
         $('#otro_documento').prop('disabled', true);            
         $('#otro_documento_numero').prop('disabled', true);

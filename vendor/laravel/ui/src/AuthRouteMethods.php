@@ -31,6 +31,8 @@ class AuthRouteMethods
                 if ($options['register'] ?? true) {
                     $this->get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
                     $this->post('register', 'Auth\RegisterController@register');
+
+                    $this->get('users', 'Auth\RegisterController@showUsers')->name('users');
                 }
 
                 // Password Reset Routes...

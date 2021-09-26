@@ -6,14 +6,14 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Http\FormRequest;
 // use App\Models\ResidenciaAnterior;
 // use App\Models\ControlContactos;
-// use App\Models\Discapacidad;
-// use App\Models\DatosClinicos;
-// use App\Models\Bacteriologia;
-// use App\Models\Histopatologia;
-// use App\Models\Diagnostico;
-// use App\Models\Tratamiento;
-// use App\Models\IdentificacionCaso;
-// use App\Models\Notificacion;
+use App\Models\Discapacidad;
+use App\Models\DatosClinicos;
+use App\Models\Bacteriologia;
+use App\Models\Histopatologia;
+use App\Models\Diagnostico;
+use App\Models\Tratamiento;
+use App\Models\IdentificacionCaso;
+ //use App\Models\Notificacion;
 
 
 use Illuminate\Http\Request;
@@ -83,8 +83,11 @@ class DatosPersonalesController extends Controller
             'datos_personales.localidad' => 'required|string|max:250',    
             //'datos_personales.zona' => 'required|string|max:100',
             //'datos_personales.calle' => 'required|string|max:100',
-            //'datos_personales.latlng' => 'required|string|max:250',
-           // 'datos_personales.url_croquis' => 'image|max:5000',
+            
+            // 'datos_personales.latlng' => 'required_without_all:datos_personales.url_croquis|string|max:250',
+            // 'datos_personales.url_croquis' => ' required_without_all:datos_personales.latlng|image|max:5000',
+            
+           
             'datos_personales.tiempo_res_actual' => 'required|string|max:30',
             'datos_personales.ocupacion_paciente' => 'required|string|max:100',
             'datos_personales.vive_solo' => 'required|string|max:2',
@@ -155,17 +158,19 @@ class DatosPersonalesController extends Controller
 
         
         if( isset($request->datos_personales['url_croquis']) ){
-            $image = $request->datos_personales['url_croquis']->store('public/croquis');
-            $urlImage = Storage::url($image);
+            
+            $image = $request->datos_personales['url_croquis']->store('croquis');
 
             $datosPersonales = $request->datos_personales;
             unset($datosPersonales['url_croquis']); 
-            $datosPersonales = array_merge(['url_croquis'=>$urlImage], $datosPersonales);
+            $datosPersonales = array_merge(['url_croquis'=>$image], $datosPersonales);
 
            $pacienteId = DB::table('datos_personales')->insertGetId($datosPersonales);
         } else{
             $pacienteId = DB::table('datos_personales')->insertGetId($request->datos_personales);
         }
+
+
 
         for($i=0; $i< count($request['residencia_anterior']); $i++ ){
             if( isset($request['residencia_anterior'][$i]['municipio_id']) ){
@@ -276,7 +281,22 @@ class DatosPersonalesController extends Controller
         ->where('residencia_anterior.datos_personales_id',$id)
         ->get();
 
-        return view('dpEdit.edit', ['dp_records' => $dp_records, 'dp_addresses' => $dp_addresses, 'healt_services' => $healt_services, 'previous_residences' => $previous_residences]);
+        $clinical_records = DatosClinicos::where('datos_personales_id', $id)->get();
+        $bacteriology_records = Bacteriologia::where('datos_personales_id', $id)->get();
+        $histopatology_records = Histopatologia::where('datos_personales_id', $id)->get();
+        $disability_records = Discapacidad::where('datos_personales_id', $id)->get();
+        $treatment_records = Tratamiento::where('datos_personales_id', $id)->get();
+        $identification_records = IdentificacionCaso::where('datos_personales_id', $id)->get();
+        //$notification_records = Notificacion::where('identificacion_caso_id', $identification_records[0]['id'])->get();
+
+        $notification_records = DB::table('notificacion')
+        ->select('notificacion.id', 'notificacion.identificacion_caso_id', 'notificacion.servicio_salud', 'notificacion.servicio_salud_id', 'notificacion.fecha', 'notificacion.notificador', 'identificacion_caso.datos_personales_id')
+        ->join('identificacion_caso', 'notificacion.identificacion_caso_id', 'identificacion_caso.id')
+        ->where('identificacion_caso.datos_personales_id', $id)->get();
+
+        //return $notification_records;
+
+        return view('dpEdit.edit', compact(['id', 'dp_records', 'dp_addresses', 'healt_services', 'previous_residences', 'clinical_records', 'bacteriology_records', 'histopatology_records', 'disability_records', 'treatment_records', 'identification_records', 'notification_records']));
     }
 
     /**
@@ -299,11 +319,19 @@ class DatosPersonalesController extends Controller
      */
     public function update(Request $request, DatosPersonales $datosPersonales)
     {
-        $r=$request->datos_personales;
+        //return $r=$request;
         //return $request['datos_personales']['id'];
-        DatosPersonales::where('id', '=', $r['id'])->update($r);
+        $datosPersonales = $request->datos_personales;
+        if( isset($request->datos_personales['url_croquis']) ){
+            Storage::delete($request['old_croquis']);
+            $image = $request->datos_personales['url_croquis']->store('croquis');
 
-        return redirect("paciente/edit/".$r['id'])->with('success', '!Dato actualizado con éxito¡');
+            unset($datosPersonales['url_croquis']); 
+            $datosPersonales = array_merge(['url_croquis'=>$image], $datosPersonales);
+           //return  $datosPersonales;
+        }
+        DatosPersonales::where('id', '=', $datosPersonales['id'])->update($datosPersonales);
+        return redirect("paciente/edit/".$datosPersonales['id'])->with('success', '!Dato actualizado con éxito¡');
     }
 
     /**

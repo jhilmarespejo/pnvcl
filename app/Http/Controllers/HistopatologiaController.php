@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\histopatologia;
+use App\Models\Histopatologia;
 use Illuminate\Http\Request;
 
 class HistopatologiaController extends Controller
@@ -69,7 +69,9 @@ class HistopatologiaController extends Controller
      */
     public function update(Request $request, histopatologia $histopatologia)
     {
-        //
+        Histopatologia::where('datos_personales_id', '=', $request['histopatologia']['datos_personales_id'])->update($request['histopatologia']);
+        
+        return redirect("paciente/edit/".$request['histopatologia']['datos_personales_id'])->with('success', '!Dato actualizado con éxito¡');
     }
 
     /**

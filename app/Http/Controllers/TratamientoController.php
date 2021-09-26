@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\tratamiento;
+use App\Models\Tratamiento;
 use Illuminate\Http\Request;
 
 class TratamientoController extends Controller
@@ -57,7 +57,7 @@ class TratamientoController extends Controller
      */
     public function edit(tratamiento $tratamiento)
     {
-        //
+        
     }
 
     /**
@@ -69,7 +69,8 @@ class TratamientoController extends Controller
      */
     public function update(Request $request, tratamiento $tratamiento)
     {
-        //
+        Tratamiento::where('datos_personales_id', '=', $request['tratamiento']['datos_personales_id'])->update($request['tratamiento']);
+        return redirect("paciente/edit/".$request['tratamiento']['datos_personales_id'])->with(['success' => '!Dato actualizado con éxito¡']);
     }
 
     /**
