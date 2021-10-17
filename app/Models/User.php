@@ -6,9 +6,11 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+// use Kyslik\ColumnSortable\Sortable;
 
 class User extends Authenticatable
 {
+
     use HasFactory, Notifiable;
 
     /**
@@ -42,3 +44,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 }
+
+// class User extends Model
+// {
+//     use Sortable;
+
+//     public $sortable = ['id','name'];
+// }

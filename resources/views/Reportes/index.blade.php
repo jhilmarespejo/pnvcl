@@ -19,13 +19,17 @@
 	    	<label class="row-form-label"><strong>Lugar:</strong></label>
 	    	<div class="col">
 	    		<select class="row form-select d-inline" id="departamento_m_1" name="departamento_m_1" data-bs-toggle="tooltip2" data-bs-placement="top" title="Departamento">
+	                <option selected disabled>Seleccione...</option>
 	                <option selected value="" >BOLIVIA</option>
-	                <option value="1">Pando</option>
-	                <option value="2">Beni</option>
-	                <option value="3">Santa Cruz</option>
-	                <option value="4">Cochabamba</option>
-	                <option value="5">Tarija</option>
-	                <option value="6">Chuquisaca</option>
+                    <option value="1">Pando</option>
+                    <option value="2">Beni</option>
+                    <option value="3">Santa Cruz</option>
+                    <option value="4">Cochabamba</option>
+                    <option value="6">Tarija</option>
+                    <option value="5">Chuquisaca</option>
+                    <option value="9">La Paz</option>
+                    <option value="8">Oruro</option>
+                    <option value="7">Potosí</option>
 	            </select>
 	         </div>
             <div class="col provincia-m-1"></div>
@@ -65,13 +69,17 @@
 	    	<label class="row-form-label"><strong>Lugar:</strong></label>
 	    	<div class="col">
 	    		<select class="row form-select d-inline" id="departamento_m_2" name="departamento_m_2" data-bs-toggle="tooltip2" data-bs-placement="top" title="Departamento">
+	                <option selected disabled>Seleccione...</option>
 	                <option selected value="" >BOLIVIA</option>
-	                <option value="1">Pando</option>
-	                <option value="2">Beni</option>
-	                <option value="3">Santa Cruz</option>
-	                <option value="4">Cochabamba</option>
-	                <option value="5">Tarija</option>
-	                <option value="6">Chuquisaca</option>
+                    <option value="1">Pando</option>
+                    <option value="2">Beni</option>
+                    <option value="3">Santa Cruz</option>
+                    <option value="4">Cochabamba</option>
+                    <option value="6">Tarija</option>
+                    <option value="5">Chuquisaca</option>
+                    <option value="9">La Paz</option>
+                    <option value="8">Oruro</option>
+                    <option value="7">Potosí</option>
 	            </select>
 	         </div>
             <div class="col provincia-m-2"></div>
@@ -111,13 +119,17 @@
 	    	<label class="row-form-label"><strong>Lugar:</strong></label>
 	    	<div class="col">
 	    		<select class="row form-select d-inline" id="departamento_m_3" name="departamento_m_3" data-bs-toggle="tooltip2" data-bs-placement="top" title="Departamento">
+	                <option selected disabled>Seleccione...</option>
 	                <option selected value="" >BOLIVIA</option>
-	                <option value="1">Pando</option>
-	                <option value="2">Beni</option>
-	                <option value="3">Santa Cruz</option>
-	                <option value="4">Cochabamba</option>
-	                <option value="5">Tarija</option>
-	                <option value="6">Chuquisaca</option>
+                    <option value="1">Pando</option>
+                    <option value="2">Beni</option>
+                    <option value="3">Santa Cruz</option>
+                    <option value="4">Cochabamba</option>
+                    <option value="6">Tarija</option>
+                    <option value="5">Chuquisaca</option>
+                    <option value="9">La Paz</option>
+                    <option value="8">Oruro</option>
+                    <option value="7">Potosí</option>
 	            </select>
 	         </div>
             <div class="col provincia-m-3"></div>
@@ -157,13 +169,17 @@
 	    	<label class="row-form-label"><strong>Lugar:</strong></label>
 	    	<div class="col">
 	    		<select class="row form-select d-inline" id="departamento_m_4" name="departamento_m_4" data-bs-toggle="tooltip2" data-bs-placement="top" title="Departamento">
+	                <option selected disabled>Seleccione...</option>
 	                <option selected value="" >BOLIVIA</option>
-	                <option value="1">Pando</option>
-	                <option value="2">Beni</option>
-	                <option value="3">Santa Cruz</option>
-	                <option value="4">Cochabamba</option>
-	                <option value="5">Tarija</option>
-	                <option value="6">Chuquisaca</option>
+                    <option value="1">Pando</option>
+                    <option value="2">Beni</option>
+                    <option value="3">Santa Cruz</option>
+                    <option value="4">Cochabamba</option>
+                    <option value="6">Tarija</option>
+                    <option value="5">Chuquisaca</option>
+                    <option value="9">La Paz</option>
+                    <option value="8">Oruro</option>
+                    <option value="7">Potosí</option>
 	            </select>
 	         </div>
             <div class="col provincia-m-4"></div>
@@ -185,13 +201,13 @@
 	    	<div class="col" >
         	<label class="form-label"><strong>Sexo</strong></label>
         	<select class="form-select" name="sexo_m_4">
-        		<option value="F" selected>Femenino</option>
-        		<option value="M">Masculino</option>
+        		<option value="Fem" selected>Femenino</option>
+        		<option value="Masc">Masculino</option>
         	</select>
         </div>
         <div class="col" >
         	<label class="form-label"><strong>Edad</strong></label>
-        	<select class="form-select" name="edad_m_4">
+        	<select class="form-select" name="rango_m_4">
         		<option value="<" selected>Menores de 15 años</option>
         		<option value=">=" >Mayores de 15 años</option>
         	</select>
@@ -216,13 +232,17 @@
 	    	<label class="row-form-label"><strong>Lugar:</strong></label>
 	    	<div class="col">
 	    		<select class="row form-select d-inline" id="departamento_m_5" name="departamento_m_5" data-bs-toggle="tooltip2" data-bs-placement="top" title="Departamento">
+	                <option selected disabled>Seleccione...</option>
 	                <option selected value="" >BOLIVIA</option>
-	                <option value="1">Pando</option>
-	                <option value="2">Beni</option>
-	                <option value="3">Santa Cruz</option>
-	                <option value="4">Cochabamba</option>
-	                <option value="5">Tarija</option>
-	                <option value="6">Chuquisaca</option>
+                    <option value="1">Pando</option>
+                    <option value="2">Beni</option>
+                    <option value="3">Santa Cruz</option>
+                    <option value="4">Cochabamba</option>
+                    <option value="6">Tarija</option>
+                    <option value="5">Chuquisaca</option>
+                    <option value="9">La Paz</option>
+                    <option value="8">Oruro</option>
+                    <option value="7">Potosí</option>
 	            </select>
 	         </div>
             <div class="col provincia-m-5"></div>
@@ -240,6 +260,13 @@
             		<option value="Nuevo" selected>Nuevo</option>
             		<option value="Cronico">Crónico</option>
             		<option value="Recaida">Recaida</option>
+            	</select>
+            </div>
+            <div class="col" >
+            	<label class="form-label"><strong>Esquema actual</strong></label>
+            	<select class="form-select" name="esquema_m_5">
+            		<option value="Multibacilar" selected>Multibacilar</option>
+            		<option value="Paucibacilar">Paucibacilar</option>
             	</select>
             </div>
 	    </div>

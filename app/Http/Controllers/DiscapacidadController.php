@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\discapacidad;
+use App\Models\Discapacidad;
 use Illuminate\Http\Request;
 
 class DiscapacidadController extends Controller
@@ -35,7 +35,7 @@ class DiscapacidadController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $request;    
     }
 
     /**
@@ -69,9 +69,14 @@ class DiscapacidadController extends Controller
      */
     public function update(Request $request, discapacidad $discapacidad)
     {
-        return $request;
-        DatosPersonales::where('id', '=', $datosPersonales['id'])->update($datosPersonales);
-        return redirect("paciente/edit/".$datosPersonales['id'])->with('success', '!Dato actualizado con éxito¡');
+        // return $request->discapacidad[8];
+        for( $i=0; $i< count($request['discapacidad']); $i++ ){
+            if( $i < '8' ){
+                Discapacidad::where('id', '=', $request->discapacidad[$i]['id'])->update( $request->discapacidad[$i]);
+            }    
+        }
+        Discapacidad::where('id', '=', $request->discapacidad[8]['id'])->update( $request->discapacidad[8]);
+        return redirect("paciente/edit/".$request->datos_personales_id)->with('success', '!Dato actualizado con éxito¡');
     }
 
     /**

@@ -30,15 +30,17 @@ class AuthRouteMethods
                 // Registration Routes...
                 if ($options['register'] ?? true) {
                     $this->get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+
                     $this->post('register', 'Auth\RegisterController@register');
 
-                    $this->get('users', 'Auth\RegisterController@showUsers')->name('users');
+                    //$this->get('users', 'Auth\RegisterController@showUsers')->name('users');
                 }
 
                 // Password Reset Routes...
-                if ($options['reset'] ?? true) {
-                    $this->resetPassword();
-                }
+                // NO PASSWORD RESET
+                // if ($options['reset'] ?? true) {
+                //     $this->resetPassword();
+                // }
 
                 // Password Confirmation Routes...
                 if ($options['confirm'] ??

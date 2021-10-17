@@ -13,6 +13,9 @@
 {{-- {{ $dp_record->tipo_caso
  }} --}}
 <div class="container-md" style="padding: 1% 3%;">
+    <div class="text-center">
+        <h3>Edición de datos de paciente</h3>
+    </div>
     <fieldset class="field-border">
         <div class="row">
             <label><strong>Datos generales:</strong></label>
@@ -90,7 +93,7 @@
             </div>
 
             <div class="container-sm tab-pane fade" id="v-pills-diagnostico" role="tabpanel" aria-labelledby="vtab_7">
-                @include('dpEdit.diagnosticoClinico')
+                @include('dpEdit.diagnosticoClinico', compact('diagnostic_records'))
             </div>
 
             <div class="container-sm tab-pane fade" id="v-pills-discapacidades" role="tabpanel" aria-labelledby="vtab_8">

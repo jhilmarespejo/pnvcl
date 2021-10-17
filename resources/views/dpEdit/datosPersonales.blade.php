@@ -45,6 +45,7 @@
             @foreach ($healt_services as $healt_service)
             @endforeach
 
+
         <legend class="field-border">2. Datos personales y epidemiológicos</legend>
 
             <input type="hidden" id="" name="datos_personales[id]" value="{{$dp_record->id}}">
@@ -301,6 +302,7 @@
                             @enderror
                         </div>
                         <div class="row"></div>
+                        
                         <div class="col mt-1" id="ssc">
                             <input type="hidden" name="datos_personales[serv_salud_id_cercano]" value="{{$healt_service->serv_salud_id_cercano}}"> 
 
@@ -476,7 +478,7 @@ $(document).ready( function () {
     //const latlng = @json($dp_record->latlng);
 
     var latlng = @json($dp_record->latlng).split(',');
-    console.log(latlng[0]);
+    //console.log(latlng[0]);
     var map = L.map('map').setView([latlng[0],latlng[1]], 13);
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
         maxZoom: 18,

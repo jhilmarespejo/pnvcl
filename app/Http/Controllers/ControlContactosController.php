@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\ControlContactos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-//use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Route;
+
 
 class ControlContactosController extends Controller
 {
@@ -37,30 +38,30 @@ class ControlContactosController extends Controller
      */
     public function store(Request $request)
     {
-
-
-         $request->validate([
-            'contacto_nombres' => 'required|string',
-            'contacto_apellidos' => 'required|string',
-            'contacto_edad' => 'required|string|max:2',
-            'contacto_sexo' => 'required|string',
-            'contacto_parentesco' => 'required|string',
-            // 'fecha_control' => 'required|date',
-            // 'sintomatico_piel' => 'required|string',
-            // 'laboratorio_baar' => 'required|string',
-            // 'contacto_diagnostico' => 'required|string',
-            // 'observaciones' => 'required|string',
-
-         ],[
-            'required' => 'Dato incompleto',
-            'max' => 'Dato muy extenso',
-            //'unique' => 'El dato YA existe',
-        ],
-     );
-       
-        DB::table('control_contactos')->insert( request()->except(['_token']) );
-        return redirect("contactos/edit/".$request->datos_personales_id)->with('success', '!Dato guardado con éxito¡');
-        //return $request;
+        if(Auth::user()->rol == 'Operativo' || Auth::user()->rol == 'Administrador' || Auth::user()->rol == 'Super' ){
+            $request->validate([
+                'contacto_nombres' => 'required|string',
+                'contacto_apellidos' => 'required|string',
+                'contacto_edad' => 'required|string|max:2',
+                'contacto_sexo' => 'required|string',
+                'contacto_parentesco' => 'required|string',
+                // 'fecha_control' => 'required|date',
+                // 'sintomatico_piel' => 'required|string',
+                // 'laboratorio_baar' => 'required|string',
+                // 'contacto_diagnostico' => 'required|string',
+                // 'observaciones' => 'required|string',
+                 ],[
+                    'required' => 'Dato incompleto',
+                    'max' => 'Dato muy extenso',
+                    //'unique' => 'El dato YA existe',
+                ],
+            );
+           
+            DB::table('control_contactos')->insert( request()->except(['_token']) );
+            return redirect("contactos/edit/".$request->datos_personales_id)->with('success', '!Dato guardado con éxito¡');
+        } else{
+             return redirect(str_replace(url('/'), '', url()->previous()));
+        }
     }
 
     /**
@@ -111,9 +112,13 @@ class ControlContactosController extends Controller
      */
     public function update(Request $request)
     {
-        //$contact = request()->except(['_token','_method']);
-        ControlContactos::where('id', '=', $request->id)->update(request()->except(['_token','_method', 'datos_personales_id']));
-        return redirect("contactos/edit/".$request->datos_personales_id)->with('success', '!Dato guardado con éxito¡');
+        if(Auth::user()->rol == 'Operativo' || Auth::user()->rol == 'Administrador' || Auth::user()->rol == 'Super'){
+            ControlContactos::where('id', '=', $request->id)->update(request()->except(['_token','_method', 'datos_personales_id']));
+            return redirect("contactos/edit/".$request->datos_personales_id)->with('success', '!Dato guardado con éxito¡');
+        } else{
+                //return str_replace(url('/'), '', url()->previous());
+             return redirect(str_replace(url('/'), '', url()->previous()));
+        }
     }
 
     /**
@@ -124,8 +129,11 @@ class ControlContactosController extends Controller
      */
     public function destroy(Request $request)
     {
-        ControlContactos::destroy($request->id);
-        return redirect("contactos/edit/".$request->datos_personales_id)->with('warning', '!Dato Eliminado con éxito¡');
-        //return $request->id;
+        if(Auth::user()->rol == 'Administrador' || Auth::user()->rol == 'Super' ){
+            ControlContactos::destroy($request->id);
+            return redirect("contactos/edit/".$request->datos_personales_id)->with('warning', '!Dato Eliminado con éxito¡');
+         } else{
+             return redirect(str_replace(url('/'), '', url()->previous()));
+        }
     }
 }

@@ -21,11 +21,8 @@ trait RegistersUsers
     {
         return view('auth.register');
     }
-    public function showUsers()
-    {
-        $users = User::all();
-        return view('auth.users', compact('users'));
-    }
+    
+
     /**
      * Handle a registration request for the application.
      *
@@ -34,7 +31,7 @@ trait RegistersUsers
      */
     public function register(Request $request)
     {
-        return $request;
+        //return $request;
         $this->validator($request->all())->validate();
 
         event(new Registered($user = $this->create($request->all())));

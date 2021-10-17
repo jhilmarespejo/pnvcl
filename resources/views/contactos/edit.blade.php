@@ -173,29 +173,34 @@
                     <td><input type="text" name="contacto_diagnostico" class="form-control" value="{{ $contact->contacto_diagnostico }}"></td>
                     <td><input type="text" name="observaciones" class="form-control" value="{{ $contact->observaciones }}"></td>
                     <td>
-                        <div class="dropdown">
-                            <button class="btn btn-success btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                              Opciones
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        @if ( Auth::user()->rol == 'Operativo' || Auth::user()->rol == 'Administrador' || Auth::user()->rol == 'Super')
+                            <div class="dropdown">
+                                <button class="btn btn-success btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                  Opciones
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                               {{-- <li><a class="dropdown-item" href="">Guardar dato</a> --}}
-                                <li >
-                                    <button class="dropdown-item"  type="submit">Guardar dato</button>
-                                </li>
-                                <li>
-                                    <span class="dropdown-item"> 
-                                        <span class="destroy-{{ $contact->id }}" id="destroy" >Eliminar</span>
-                                    </span>
-                                </li>
-                              {{--  --}}
+                                
+                                    <li >
+                                        <button class="dropdown-item"  type="submit">Actualizar dato</button>
+                                    </li>
+                                @if ( Auth::user()->rol == 'Administrador' || Auth::user()->rol == 'Super')
+                                    <li>
+                                        <span class="dropdown-item"> 
+                                            <span class="destroy-{{ $contact->id }}" id="destroy" >Eliminar</span>
+                                        </span>
+                                    </li>
+                                @endif
                             </ul>
                           </div>
+                        @endif
+
                     </td>
 
                 </tr>
             </form>
             <form action="{{ route('contactos.destroy') }}" method="post" id="destroy-{{ $contact->id }}"
-            onsubmit="return confirm('¿Está seguro de eliminar éste registro?')">
+                    onsubmit="return confirm('¿Está seguro de eliminar éste registro?')">
                 @csrf
                 {{-- {{ method_field('delete') }} --}}
                 @method('delete')
@@ -320,7 +325,9 @@
                     @enderror --}}
                 </td>
                 <td>
-                   <button class="btn btn-sm btn-success" type="submit">Guardar</button>
+                    @if ( Auth::user()->rol == 'Administrador' || Auth::user()->rol == 'Operativo' || Auth::user()->rol == 'Super')
+                        <button class="btn btn-sm btn-success" type="submit">Guardar</button>
+                    @endif
                 </td>
             </tr>
         </form>

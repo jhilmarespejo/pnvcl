@@ -13,13 +13,12 @@ use App\Models\Histopatologia;
 use App\Models\Diagnostico;
 use App\Models\Tratamiento;
 use App\Models\IdentificacionCaso;
- //use App\Models\Notificacion;
-
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class DatosPersonalesController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
@@ -48,9 +47,12 @@ class DatosPersonalesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        return view('datosPersonales.create');
+    public function create(){
+        if(Auth::user()->rol == 'Operativo' || Auth::user()->rol == 'Super'){
+            return view('datosPersonales.create');
+        }else{
+            return redirect('paciente/index');
+        }
     }
 
     /**
@@ -110,11 +112,8 @@ class DatosPersonalesController extends Controller
 
 
             'bacteriologia.linfa_lobulo_oreja' => 'required_with:bacteriologia.resultado_lobulo_oreja|required_without_all:bacteriologia.linfa_lesion,bacteriologia.linfa_codo,bacteriologia.linfa_otro|max:5',
-
             'bacteriologia.linfa_lesion' => 'required_with:bacteriologia.resultado_lesion|required_without_all:bacteriologia.linfa_lobulo_oreja,bacteriologia.linfa_codo,bacteriologia.linfa_otro|max:5',
-
             'bacteriologia.linfa_codo' => 'required_with:bacteriologia.resultado_codo|required_without_all:bacteriologia.linfa_lobulo_oreja,bacteriologia.linfa_lesion,bacteriologia.linfa_otro|max:5',
-
             'bacteriologia.linfa_otro' => 'required_with:bacteriologia.resultado_otro|required_without_all:bacteriologia.linfa_lobulo_oreja,bacteriologia.linfa_lesion,bacteriologia.linfa_codo|max:250',
 
 
@@ -186,31 +185,20 @@ class DatosPersonalesController extends Controller
                 $controlContactos[$i] = array_merge(['datos_personales_id'=>$pacienteId], $request['control_contactos'][$i]);
             }    
         }
-        // return $request['control_contactos'];
         if( isset($controlContactos) ){
             DB::table('control_contactos')->insert($controlContactos);
         }
-        
-        for($i=0; $i< count($request['discapacidad']); $i++ ){
-            if( isset($request['discapacidad'][$i]['manos_lat']) || 
-            isset($request['discapacidad'][$i]['pies_lat']) ||
-            isset($request['discapacidad'][$i]['ojos_lat']) )
-            {
+
+        for( $i=0; $i< count($request['discapacidad']); $i++ ){
+            if( $i < '8' ){
                 $discapacidad[$i] = array_merge(['datos_personales_id'=>$pacienteId], $request['discapacidad'][$i]);
-                $j=$i;
-            }    
+            }   
+            $otrasLesiones = array_merge(['datos_personales_id'=>$pacienteId], $request['discapacidad'][8]); 
         }
         if( isset($discapacidad) ) {
             DB::table('discapacidad')->insert($discapacidad);
-        }
-
-        if(isset($request['discapacidad']['8']['lesiones_faringeas']) ||
-            isset($request['discapacidad']['8']['aplastamiento_nariz']) ||
-            isset($request['discapacidad']['8']['paralisis_fasial']) ||
-            isset($request['discapacidad']['8']['otros'])){
-                $otrasLesiones[$j+1] = array_merge(['datos_personales_id'=>$pacienteId], $request['discapacidad'][8]);
             DB::table('discapacidad')->insert($otrasLesiones);
-        }    
+        }
         
 
         $datosClinicos = array_merge(['datos_personales_id'=>$pacienteId], $request['datos_clinicos']);
@@ -245,58 +233,68 @@ class DatosPersonalesController extends Controller
      */
     public function edit($id)
     {
-        //$records = DB::table('datos_personales')->where('datos_personales.id', $id)->first();
+        //return Route::currentRouteAction(); 
+    // return Auth::user()->rol;
+        
+        if(Auth::user()->rol == 'Administrador' || Auth::user()->rol == 'Super'){
+        
+            //$records = DB::table('datos_personales')->where('datos_personales.id', $id)->first();
 
-        $dp_records = DB::table('sedes')
-        ->select('datos_personales.*','sedes.sedes','provincia.provincia', 'municipio.municipio','servicio_salud.serv_salud', 'red_salud.red_salud')
-        ->join ('provincia', 'sedes.id', 'provincia.sedes_id')
-        ->join ('municipio', 'provincia.id', 'municipio.provincia_id')
-        ->join ('servicio_salud', 'servicio_salud.municipio_id', 'municipio.id')
-        ->join ('datos_personales', 'datos_personales.servicio_salud_id', 'servicio_salud.id')
-        ->join ('red_salud', 'red_salud.sedes_id', 'sedes.id')
-        ->where('datos_personales.id',$id)
-        ->groupBy('datos_personales.id')
-        ->get();
+            $dp_records = DB::table('sedes')
+            ->select('datos_personales.*','sedes.sedes','provincia.provincia', 'municipio.municipio','servicio_salud.serv_salud', 'red_salud.red_salud')
+            ->join ('provincia', 'sedes.id', 'provincia.sedes_id')
+            ->join ('municipio', 'provincia.id', 'municipio.provincia_id')
+            ->join ('servicio_salud', 'servicio_salud.municipio_id', 'municipio.id')
+            ->join ('datos_personales', 'datos_personales.servicio_salud_id', 'servicio_salud.id')
+            ->join ('red_salud', 'red_salud.sedes_id', 'sedes.id')
+            ->where('datos_personales.id',$id)
+            ->groupBy('datos_personales.id')
+            ->get();
 
-        $dp_addresses = DB::table('sedes')
-        ->select('datos_personales.id','sedes.id as sedes_id','sedes.sedes','provincia.id as provincia_id', 'provincia.provincia', 'municipio.id as municipio_id', 'municipio.municipio')
-        ->join ('provincia', 'sedes.id', 'provincia.sedes_id')
-        ->join ('municipio', 'provincia.id', 'municipio.provincia_id')
-        ->join ('datos_personales', 'datos_personales.municipio_id', 'municipio.id')
-        ->where('datos_personales.id',$id)
-        ->groupBy('datos_personales.id')
-        ->get();
+            $dp_addresses = DB::table('sedes')
+            ->select('datos_personales.id','sedes.id as sedes_id','sedes.sedes','provincia.id as provincia_id', 'provincia.provincia', 'municipio.id as municipio_id', 'municipio.municipio')
+            ->join ('provincia', 'sedes.id', 'provincia.sedes_id')
+            ->join ('municipio', 'provincia.id', 'municipio.provincia_id')
+            ->join ('datos_personales', 'datos_personales.municipio_id', 'municipio.id')
+            ->where('datos_personales.id',$id)
+            ->groupBy('datos_personales.id')
+            ->get();
 
-        $healt_services = DB::table('datos_personales')
-        ->select('datos_personales.id','datos_personales.serv_salud_id_cercano','servicio_salud.serv_salud')
-        ->join ('servicio_salud', 'datos_personales.serv_salud_id_cercano', 'servicio_salud.id')
-        ->where('datos_personales.id',$id)
-        ->get();
-        //return $dp_records;
-        $previous_residences = DB::table('residencia_anterior')
-        ->select('municipio.id as municipio_id','municipio.municipio', 'provincia.id as provincia_id', 'provincia.provincia', 'sedes.id as sedes_id', 'sedes.sedes', 'residencia_anterior.localidad', 'residencia_anterior.tiempo_res_ant_cantidad', 'residencia_anterior.tiempo_res_ant_unidad')
-        ->join('municipio', 'municipio.id', 'residencia_anterior.municipio_id')
-        ->join('provincia', 'municipio.provincia_id', 'provincia.id')
-        ->join('sedes', 'provincia.sedes_id', 'sedes.id')
-        ->where('residencia_anterior.datos_personales_id',$id)
-        ->get();
+            $healt_services = DB::table('datos_personales')
+            ->select('datos_personales.id','datos_personales.serv_salud_id_cercano','servicio_salud.serv_salud')
+            ->join ('servicio_salud', 'datos_personales.serv_salud_id_cercano', 'servicio_salud.id')
+            ->where('datos_personales.id',$id)
+            ->get();
+            //return $dp_records;
+            $previous_residences = DB::table('residencia_anterior')
+            ->select('municipio.id as municipio_id','municipio.municipio', 'provincia.id as provincia_id', 'provincia.provincia', 'sedes.id as sedes_id', 'sedes.sedes', 'residencia_anterior.localidad', 'residencia_anterior.tiempo_res_ant_cantidad', 'residencia_anterior.tiempo_res_ant_unidad')
+            ->join('municipio', 'municipio.id', 'residencia_anterior.municipio_id')
+            ->join('provincia', 'municipio.provincia_id', 'provincia.id')
+            ->join('sedes', 'provincia.sedes_id', 'sedes.id')
+            ->where('residencia_anterior.datos_personales_id',$id)
+            ->get();
 
-        $clinical_records = DatosClinicos::where('datos_personales_id', $id)->get();
-        $bacteriology_records = Bacteriologia::where('datos_personales_id', $id)->get();
-        $histopatology_records = Histopatologia::where('datos_personales_id', $id)->get();
-        $disability_records = Discapacidad::where('datos_personales_id', $id)->get();
-        $treatment_records = Tratamiento::where('datos_personales_id', $id)->get();
-        $identification_records = IdentificacionCaso::where('datos_personales_id', $id)->get();
-        //$notification_records = Notificacion::where('identificacion_caso_id', $identification_records[0]['id'])->get();
+            $clinical_records = DatosClinicos::where('datos_personales_id', $id)->get();
+            $bacteriology_records = Bacteriologia::where('datos_personales_id', $id)->get();
+            $histopatology_records = Histopatologia::where('datos_personales_id', $id)->get();
+            $disability_records = Discapacidad::where('datos_personales_id', $id)->where('discapacidad.termino_tto','No')->get();
+            $treatment_records = Tratamiento::where('datos_personales_id', $id)->get();
+            $identification_records = IdentificacionCaso::where('datos_personales_id', $id)->get();
+            $diagnostic_records = Diagnostico::where('datos_personales_id', $id)->get();
+            //$notification_records = Notificacion::where('identificacion_caso_id', $identification_records[0]['id'])->get();
 
-        $notification_records = DB::table('notificacion')
-        ->select('notificacion.id', 'notificacion.identificacion_caso_id', 'notificacion.servicio_salud', 'notificacion.servicio_salud_id', 'notificacion.fecha', 'notificacion.notificador', 'identificacion_caso.datos_personales_id')
-        ->join('identificacion_caso', 'notificacion.identificacion_caso_id', 'identificacion_caso.id')
-        ->where('identificacion_caso.datos_personales_id', $id)->get();
+            $notification_records = DB::table('notificacion')
+            ->select('notificacion.id', 'notificacion.identificacion_caso_id', 'notificacion.servicio_salud', 'notificacion.servicio_salud_id', 'notificacion.fecha', 'notificacion.notificador', 'identificacion_caso.datos_personales_id')
+            ->join('identificacion_caso', 'notificacion.identificacion_caso_id', 'identificacion_caso.id')
+            ->where('identificacion_caso.datos_personales_id', $id)->get();
 
-        //return $notification_records;
+            //return $notification_records;
 
-        return view('dpEdit.edit', compact(['id', 'dp_records', 'dp_addresses', 'healt_services', 'previous_residences', 'clinical_records', 'bacteriology_records', 'histopatology_records', 'disability_records', 'treatment_records', 'identification_records', 'notification_records']));
+            return view('dpEdit.edit', compact(['id', 'dp_records', 'dp_addresses', 'healt_services', 'previous_residences', 'clinical_records', 'bacteriology_records', 'histopatology_records', 'disability_records', 'treatment_records', 'identification_records', 'notification_records', 'diagnostic_records']));
+        } else{
+            return redirect('paciente/index');
+        }
+
     }
 
     /**

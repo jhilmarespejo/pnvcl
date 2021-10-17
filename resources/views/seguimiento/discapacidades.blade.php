@@ -1,7 +1,7 @@
 <div class="modal-dialog modal-xl" id="discap_container">
   <div class="modal-content">
     <div class="modal-header">
-      <h5 class="modal-title text-center" id="controlContactosLabel">8. Registro de discapacidades</h5>
+      <h5 class="modal-title text-center" id="controlContactosLabel">7. Registro de discapacidades al FINAL DEL TRATAMIENTO</h5>
      
       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
@@ -9,7 +9,7 @@
     <div class="modal-body">
       <div class="container row table-responsive">
         <small id="" class="fs-6 text-danger msg-discapacidad" style="display:none;" > * Debe seleccionar al menos un dato por columna</small>
-        <fieldset class="field-border row">
+        <fieldset class="field-border row" id="discapacidades_tb">
          
           <table class="table table-sm table-bordered">
             <thead>
@@ -31,7 +31,8 @@
             <tbody>
               <tr class="g-0" >
                 <td>
-                  <input type="hidden" name="discapacidad[0][termino_tto]" value="No">
+                  <input type="hidden" name="discapacidad[0][termino_tto]" value="Si">
+                  <input type="hidden" name="discapacidad[0][numero_control]" value="{{$numero_control}}">
                    0 
                 </td>
                 <td>
@@ -77,7 +78,8 @@
       
               <tr class="g-1">
                 <td>
-                  <input type="hidden" name="discapacidad[1][termino_tto]" value="No">
+                  <input type="hidden" name="discapacidad[1][termino_tto]" value="Si">
+                  <input type="hidden" name="discapacidad[1][numero_control]" value="{{$numero_control}}">
                   1
                 </td>
                 <td>
@@ -123,7 +125,8 @@
       
               <tr class="g-2">
                 <td>
-                  <input type="hidden" name="discapacidad[2][termino_tto]" value="No">
+                  <input type="hidden" name="discapacidad[2][termino_tto]" value="Si">
+                  <input type="hidden" name="discapacidad[2][numero_control]" value="{{$numero_control}}">
                   2
                 </td>
                 <td>
@@ -169,7 +172,8 @@
       
               <tr class="g-2">
                 <td>
-                  <input type="hidden" name="discapacidad[3][termino_tto]" value="No">
+                  <input type="hidden" name="discapacidad[3][termino_tto]" value="Si">
+                  <input type="hidden" name="discapacidad[3][numero_control]" value="{{$numero_control}}">
                   2
                 </td>
                 <td>
@@ -216,7 +220,8 @@
       
               <tr class="g-2">
                 <td>
-                  <input type="hidden" name="discapacidad[4][termino_tto]" value="No">
+                  <input type="hidden" name="discapacidad[4][termino_tto]" value="Si">
+                  <input type="hidden" name="discapacidad[4][numero_control]" value="{{$numero_control}}">
                   2
                 </td>
                 <td>
@@ -262,7 +267,8 @@
       
               <tr class="g-2"> 
                 <td>
-                  <input type="hidden" name="discapacidad[5][termino_tto]" value="No">
+                  <input type="hidden" name="discapacidad[5][termino_tto]" value="Si">
+                  <input type="hidden" name="discapacidad[5][numero_control]" value="{{$numero_control}}">
                   2
                 </td>
                 <td>
@@ -308,7 +314,8 @@
       
               <tr class="g-2">
                 <td>
-                  <input type="hidden" name="discapacidad[6][termino_tto]" value="No">
+                  <input type="hidden" name="discapacidad[6][termino_tto]" value="Si">
+                  <input type="hidden" name="discapacidad[6][numero_control]" value="{{$numero_control}}">
                   2
                 </td>
                 <td>
@@ -349,7 +356,8 @@
       
               <tr class="g-2">
                 <td>
-                  <input type="hidden" name="discapacidad[7][termino_tto]" value="No">
+                  <input type="hidden" name="discapacidad[7][termino_tto]" value="Si">
+                  <input type="hidden" name="discapacidad[7][numero_control]" value="{{$numero_control}}">
                   2
                 </td>
                 <td>
@@ -392,10 +400,12 @@
       
             </tbody>
           </table>
+          {{$numero_control}}
 
           <div class="container row">
             <legend>Otras lesiones:</legend>
-            <input type="hidden" name="discapacidad[8][termino_tto]" value="No">
+            <input type="hidden" name="discapacidad[8][termino_tto]" value="Si">
+            <input type="hidden" name="discapacidad[8][numero_control]" value="{{$numero_control}}">
             <div class="col">
               <label class="form-label" >Lesiones faringeas </label>
               <select class="form-select form-select-sm" name="discapacidad[8][lesiones_faringeas]" id="">

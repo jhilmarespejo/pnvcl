@@ -20,6 +20,7 @@ use App\Http\Controllers\DiagnosticoController;
 use App\Http\Controllers\TratamientoController;
 use App\Http\Controllers\IdentificacionCasoController;
 use App\Http\Controllers\NotificacionController;
+use App\Http\Controllers\UsrsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,8 +38,6 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('paciente', [DatosPersonalesController::class, 'index'])->name('paciente.index');
-
-
 
     Route::get('paciente/create', [DatosPersonalesController::class, 'create'])->name('paciente.create')->middleware('auth');
     Route::post('paciente/store', [DatosPersonalesController::class, 'store'])->name('paciente.store')->middleware('auth');
@@ -85,7 +84,6 @@ Route::get('paciente', [DatosPersonalesController::class, 'index'])->name('pacie
 
     Route::put('histopatologia/update', [HistopatologiaController::class, 'update'])->name('histopatologia.update')->middleware('auth');
 
-
     Route::put('diagnostico/update', [DiagnosticoController::class, 'update'])->name('diagnostico.update')->middleware('auth');
 
     Route::put('discapacidades/update', [DiscapacidadController::class, 'update'])->name('discapacidades.update')->middleware('auth');
@@ -95,6 +93,15 @@ Route::get('paciente', [DatosPersonalesController::class, 'index'])->name('pacie
     Route::put('identificacioncaso/update', [IdentificacionCasoController::class, 'update'])->name('identificacioncaso.update')->middleware('auth');
     
     Route::put('notificacion/update', [NotificacionController::class, 'update'])->name('notificacion.update')->middleware('auth');
+    Route::put('notificacion/update', [NotificacionController::class, 'update'])->name('notificacion.update')->middleware('auth');
+
+    Route::get('users/show', [UsrsController::class, 'show'])->name('users.show')->middleware('auth');
+
+    Route::put('users/update', [UsrsController::class, 'update'])->name('users.update')->middleware('auth');
+
+    Route::delete('users/destroy', [UsrsController::class, 'destroy'])->name('users.destroy')->middleware('auth');
+
+    
 
 
     // Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register')->middleware('auth');

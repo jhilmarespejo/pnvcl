@@ -131,6 +131,13 @@ border-top: 1px solid #c8c2c2;
 border-bottom: 1px solid #c8c2c2;
 border-radius: 20px 0px 0px 0px;
   }
+.tracing{
+  padding-left: 1rem;
+}
+.fs-8{
+  font-size: 0.8rem !important;
+}
+
 
 
 
@@ -187,13 +194,6 @@ border-radius: 20px 0px 0px 0px;
     margin-top: -0.5rem;
     margin-left: 0.5rem;
 }
-
-
-
-
-
-
-
 
 
 

@@ -48,6 +48,7 @@ class ReportesController extends Controller
      */
     public function show(Request $request)
     {
+        // return $request;
     /*** PROCESS FOR METRIC 1  ***/
         if($request->metric == 'm_1'){
             if ($request->serv_salud_m_1) {
@@ -70,6 +71,7 @@ class ReportesController extends Controller
                 return view('Reportes.responses', ['total' => $total, 'tasa' => (($total/$population->poblacion_2021)*100000), 'metric' => 'm_1', 'case' => $request->caso_m_1]);
             }            
             //return $records->dd();
+
             /*returns the number of cases BOLIVIA, rate with the population of the country and the corresponding metric*/
             $total = $this->totalCases($request);
             return view('Reportes.responses', ['total' => $total, 'tasa' => (($total/11841955)*100000), 'metric' => 'm_1', 'case' => $request->caso_m_1]);
@@ -127,13 +129,20 @@ class ReportesController extends Controller
             ->join('datos_personales', 'datos_personales.servicio_salud_id', '=', 'servicio_salud.id')
             ->join('diagnostico', 'diagnostico.datos_personales_id', '=', 'datos_personales.id')
             ->join('discapacidad', 'discapacidad.datos_personales_id', '=', 'datos_personales.id')
-            ->orWhere(function($query) {
-                $query->orWhere('discapacidad.manos_grado', '2')
-                      ->orWhere('discapacidad.pies_grado', '2')
-                      ->orWhere('discapacidad.ojos_grado', '2');
+             ->orWhere(function($query2) {
+                $query2->orWhere([ ['discapacidad.manos_grado', '2'],['discapacidad.manos_lat', '!=', ''] ])
+                      ->orWhere([ ['discapacidad.pies_grado', '2'],['discapacidad.pies_lat', '!=', ''] ])
+                      ->orWhere([ ['discapacidad.ojos_grado', '2'],['discapacidad.ojos_lat', '!=', ''] ]);
             })
+
+            // ->orWhere(function($query2) {
+            //     $query2->orWhere('discapacidad.manos_lat', 'is not null')
+            //           ->orWhere('discapacidad.pies_lat', 'is not null')
+            //           ->orWhere('discapacidad.ojos_lat', 'is not null');
+            // })
             ->whereBetween('diagnostico.fecha_diagnostico', [$startDate, $endDate])
-            ->where('datos_personales.tipo_caso', '=', $request->caso_m_3);
+            ->where('datos_personales.tipo_caso', '=', $request->caso_m_3)
+            ->groupBy('datos_personales.id');
 
             if ($request->municipio_m_3) {
                 /*to avoid error division by 0 */
@@ -184,7 +193,7 @@ class ReportesController extends Controller
             ->whereBetween('diagnostico.fecha_diagnostico', [$startDate, $endDate])
             ->where('datos_personales.tipo_caso', '=', $request->caso_m_4)
             ->where('datos_personales.sexo', '=', $request->sexo_m_4);
-            $records->where('datos_personales.edad', $request->edad_m_4, '15');
+            $records->where('datos_personales.edad', $request->rango_m_4, '15');
 
             if ($request->municipio_m_4) {
                 /*to avoid error division by 0 */
@@ -194,7 +203,7 @@ class ReportesController extends Controller
                     $records->where('municipio.id', $request->municipio_m_4);
                     $proportion = (($records->get()->count()/$this->totalCases($request))*100);
                 }
-                return view('Reportes.responses', ['proportion' => $proportion, 'edad' => $request->edad_m_4,'metric' => 'm_4', 'case' => $request->caso_m_4]);
+                return view('Reportes.responses', ['proportion' => $proportion, 'edad' => $request->rango_m_4,'metric' => 'm_4', 'case' => $request->caso_m_4]);
             }
             if ($request->provincia_m_4) {
                 /*to avoid error division by 0 */
@@ -204,7 +213,7 @@ class ReportesController extends Controller
                     $records->where('provincia.id', $request->provincia_m_4);
                     $proportion = (($records->get()->count()/$this->totalCases($request))*100);
                 }
-                return view('Reportes.responses', ['proportion' => $proportion, 'edad' => $request->edad_m_4,'metric' => 'm_4', 'case' => $request->caso_m_4]);
+                return view('Reportes.responses', ['proportion' => $proportion, 'edad' => $request->rango_m_4,'metric' => 'm_4', 'case' => $request->caso_m_4]);
             }
             if ($request->departamento_m_4) {
                 /*to avoid error division by 0 */
@@ -214,11 +223,11 @@ class ReportesController extends Controller
                     $records->where('sedes.id', $request->departamento_m_4);
                     $proportion = (($records->get()->count()/$this->totalCases($request))*100);
                 }
-                return view('Reportes.responses', ['proportion' => $proportion, 'edad' => $request->edad_m_4,'metric' => 'm_4', 'case' => $request->caso_m_4]);
+                return view('Reportes.responses', ['proportion' => $proportion, 'edad' => $request->rango_m_4,'metric' => 'm_4', 'case' => $request->caso_m_4]);
             }            
             //return $records->dd();
             /*returns the number of cases, rate with the population of the country and the corresponding metric*/
-            return view('Reportes.responses', ['proportion' => (($records->get()->count()/$this->totalCases($request))*100), 'edad' => $request->edad_m_4,'metric' => 'm_4', 'case' => $request->caso_m_4]);
+            return view('Reportes.responses', ['proportion' => (($records->get()->count()/$this->totalCases($request))*100), 'rango' => $request->rango_m_4,'metric' => 'm_4', 'case' => $request->caso_m_4]);
         }
     /*** PROCESS FOR METRIC 5 REVISAR  ***/
         if($request->metric == 'm_5'){
@@ -226,16 +235,18 @@ class ReportesController extends Controller
             $endDate = $request->gestion_m_5.'-12-31';
             $records = DB::table('sedes')
             ->select('datos_personales.id')
-            ->join('provincia', 'sedes.id', '=', 'provincia.sedes_id')
-            ->join('municipio', 'provincia.id', '=', 'municipio.provincia_id')
-            ->join('servicio_salud', 'servicio_salud.municipio_id', '=', 'municipio.id')
-            ->join('datos_personales', 'datos_personales.servicio_salud_id', '=', 'servicio_salud.id')
-            ->join('diagnostico', 'diagnostico.datos_personales_id', '=', 'datos_personales.id')
-            ->orWhere(function($query) {
-                $query->orWhereNotNull('diagnostico.diagnostico');
-            })
+            ->join('provincia', 'sedes.id', 'provincia.sedes_id')
+            ->join('municipio', 'provincia.id', 'municipio.provincia_id')
+            ->join('servicio_salud', 'servicio_salud.municipio_id', 'municipio.id')
+            ->join('datos_personales', 'datos_personales.servicio_salud_id', 'servicio_salud.id')
+            ->join('diagnostico', 'diagnostico.datos_personales_id', 'datos_personales.id')
+            ->join('tratamiento', 'tratamiento.datos_personales_id', 'datos_personales.id')
+            // ->orWhere(function($query) {
+            //     $query->orWhereNotNull('diagnostico.diagnostico');
+            // })
             ->whereBetween('diagnostico.fecha_diagnostico', [$startDate, $endDate])
-            ->where('datos_personales.tipo_caso', '=', $request->caso_m_5);
+            ->where('tratamiento.esquema_actual', $request->esquema_m_5)
+            ->where('datos_personales.tipo_caso', $request->caso_m_5);
 
             if ($request->municipio_m_5) {
                 /*to avoid error division by 0 */
@@ -301,6 +312,7 @@ class ReportesController extends Controller
         ->join('diagnostico', 'diagnostico.datos_personales_id', '=', 'datos_personales.id')
         ->whereBetween('diagnostico.fecha_diagnostico', [$startDate, $endDate])
         ->where('datos_personales.tipo_caso', '=', $r['caso']);
+        
 
         if ($r['serv_salud']) {
             $records->where('servicio_salud.id', $r['serv_salud']);

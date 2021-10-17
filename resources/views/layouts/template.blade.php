@@ -37,7 +37,7 @@
   <nav class="navbar fixed-top nav-custom-1">
     <img class="img-fluid" src="/images/navbar1.png" alt="...">
       <div class="container-fluid flex-row-reverse fixed-top" style="margin: 2% 0% 0% -4%;">
-        <div class="dropdown">
+        <div class="dropdown ">
           <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
             @if ( Auth::check() )
               {{ Auth::user()->name }}
@@ -55,8 +55,13 @@
               @endif
               @else
                   <li>
-                    <a class="dropdown-item" href="/paciente/create">Nuevo Paciente</a>
+                    <a class="dropdown-item alert-secondary" href="#">Rol: {{Auth::user()->rol}}</a>
                   </li>
+                  @if ( Auth::user()->rol == 'Operativo' || Auth::user()->rol == 'Super')
+                    <li>
+                      <a class="dropdown-item" href="/paciente/create">Nuevo Paciente</a>
+                    </li>
+                  @endif
                   <li>
                     <a class="dropdown-item" href="/paciente/index">Registro de casos</a>
                   </li>
@@ -71,6 +76,17 @@
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                     @csrf </form>
                   </li>
+
+                  @if ( Auth::user()->rol == 'Ejecutivo' || Auth::user()->rol == 'Super')
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                      <a class="dropdown-item" href="/users/show">Administración<br>de Usuarios</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="/register">Nuevo Usuario</a>
+                    </li>
+                  @endif
+                  
                   
               @endguest
           </ul>

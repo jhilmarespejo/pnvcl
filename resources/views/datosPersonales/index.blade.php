@@ -21,7 +21,7 @@
         </div>
     @endif
 </div>
-<h3 class="text-center">REGISTRO MENSUAL DE CASOS DE LEPRA</h3>
+<h3 class="text-center">REGISTRO DE CASOS DE LEPRA</h3>
 <div class="table-responsive">
     <table class="table table-sm table-bordered table-responsive " id="patients">
         <thead style="font-size: 13px">
@@ -45,8 +45,12 @@
             <tr>
                 <td ><span style="font-size:10px">{{$record->id}}</span>
                 <td>
-                    <a href="/paciente/edit/{{$record->id}}" class="link-secondary" style="text-transform:uppercase;">{{$record->nombres}} {{$record->apellidos}}</a>
-                    {{-- <a href="#" class="link-secondary" style="text-transform:uppercase;">{{$record->nombres}} {{$record->apellidos}}</a>--}}
+                    @if ( Auth::user()->rol == 'Operativo' || Auth::user()->rol == 'Ejecutivo')
+                        {{$record->nombres}} {{$record->apellidos}}
+                    @elseif ( Auth::user()->rol == 'Administrador' || Auth::user()->rol == 'Super')
+                        <a href="/paciente/edit/{{$record->id}}" class="link-secondary" style="text-transform:uppercase;">{{$record->nombres}} {{$record->apellidos}}</a>
+                    @endif
+                    
                 </td>
                 <td>{{$record->edad}}</td>
                 <td>{{$record->sexo}}</td>
@@ -98,12 +102,12 @@ $(document).ready( function () {
         language: {
             "decimal": "",
             "emptyTable": "No hay información",
-            "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
-            "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
-            "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+            "info": "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+            "infoEmpty": "Mostrando 0 a 0 de 0 Registros",
+            "infoFiltered": "(Filtrado de _MAX_ total registros)",
             "infoPostFix": "",
             "thousands": ",",
-            "lengthMenu": "Mostrar _MENU_ Entradas",
+            "lengthMenu": "Mostrar _MENU_ Registros",
             "loadingRecords": "Cargando...",
             "processing": "Procesando...",
             "search": "Buscar:",

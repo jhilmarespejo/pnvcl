@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Registro de usuarios') }}</div>
+                <div class="card-header">{{ __('REGISTRO DE NUEVO USUARIO') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
@@ -58,9 +58,6 @@
                                 @enderror
                             </div>
                         </div>
-
-
-
 
                         <div class="form-group row mt-2">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>

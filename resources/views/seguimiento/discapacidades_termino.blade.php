@@ -1,6 +1,8 @@
-
+<div class="modal-dialog modal-xl" id="discap_container">
+  <div class="modal-content">
     <div class="modal-header">
-      <h5 class="modal-title text-center" id="controlContactosLabel">8. Registro de discapacidades</h5>
+      <h5 class="modal-title text-center" id="controlContactosLabel">7. Registro de discapacidades al FINAL DEL TRATAMIENTO</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
      
     <div class="modal-body">
@@ -27,10 +29,10 @@
             </thead>
             <tbody>
               {{-- {{$disability_records}} --}}
-              <form method="POST" action="{{ route('discapacidades.update') }}" >
+            {{--   <form method="POST" action="{{ route('discapacidades.update') }}" >
                 @csrf
-                @method('put')
-                @foreach ($disability_records as $discapacidad)
+                @method('put') --}}
+                @foreach ($discapacidades as $discapacidad)
                   {{-- {{ $discapacidad->datos_personales_id }}<br> --}}
                   <tr class="g-0">
                     @if ( $discapacidad->manos_signo == 'Sin daños' &&  $discapacidad->pies_signo == 'Sin daños' && $discapacidad->ojos_signo == 'Sin daños')
@@ -414,7 +416,7 @@
           </table>
 
           <div class="container row">
-            @foreach ($disability_records as $discapacidad)
+            @foreach ($discapacidades as $discapacidad)
               @if ( $discapacidad->manos_signo == null && $discapacidad->pies_signo == null && $discapacidad->ojos_signo == null)
                   <input type="hidden" name="discapacidad[8][id]" value="{{ $discapacidad->id }}">
                   <legend>Otras lesiones:</legend>
@@ -445,19 +447,25 @@
                   </div>
                   <div class="col">
                     <label class="form-label" >Otros</label><br>
-                    <input class="form-control form-control-sm" type="text" name="discapacidad[8][otros]" id="" value="{{ $discapacidad->otros }}">
+                    <input class="form-control form-control-sm" type="text" name="discapacidad[8][otros]" value="{{ $discapacidad->otros }}">
                   </div>
                 @endif  
               @endforeach
           </div>
 
         </fieldset>
-        <div class="text-center mt-4">
+        {{-- <div class="text-center mt-4">
             <button type="submit" class="btn btn-success btn-lg">Actualizar Datos de Discapacidades </button>
-        </div>
+        </div> --}}
         </form>
       </div>
     </div>
+    <div class="modal-footer">
+      {{-- <button type="button" class="btn btn-secondary"></button> --}}
+      <button type="button" id="btn_save_discap" class="btn btn-success" data-bs-dismiss="modal">Cerrar</button>
+    </div>
+  </div>
+</div>
   
 
 

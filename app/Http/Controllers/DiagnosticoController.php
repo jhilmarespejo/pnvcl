@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\diagnostico;
+use App\Models\Diagnostico;
 use Illuminate\Http\Request;
 
 class DiagnosticoController extends Controller
@@ -69,7 +69,11 @@ class DiagnosticoController extends Controller
      */
     public function update(Request $request, diagnostico $diagnostico)
     {
-        //
+        //return $request;
+
+         Diagnostico::where('datos_personales_id', '=', $request['diagnostico']['datos_personales_id'])->update($request['diagnostico']);
+        
+        return redirect("paciente/edit/".$request['diagnostico']['datos_personales_id'])->with('success', '!Dato actualizado con éxito¡');
     }
 
     /**

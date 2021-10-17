@@ -23,7 +23,7 @@
 @endif
 @if ($metric == 'm_4')
 	<ul class="list-group list-group-flush">
-		<li class="list-group-item">Proporcion de casos {{ strtoupper($case).'S' }} de {{ is_numeric($edad)? 'MENORES ': 'MAYORES ' }} de 15 años: <br> <span class="font-monospace fs-5">{{ (is_numeric($proportion)? round($proportion,2). '% del total de casos detectados' :$proportion )  }}</span></li>
+		<li class="list-group-item">Proporcion de casos {{ strtoupper($case).'S' }} de {{ ($rango == '<' )? 'MENORES ': 'MAYORES ' }} de 15 años: <br> <span class="font-monospace fs-5">{{ (is_numeric($proportion)? round($proportion,2). '% del total de casos detectados' :$proportion )  }}</span></li>
 		{{-- <li class="list-group-item">Tasa de casos  {{ strtoupper($case).'S' }} en : 
 			<span class="font-monospace fs-5">{{ ( is_numeric($tasa) )?  round($tasa, 3) : '-' }}</span></li> --}}
 	</ul>
